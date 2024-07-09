@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.todaynan"
-        minSdk = 33
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -48,4 +48,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    // 네이버 지도 SDK
+    implementation("com.naver.maps:map-sdk:3.18.0")
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
 }
