@@ -51,4 +51,6 @@ dependencies {
     // 네이버 지도 SDK
     implementation("com.naver.maps:map-sdk:3.18.0")
     implementation ("com.google.android.gms:play-services-location:21.3.0")
+    //CardView
+    implementation("com.android.support:design:29.0.0")
 }
