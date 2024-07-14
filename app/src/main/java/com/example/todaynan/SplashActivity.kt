@@ -27,12 +27,11 @@ class SplashActivity : AppCompatActivity() {
                         finish()
                     }
                 }
-                handler.postDelayed(this, 2000) // 2초마다 화면 전환
+                handler.postDelayed(this, 1250) // 1.25초마다 화면 전환
             }
         }
-        handler.postDelayed(runnable, 2000) // 2초 후에 첫 실행
+        handler.postDelayed(runnable, 1250) // 1.25초 후에 첫 실행
     }
-
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(runnable)
