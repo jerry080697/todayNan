@@ -20,15 +20,14 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="hc3xqrgw2z" />
-        <activity
-            android:name=".MainActivity"
+        <activity android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
