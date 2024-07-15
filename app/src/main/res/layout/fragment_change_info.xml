@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
-
     <ImageView
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -30,7 +29,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="5dp"
         android:id="@+id/change_nickname"
         android:layout_marginStart="15dp"
         android:layout_marginTop="70dp"
@@ -56,7 +55,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="5dp"
         android:id="@+id/change_location"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
@@ -81,7 +80,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="5dp"
         android:id="@+id/change_interest"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
@@ -106,7 +105,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="5dp"
         android:id="@+id/change_logout"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
@@ -132,7 +131,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="5dp"
         android:id="@+id/change_withdrawal"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
@@ -147,11 +146,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="회원탈퇴"
             android:textColor="#411010"
             android:textSize="15sp"
-            android:text="회원탈퇴"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"/>
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
