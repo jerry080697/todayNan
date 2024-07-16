@@ -7,6 +7,7 @@
     <!--검색 요청 전 화면-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_request"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/search_bar"
+            android:id="@+id/search_bar_0"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_marginTop="32dp"
@@ -50,7 +51,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
             <ImageView
-                android:id="@+id/search_image_bt"
+                android:id="@+id/search_image_bt_0"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_margin="15dp"
@@ -65,12 +66,82 @@
             android:layout_height="0dp"
             android:src="@drawable/search_pet_icon"
             android:layout_margin="10dp"
-            app:layout_constraintTop_toBottomOf="@id/search_bar"
-            app:layout_constraintStart_toStartOf="@id/search_bar"
-            app:layout_constraintEnd_toEndOf="@id/search_bar" />
+            app:layout_constraintTop_toBottomOf="@id/search_bar_0"
+            app:layout_constraintStart_toStartOf="@id/search_bar_0"
+            app:layout_constraintEnd_toEndOf="@id/search_bar_0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <!--검색 요청 후 결과 화면-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_result"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/result_logo_iv"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:src="@drawable/splash_icon3"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_bar_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toEndOf="@id/result_logo_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/result_logo_iv"
+            app:layout_constraintTop_toTopOf="@id/result_logo_iv" >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/search_bg"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+            <EditText
+                android:id="@+id/result_et"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:hint="원하는 놀거리를 입력해주세요"
+                android:background="@null"
+                android:textSize="10dp"
+                android:textColorHint="@color/hint"
+                android:layout_marginStart="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+            <ImageView
+                android:id="@+id/search_image_bt_1"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/search_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+        <ImageView
+            android:id="@+id/search_back_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back_arrow"
+            app:tint="@color/black"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/result_logo_iv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
