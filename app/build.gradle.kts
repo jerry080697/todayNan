@@ -53,4 +53,7 @@ dependencies {
     implementation ("com.google.android.gms:play-services-location:21.3.0")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
+    //리사이클러뷰
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+
 }
