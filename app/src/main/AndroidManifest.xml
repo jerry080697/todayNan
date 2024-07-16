@@ -34,6 +34,12 @@
         <activity android:name=".ChangeInterestActivity"/>
         <activity android:name=".ChangeLogoutActivity"/>
         <activity android:name=".ChangeWithdrawActivity"/>
+        <activity android:name=".JjimListActivity"/>
+        <activity android:name=".PostActivity"/>
+        <activity android:name=".BoardActivity"/>
+        <activity android:name=".BoardLikeActivity"/>
+        <activity android:name=".BoardWriteActivity"/>
+        <activity android:name=".BoardReplyActivity"/>
     </application>
 
 </manifest>
