@@ -2,6 +2,7 @@ package com.example.todaynan
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.example.todaynan.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
