@@ -3,8 +3,9 @@ package com.example.todaynan
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.databinding.ActivityBoardBinding
-import com.example.todaynan.databinding.ActivityJjimListBinding
 
 class BoardActivity : AppCompatActivity() {
 
@@ -14,6 +15,13 @@ class BoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val recyclerView: RecyclerView = findViewById(R.id.liked_post_rv)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val items = generateDummyItems() // 데이터 생성 (임시 함수)
+        val adapter = BoardLikedRVAdapter(items)
+        recyclerView.adapter = adapter
 
         binding.boardBackBtn.setOnClickListener {
             finish()
@@ -30,9 +38,12 @@ class BoardActivity : AppCompatActivity() {
             val intent=Intent(this,BoardWriteActivity::class.java)
             startActivity(intent)
         }
-
-
-
-
+    }
+    private fun generateDummyItems(): List<MyLikedPost> {
+        val items = ArrayList<MyLikedPost>()
+        items.add(MyLikedPost("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","추천 게시판",21,15))
+        items.add(MyLikedPost("재밌으면 짖는 개", R.drawable.default_profile_img,"05.04 14:20","광명시 철산동","성심당","잡담 게시판",33,50))
+        items.add(MyLikedPost("AI입니다", R.drawable.default_profile_img,"05.02 11:30","구로구 구로동","현대미술관 띱","구인 게시판",15,10))
+        return items
     }
 }
