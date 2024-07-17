@@ -6,8 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
     <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:id="@+id/board_write_back_btn"
         android:src="@drawable/back_arrow"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
     <ImageView
         android:id="@+id/board_write_search_bar"
         android:scaleType="fitXY"
-        android:layout_width="370dp"
+        android:layout_width="330dp"
         android:layout_height="30dp"
         android:src="@drawable/search_bar_icon"
         app:layout_constraintStart_toStartOf="parent"

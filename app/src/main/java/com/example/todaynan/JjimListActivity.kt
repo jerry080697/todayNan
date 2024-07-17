@@ -27,8 +27,8 @@ class JjimListActivity : AppCompatActivity() {
             finish()
         }
 
-        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_view_item_spacing)
-        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, spacingInPixels, true))
+//        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_view_item_spacing)
+//        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, spacingInPixels, true))
     }
     private fun generateDummyItems(): List<Item> {
         val items = ArrayList<Item>()

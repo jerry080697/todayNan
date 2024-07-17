@@ -8,8 +8,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/jjim_item_cv"
-        android:layout_width="140dp"
-        android:layout_height="115dp"
+        android:layout_width="130dp"
+        android:layout_height="110dp"
+        android:layout_marginVertical="15dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +22,8 @@
 
             <ImageView
                 android:id="@+id/jjim_item_iv"
-                android:layout_width="120dp"
+                android:layout_width="110dp"
                 android:layout_height="80dp"
-                android:layout_marginHorizontal="5dp"
                 android:scaleType="fitXY"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/default_img"
@@ -38,15 +38,15 @@
                 android:layout_marginTop="5dp"
                 android:text="장소 이름"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/jjim_item_iv"
                 app:layout_constraintTop_toBottomOf="@id/jjim_item_iv" />
 
             <ImageView
                 android:id="@+id/jjim_item_heart_iv"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:src="@drawable/jjim_heart"
