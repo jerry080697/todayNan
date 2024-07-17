@@ -3,6 +3,8 @@
     <color name="transparent">#00000000</color>
     <color name="black">#FF000000</color>
     <color name="hint">#80232323</color>
+    <color name="gray1">#787878</color>
+    <color name="gray0">#DBDADA</color>
     <color name="white">#FFFFFFFF</color>
 
     <color name="brown">#411010</color>
