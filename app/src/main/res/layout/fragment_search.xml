@@ -165,9 +165,21 @@
                 android:id="@+id/result_list_rv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:visibility="visible"
                 tools:listitem="@layout/item_recommend_1"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+            <!--블록형-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/result_block_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                tools:listitem="@layout/item_recommend_2"
+                app:spanCount="2"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

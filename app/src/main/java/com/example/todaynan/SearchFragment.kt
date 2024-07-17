@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.databinding.FragmentSearchBinding
 
@@ -31,9 +32,12 @@ class SearchFragment : Fragment() {
             add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀3", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
         }
 
-        val recommendRVAdapter = RecommendRVAdapter(rList)
-        binding.resultListRv.adapter = recommendRVAdapter
+        val recommendRVAdapter1 = RecommendRVAdapter(rList,1)
+        binding.resultListRv.adapter = recommendRVAdapter1
         binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val recommendRVAdapter2 = RecommendRVAdapter(rList,2)
+        binding.resultBlockRv.adapter = recommendRVAdapter2
+        binding.resultBlockRv.layoutManager = GridLayoutManager(context, 2)
 
         return binding.root
     }
@@ -63,11 +67,13 @@ class SearchFragment : Fragment() {
                     0 -> { //나열형
                         binding.resultMenuIv.setImageResource(R.drawable.search_menu_list)
                         binding.resultListRv.isVisible = true
+                        binding.resultBlockRv.isVisible = false
                     }
 
                     1 -> { //블록형
                         binding.resultMenuIv.setImageResource(R.drawable.search_menu_block)
                         binding.resultListRv.isVisible = false
+                        binding.resultBlockRv.isVisible = true
                     }
                 }
             }.apply {
