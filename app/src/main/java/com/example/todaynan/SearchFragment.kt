@@ -21,6 +21,7 @@ class SearchFragment : Fragment() {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         search()
+        chooseType()
 
         //임시 데이터
         var rList = ArrayList<Recommend>()
@@ -47,6 +48,33 @@ class SearchFragment : Fragment() {
             binding.requestEt.text = null
             binding.searchRequest.isVisible = true
             binding.searchResult.isVisible = false
+        }
+    }
+
+    private fun chooseType(){
+        binding.resultMenuIv.setOnClickListener{
+            val typeList = mutableListOf<PopupValue>().apply {
+                add(PopupValue(R.drawable.search_menu_list,"나열형"))
+                add(PopupValue(R.drawable.search_menu_block, "블록형"))
+            }
+
+            SearchMenuPopup(context = requireContext(), popupList = typeList){ _, _, position->
+                when (position) {
+                    0 -> { //나열형
+                        binding.resultMenuIv.setImageResource(R.drawable.search_menu_list)
+                        binding.resultListRv.isVisible = true
+                    }
+
+                    1 -> { //블록형
+                        binding.resultMenuIv.setImageResource(R.drawable.search_menu_block)
+                        binding.resultListRv.isVisible = false
+                    }
+                }
+            }.apply {
+                isOutsideTouchable = true
+                isTouchable = true
+                showAsDropDown(it, -250, 20) //resultMenuIv 기준으로 팝업메뉴 위치
+            }
         }
     }
 
