@@ -3,7 +3,6 @@ package com.example.todaynan
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.todaynan.databinding.ActivityMainBinding
-import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
         initBottomNavigation()
     }
-
     private fun initBottomNavigation(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_frm, SearchFragment())
