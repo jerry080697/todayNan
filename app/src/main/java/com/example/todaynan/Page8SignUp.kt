@@ -525,10 +525,14 @@ class Page8SignUp : AppCompatActivity() {
             binding.signupNextBtnBefDark.visibility = View.VISIBLE
             binding.signupNextBtnBef.visibility = View.INVISIBLE
 
+            //선택지 활성화 상태 전달
             binding.signupNextBtnBefDark.setOnClickListener {
                 val status = true
                 val intent = Intent(this,Page1SignUp::class.java)
                 intent.putExtra("status", status)
+                if(binding.signupSelect2Dark.visibility == View.VISIBLE){
+                    intent.putExtra("option2",binding.signupSelect2Tv.text.toString())
+                }
                 startActivity(intent)
             }
         }

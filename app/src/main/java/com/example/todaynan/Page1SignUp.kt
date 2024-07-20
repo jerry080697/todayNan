@@ -23,18 +23,19 @@ class Page1SignUp : AppCompatActivity() {
             startActivity(Intent(this,Page8SignUp::class.java))
         }
 
-        // 관심사 선택 후 다음으로 버튼 이미지 변경
-        if(intent.hasExtra("status")){
+
+        if(intent.hasExtra("status") && intent.hasExtra("option2")){
             binding.signupNextBtn.visibility = View.INVISIBLE
             binding.signupNextBtnDark.visibility = View.VISIBLE
+            binding.signupPlaySelectTv.text = intent.getStringExtra("option2")
         }
 
+        //다음으로 이동
         if(binding.signupNextBtnDark.visibility == View.VISIBLE){
            binding.signupNextBtnDark.setOnClickListener {
                startActivity(Intent(this,Page2SignUp::class.java))
            }
         }
-
 
     }
 
