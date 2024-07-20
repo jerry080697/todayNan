@@ -23,11 +23,7 @@ class SplashActivity : AppCompatActivity() {
                     1 -> setContentView(R.layout.splash_screen2)
                     2 -> setContentView(R.layout.splash_screen3)
                     else -> {
-<<<<<<< HEAD
                         startActivity(Intent(this@SplashActivity, SignUpActivity::class.java))
-=======
-                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
->>>>>>> 2f487329bdc9e5d5e18e012a53d03b8c2d38637e
                         finish()
                     }
                 }
