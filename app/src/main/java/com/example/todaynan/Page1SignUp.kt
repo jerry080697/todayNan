@@ -24,10 +24,9 @@ class Page1SignUp : AppCompatActivity() {
         }
 
 
-        if(intent.hasExtra("status") && intent.hasExtra("option2")){
+        if(intent.hasExtra("status")){
             binding.signupNextBtn.visibility = View.INVISIBLE
             binding.signupNextBtnDark.visibility = View.VISIBLE
-            binding.signupPlaySelectTv.text = intent.getStringExtra("option2")
         }
 
         //다음으로 이동
@@ -35,6 +34,10 @@ class Page1SignUp : AppCompatActivity() {
            binding.signupNextBtnDark.setOnClickListener {
                startActivity(Intent(this,Page2SignUp::class.java))
            }
+        }
+
+        if(intent.hasExtra("option2")){
+            binding.signupPlaySelectTv.text = intent.getStringExtra("option2")
         }
 
     }
