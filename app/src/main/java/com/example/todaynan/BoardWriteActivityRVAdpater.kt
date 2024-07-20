@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.databinding.MyLikedPostBinding
 import java.util.Date
 
-class BoardLikedRVAdapter(private val items: List<MyLikedPost>) : RecyclerView.Adapter<BoardLikedRVAdapter.ViewHolder>() {
+class BoardWriteActivityRVAdpater(private val items: List<MyLikedPost>) : RecyclerView.Adapter<BoardWriteActivityRVAdpater.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding:MyLikedPostBinding= MyLikedPostBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
+        val binding= MyLikedPostBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
         return ViewHolder(binding)
     }
 

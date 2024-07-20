@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todaynan.databinding.ItemBinding
 
 class JjimListRVAdapter(private val items: List<Item>) : RecyclerView.Adapter<JjimListRVAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val binding:ItemBinding= ItemBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -25,8 +26,8 @@ class JjimListRVAdapter(private val items: List<Item>) : RecyclerView.Adapter<Jj
         return items.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.jjim_item_iv)
-        val nameTextView: TextView = itemView.findViewById(R.id.jjim_item_name_tv)
+    inner class ViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        val imageView: ImageView = binding.jjimItemIv
+        val nameTextView: TextView = binding.jjimItemNameTv
     }
 }
