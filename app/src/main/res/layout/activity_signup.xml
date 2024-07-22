@@ -45,10 +45,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
         android:src="@drawable/naver_icon"
-<<<<<<< HEAD
-=======
         android:layout_marginHorizontal="70dp"
->>>>>>> dafbe5429081b8902b520436dd347d169be23498
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
