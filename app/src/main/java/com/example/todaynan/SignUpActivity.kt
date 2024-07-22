@@ -15,7 +15,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.kakaoBtn.setOnClickListener {
-            startActivity(Intent(this, Page1SignUp::class.java))
+            startActivity(Intent(this, Page1SignUpActivity::class.java))
         }
 
     }

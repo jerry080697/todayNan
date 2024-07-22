@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="191dp"
         android:layout_height="47dp"
-        android:src="@drawable/splash_icon3"
+        android:src="@drawable/todaynan"
         android:layout_marginTop="99dp"
         android:layout_marginStart="23dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,17 +40,23 @@
         app:layout_constraintTop_toBottomOf="@id/signup_nickname_iv"
         android:layout_marginTop="7dp">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:src="@drawable/rectangle"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="38dp">
+            android:layout_height="47dp">
 
         <EditText
             android:id="@+id/signup_page2_et"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="25dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/rectangle"
             android:hint="입력"
             android:inputType="text"
             android:textSize="17dp"
