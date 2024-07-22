@@ -27,7 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".Page1SignUp"/>
+        <activity android:name=".Page2SignUp"/>
+        <activity android:name=".Page3SignUp"/>
+        <activity android:name=".Page8SignUp"/>
         <activity android:name=".ChangeInfoActivity"/>
         <activity android:name=".ChangeNicknameActivity"/>
         <activity android:name=".ChangeLocationActivity"/>

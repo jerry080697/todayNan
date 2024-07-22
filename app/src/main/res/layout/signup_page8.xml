@@ -1,0 +1,1159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ImageView
+        android:id="@+id/signup_page8_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="39dp"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="87dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="43dp"
+        android:src="@drawable/signup_text10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_1"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="92dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:id="@+id/signup_select_1_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_1_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="92dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_2"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/signup_select_1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:id="@+id/signup_select_2_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="카페"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_2_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/signup_select_1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="카페"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_3"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="25dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/signup_select_1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_3_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="25dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/signup_select_1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_4"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_4_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_5"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_2">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_5_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_2">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_6"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_3"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_3">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_6_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_3"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_3">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_7"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_4">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_7_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_4">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_8"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_5">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_8_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_5">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_9"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_6">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_9_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_6">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_10"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_7">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_10_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_7">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_11"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_8">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_11_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_8">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_12"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_9">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_12_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_9">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_13"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_10">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_13_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_10">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_14"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_11">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_14_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_11">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_15"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_12">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_15_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_12">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_16"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_13">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_16_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_13"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_17"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_14">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_17_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_14"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_18"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_15">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_18_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_15"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_19"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_16">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_19_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@+id/signup_select_1"
+        app:layout_constraintTop_toBottomOf="@+id/signup_select_16"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_20"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_17">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_20_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_2"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_17"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#490F0F"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_21"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_18">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_select_21_dark"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="18dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="@id/signup_select_6"
+        app:layout_constraintTop_toBottomOf="@id/signup_select_18"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rectangle_2_dark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="드라이브"
+            android:textAlignment="center"
+            android:textColor="#A47F66"
+            android:textSize="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_next_btn_bef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="645dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="107dp"
+            android:layout_height="44dp"
+            android:src="@drawable/signup_complete_btn1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="8dp"
+            android:text="완료"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signup_next_btn_bef_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="645dp"
+        android:visibility="gone"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="107dp"
+            android:layout_height="44dp"
+            android:src="@drawable/complete_btn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="8dp"
+            android:text="완료"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
