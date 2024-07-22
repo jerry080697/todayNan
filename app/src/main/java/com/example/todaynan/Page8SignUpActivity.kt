@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todaynan.databinding.SignupPage8Binding
 
-class Page8SignUp : AppCompatActivity() {
+class Page8SignUpActivity : AppCompatActivity() {
 
     lateinit var binding: SignupPage8Binding
 
@@ -528,7 +528,7 @@ class Page8SignUp : AppCompatActivity() {
             //선택지 활성화 상태 전달
             binding.signupNextBtnBefDark.setOnClickListener {
                 val status = true
-                val intent = Intent(this,Page1SignUp::class.java)
+                val intent = Intent(this,Page1SignUpActivity::class.java)
                 intent.putExtra("status", status)
                 if(binding.signupSelect2Dark.visibility == View.VISIBLE){
                     intent.putExtra("option2",binding.signupSelect2Tv.text.toString())

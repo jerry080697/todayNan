@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todaynan.databinding.SignupPage3Binding
 
-class Page3SignUp : AppCompatActivity() {
+class Page3SignUpActivity : AppCompatActivity() {
 
     lateinit var binding: SignupPage3Binding
 
