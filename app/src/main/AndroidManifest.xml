@@ -28,6 +28,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".ChangeInfoActivity"/>
+        <activity android:name=".ChangeNicknameActivity"/>
+        <activity android:name=".ChangeLocationActivity"/>
+        <activity android:name=".ChangeInterestActivity"/>
+        <activity android:name=".ChangeLogoutActivity"/>
+        <activity android:name=".ChangeWithdrawActivity"/>
+        <activity android:name=".JjimListActivity"/>
+        <activity android:name=".PostActivity"/>
+        <activity android:name=".BoardActivity"/>
+        <activity android:name=".BoardLikeActivity"/>
+        <activity android:name=".BoardWriteActivity"/>
+        <activity android:name=".BoardReplyActivity"/>
     </application>
 
 </manifest>
