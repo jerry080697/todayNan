@@ -29,10 +29,10 @@
         </activity>
         <activity android:name=".SignUpActivity"/>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".Page1SignUp"/>
-        <activity android:name=".Page2SignUp"/>
-        <activity android:name=".Page3SignUp"/>
-        <activity android:name=".Page8SignUp"/>
+        <activity android:name=".Page1SignUpActivity"/>
+        <activity android:name=".Page2SignUpActivity"/>
+        <activity android:name=".Page3SignUpActivity"/>
+        <activity android:name=".Page8SignUpActivity"/>
         <activity android:name=".ChangeInfoActivity"/>
         <activity android:name=".ChangeNicknameActivity"/>
         <activity android:name=".ChangeLocationActivity"/>

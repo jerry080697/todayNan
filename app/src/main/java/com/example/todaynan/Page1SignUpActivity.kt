@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todaynan.databinding.SignupPage1Binding
 
-class Page1SignUp : AppCompatActivity() {
+class Page1SignUpActivity : AppCompatActivity() {
 
     lateinit var binding: SignupPage1Binding
 
@@ -16,11 +16,11 @@ class Page1SignUp : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.signupAddressSelectCv.setOnClickListener {
-            startActivity(Intent(this,Page3SignUp::class.java))
+            startActivity(Intent(this,Page3SignUpActivity::class.java))
         }
 
         binding.signupPlaySelectCv.setOnClickListener {
-            startActivity(Intent(this,Page8SignUp::class.java))
+            startActivity(Intent(this,Page8SignUpActivity::class.java))
         }
 
 
@@ -32,7 +32,7 @@ class Page1SignUp : AppCompatActivity() {
         //다음으로 이동
         if(binding.signupNextBtnDark.visibility == View.VISIBLE){
            binding.signupNextBtnDark.setOnClickListener {
-               startActivity(Intent(this,Page2SignUp::class.java))
+               startActivity(Intent(this,Page2SignUpActivity::class.java))
            }
         }
 

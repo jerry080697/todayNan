@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todaynan.databinding.SignupPage2Binding
 
-class Page2SignUp : AppCompatActivity() {
+class Page2SignUpActivity : AppCompatActivity() {
 
     lateinit var binding: SignupPage2Binding
 
