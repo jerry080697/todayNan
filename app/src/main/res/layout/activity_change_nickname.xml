@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/change_nickname_back_btn"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#411010"
+        android:text="닉네임 변경"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@id/change_nickname_back_btn"
+        app:layout_constraintTop_toTopOf="@id/change_nickname_back_btn"
+        app:layout_constraintStart_toEndOf="@id/change_nickname_back_btn"
+        app:layout_constraintBottom_toBottomOf="@id/change_nickname_back_btn"
+        android:layout_marginStart="45dp"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:id="@+id/change_nickname_current_nickname_iv"
+        android:src="@drawable/current_nickname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="100dp"/>
+    <TextView
+        android:id="@+id/change_nickname_current_nickname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#572D6B"
+        android:text="아야"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/change_nickname_current_nickname_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:id="@+id/change_nickname_new_nickname_iv"
+        android:src="@drawable/new_nickname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_nickname_current_nickname_tv"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="40dp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:id="@+id/change_nickname_cv"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_nickname_new_nickname_iv">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:src="@drawable/rectangle"/>
+        <EditText
+            android:id="@+id/change_nickname_new_nickname_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#B4B4B4"
+            android:textSize="16sp"
+            android:hint="입력"
+            android:background="@color/transparent"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="20dp"/>
+
+        <ImageView
+            android:id="@+id/change_nickname_check_duplicate_iv"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="240dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/check_duplicate_icon" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/change_nickname_change_btn_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="120dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="600dp"
+        android:src="@drawable/signup_next_btn">
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="변경"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginTop="600dp"/>
+    <TextView
+        android:id="@+id/change_nickname_alert_message_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_nickname_cv"
+        android:text="중복 확인 메시지 여기에 표시"
+        android:textSize="15sp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
