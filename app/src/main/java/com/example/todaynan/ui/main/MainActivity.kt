@@ -1,25 +1,19 @@
 package com.example.todaynan.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.example.todaynan.ui.main.board.BoardFragment
 import com.example.todaynan.ui.main.location.LocationFragment
 import com.example.todaynan.ui.main.mypage.MyPageFragment
 import com.example.todaynan.R
 import com.example.todaynan.ui.main.search.SearchFragment
 import com.example.todaynan.databinding.ActivityMainBinding
+import com.example.todaynan.ui.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
-    lateinit var binding: ActivityMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun initAfterBinding() {
         initBottomNavigation()
     }
+
     private fun initBottomNavigation(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_frm, SearchFragment())
@@ -57,4 +51,5 @@ class MainActivity : AppCompatActivity() {
             false
         }
     }
+
 }
