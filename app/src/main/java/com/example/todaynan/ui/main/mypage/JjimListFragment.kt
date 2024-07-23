@@ -1,34 +1,41 @@
 package com.example.todaynan.ui.main.mypage
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.ui.adapter.RecommendRVAdapter
 import com.example.todaynan.data.entity.Recommend
-import com.example.todaynan.databinding.ActivityJjimListBinding
+import com.example.todaynan.databinding.FragmentJjimListBinding
 
-class JjimListActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityJjimListBinding
+class JjimListFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityJjimListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private lateinit var binding: FragmentJjimListBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentJjimListBinding.inflate(inflater, container, false)
+
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
         val jjimListAdapter = RecommendRVAdapter(items, 2)
         binding.jjimListRv.adapter = jjimListAdapter
-        binding.jjimListRv.layoutManager = GridLayoutManager(this, 2)
+        binding.jjimListRv.layoutManager = GridLayoutManager(context, 2)
 
         binding.jjimListBackBtn.setOnClickListener {
-            finish()
+            parentFragmentManager.popBackStack()
         }
 
-//        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_view_item_spacing)
-//        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, spacingInPixels, true))
+        return binding.root
     }
+}
     private fun generateDummyItems(): ArrayList<Recommend> {
         val items = ArrayList<Recommend>()
 
@@ -50,4 +57,3 @@ class JjimListActivity : AppCompatActivity() {
 
         return items
     }
-}

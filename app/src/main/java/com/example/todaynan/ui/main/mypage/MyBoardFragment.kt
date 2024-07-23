@@ -1,37 +1,57 @@
 package com.example.todaynan.ui.main.mypage
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.ui.adapter.BoardLikedRVAdapter
 import com.example.todaynan.data.entity.MyLikedPost
 import com.example.todaynan.R
-import com.example.todaynan.databinding.ActivityBoardWriteBinding
+import com.example.todaynan.databinding.FragmentMyBoardBinding
+
+class MyBoardFragment : Fragment() {
+
+    private lateinit var binding: FragmentMyBoardBinding
+override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+): View? {
+    binding = FragmentMyBoardBinding.inflate(inflater, container, false)
 
 
-class BoardWriteActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityBoardWriteBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityBoardWriteBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    val items = generateDummyItems() // 데이터 생성 (임시 함수)
+    val boardAdapter = BoardLikedRVAdapter(items)
+    binding.likedPostRv.adapter = boardAdapter
+    binding.likedPostRv.layoutManager = LinearLayoutManager(context)
 
 
-        val recyclerView: RecyclerView = findViewById(R.id.board_write_rv)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        val items = generateDummyItems() // 데이터 생성 (임시 함수)
-        val adapter = BoardLikedRVAdapter(items)
-        recyclerView.adapter = adapter
-        binding.boardWriteBackBtn.setOnClickListener {
-            finish()
+    binding.boardBackBtn.setOnClickListener {
+        parentFragmentManager.popBackStack()
+    }
+    binding.likeBoard.setOnClickListener{
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.main_frm, MyBoardLikeFragment())
+            .addToBackStack(null)
+            .commitAllowingStateLoss()
+        }
+        binding.replyBoard.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, MyBoardReplyFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
+        binding.writeBoard.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, MyBoardWriteFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
         }
 
-
-    }
+    return binding.root
+}
     private fun generateDummyItems(): List<MyLikedPost> {
         val items = ArrayList<MyLikedPost>()
         items.add(MyLikedPost("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","안녕하떼여 띠드버거임니당!\n이번 주말에 딩딩이랑 잠실에 갔는데요,,,","추천 게시판",21,15))

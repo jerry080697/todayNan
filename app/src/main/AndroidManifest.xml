@@ -33,18 +33,18 @@
         <activity android:name=".ui.signup.Page2SignUpActivity"/>
         <activity android:name=".ui.signup.Page3SignUpActivity"/>
         <activity android:name=".ui.signup.Page8SignUpActivity"/>
-        <activity android:name=".ui.main.mypage.ChangeInfoActivity"/>
-        <activity android:name=".ui.main.mypage.ChangeNicknameActivity"/>
-        <activity android:name=".ui.main.mypage.ChangeLocationActivity"/>
-        <activity android:name=".ui.main.mypage.ChangeInterestActivity"/>
-        <activity android:name=".ui.main.mypage.ChangeLogoutActivity"/>
-        <activity android:name=".ui.main.mypage.ChangeWithdrawActivity"/>
-        <activity android:name=".ui.main.mypage.JjimListActivity"/>
-        <activity android:name=".ui.main.mypage.PostActivity"/>
-        <activity android:name=".ui.main.mypage.BoardActivity"/>
-        <activity android:name=".ui.main.mypage.BoardLikeActivity"/>
-        <activity android:name=".ui.main.mypage.BoardWriteActivity"/>
-        <activity android:name=".ui.main.mypage.BoardReplyActivity"/>
+        <activity android:name=".ui.main.mypage.ChangeInfoFragment"/>
+        <activity android:name=".ui.main.mypage.ChangeNicknameFragment"/>
+        <activity android:name=".ui.main.mypage.ChangeLocationFragment"/>
+        <activity android:name=".ui.main.mypage.ChangeInterestFragment"/>
+        <activity android:name=".ui.main.mypage.ChangeLogoutFragment"/>
+        <activity android:name=".ui.main.mypage.ChangeWithdrawFragment"/>
+        <activity android:name=".ui.main.mypage.JjimListFragment"/>
+        <activity android:name=".ui.main.mypage.PostFragment"/>
+        <activity android:name=".ui.main.mypage.MyBoardFragment"/>
+        <activity android:name=".ui.main.mypage.MyBoardLikeFragment"/>
+        <activity android:name=".ui.main.mypage.MyBoardWriteFragment"/>
+        <activity android:name=".ui.main.mypage.MyBoardReplyFragment"/>
     </application>
 
 </manifest>
