@@ -1,17 +1,18 @@
-package com.example.todaynan
+package com.example.todaynan.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todaynan.R
 import com.example.todaynan.data.entity.MyLikedPost
 import com.example.todaynan.databinding.MyLikedPostBinding
 
-class BoardLikedRVAdapter(private val items: List<MyLikedPost>) : RecyclerView.Adapter<BoardLikedRVAdapter.ViewHolder>() {
+class BoardReplyActivityRVAdapter(private val items: List<MyLikedPost>) : RecyclerView.Adapter<BoardReplyActivityRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding:MyLikedPostBinding= MyLikedPostBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
+        val binding= MyLikedPostBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
         return ViewHolder(binding)
     }
 

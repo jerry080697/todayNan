@@ -1,4 +1,4 @@
-package com.example.todaynan
+package com.example.todaynan.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

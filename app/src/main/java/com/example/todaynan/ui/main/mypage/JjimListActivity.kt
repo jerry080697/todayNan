@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.todaynan.R
-import com.example.todaynan.RecommendRVAdapter
+import com.example.todaynan.ui.adapter.RecommendRVAdapter
 import com.example.todaynan.data.entity.Recommend
 import com.example.todaynan.databinding.ActivityJjimListBinding
 

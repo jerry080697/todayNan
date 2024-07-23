@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todaynan.PostListRVAdapter
+import com.example.todaynan.ui.adapter.PostListRVAdapter
 import com.example.todaynan.R
 import com.example.todaynan.data.entity.PostList
 import com.example.todaynan.databinding.ActivityPostBinding

@@ -1,4 +1,4 @@
-package com.example.todaynan
+package com.example.todaynan.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todaynan.R
 import com.example.todaynan.data.entity.PostList
 import com.example.todaynan.databinding.PostListBinding
 
