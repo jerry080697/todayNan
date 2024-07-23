@@ -3,6 +3,7 @@ package com.example.todaynan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todaynan.data.entity.Recommend
 import com.example.todaynan.databinding.ItemRecommend1Binding
 import com.example.todaynan.databinding.ItemRecommend2Binding
 

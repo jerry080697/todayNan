@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todaynan.data.entity.Recommend
 import com.example.todaynan.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {

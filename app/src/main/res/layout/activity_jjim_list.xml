@@ -39,23 +39,17 @@
         app:layout_constraintBottom_toBottomOf="@id/jjim_list_back_btn"
         android:layout_marginStart="45dp"
         />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/jjim_list_rv"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:spanCount="2"
+        tools:listitem="@layout/item_recommend_2"
+        app:layoutManager="GridLayoutManager"
+        android:layout_marginBottom="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/jjim_list_back_btn"
-        android:orientation="vertical">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/jjim_list_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="10dp"
-            app:layoutManager="GridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/jjim_list_tv"
-            app:spanCount="2"
-            tools:listitem="@layout/item" />
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@id/jjim_list_tv"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

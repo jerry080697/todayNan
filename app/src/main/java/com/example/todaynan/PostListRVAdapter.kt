@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todaynan.data.entity.PostList
 import com.example.todaynan.databinding.PostListBinding
 
 class PostListRVAdapter(private val items: List<PostList>) : RecyclerView.Adapter<PostListRVAdapter.ViewHolder>() {

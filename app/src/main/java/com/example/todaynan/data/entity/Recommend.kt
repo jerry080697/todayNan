@@ -1,4 +1,4 @@
-package com.example.todaynan
+package com.example.todaynan.data.entity
 
 data class Recommend(
     var category: String = "",

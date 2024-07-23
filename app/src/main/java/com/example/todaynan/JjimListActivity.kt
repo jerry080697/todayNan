@@ -3,8 +3,8 @@ package com.example.todaynan
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todaynan.data.entity.Recommend
 import com.example.todaynan.databinding.ActivityJjimListBinding
 
 class JjimListActivity : AppCompatActivity() {
@@ -16,13 +16,11 @@ class JjimListActivity : AppCompatActivity() {
         binding = ActivityJjimListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        val recyclerView: RecyclerView = findViewById(R.id.jjim_list_rv)
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
-
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
-        val adapter = JjimListRVAdapter(items)
-        recyclerView.adapter = adapter
+        val jjimListAdapter = RecommendRVAdapter(items, 2)
+        binding.jjimListRv.adapter = jjimListAdapter
+        binding.jjimListRv.layoutManager = GridLayoutManager(this, 2)
+
         binding.jjimListBackBtn.setOnClickListener {
             finish()
         }
@@ -30,33 +28,25 @@ class JjimListActivity : AppCompatActivity() {
 //        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.recycler_view_item_spacing)
 //        recyclerView.addItemDecoration(GridSpacingItemDecoration(2, spacingInPixels, true))
     }
-    private fun generateDummyItems(): List<Item> {
-        val items = ArrayList<Item>()
-        items.add(Item("장소 1", R.drawable.default_img,"장소 설명 1"))
-        items.add(Item("장소 2", R.drawable.default_img,"장소 설명 2"))
-        items.add(Item("장소 3", R.drawable.default_img,"장소 설명 3"))
-        items.add(Item("장소 4", R.drawable.default_img,"장소 설명 4"))
-        items.add(Item("장소 5", R.drawable.default_img,"장소 설명 5"))
-        items.add(Item("장소 6", R.drawable.default_img,"장소 설명 6"))
-        items.add(Item("장소 7", R.drawable.default_img,"장소 설명 7"))
-        items.add(Item("장소 8", R.drawable.default_img,"장소 설명 8"))
-        items.add(Item("장소 9", R.drawable.default_img,"장소 설명 9"))
-        items.add(Item("장소 10", R.drawable.default_img,"장소 설명 10"))
-        items.add(Item("장소 11", R.drawable.default_img,"장소 설명 11"))
-        items.add(Item("장소 12", R.drawable.default_img,"장소 설명 12"))
+    private fun generateDummyItems(): ArrayList<Recommend> {
+        val items = ArrayList<Recommend>()
 
-        items.add(Item("장소 13", R.drawable.default_img,"장소 설명 13"))
-        items.add(Item("장소 14", R.drawable.default_img,"장소 설명 14"))
-        items.add(Item("장소 15", R.drawable.default_img,"장소 설명 15"))
-        items.add(Item("장소 16", R.drawable.default_img,"장소 설명 16"))
-        items.add(Item("장소 17", R.drawable.default_img,"장소 설명 17"))
-        items.add(Item("장소 18", R.drawable.default_img,"장소 설명 18"))
-        items.add(Item("장소 19", R.drawable.default_img,"장소 설명 19"))
-        items.add(Item("장소 20", R.drawable.default_img,"장소 설명 20"))
-        items.add(Item("장소 21", R.drawable.default_img,"장소 설명 21"))
-        items.add(Item("장소 22", R.drawable.default_img,"장소 설명 22"))
-        items.add(Item("장소 23", R.drawable.default_img,"장소 설명 23"))
-        items.add(Item("장소 24", R.drawable.default_img,"장소 설명 24"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀1", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀2", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀3", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀4", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀5", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀6", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀7", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀8", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀9", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀10", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀11", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀12", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀13", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀14", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀15", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+
         return items
     }
 }
