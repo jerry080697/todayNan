@@ -1,4 +1,4 @@
-package com.example.todaynan
+package com.example.todaynan.ui.main.search
 
 import android.content.Context
 import android.util.TypedValue
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
+import com.example.todaynan.R
 import com.example.todaynan.databinding.PopupResultMenuBinding
 
 data class PopupValue(

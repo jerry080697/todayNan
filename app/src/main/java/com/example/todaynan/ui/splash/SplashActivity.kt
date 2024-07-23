@@ -1,10 +1,12 @@
-package com.example.todaynan
+package com.example.todaynan.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.example.todaynan.R
+import com.example.todaynan.ui.signup.SignUpActivity
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var handler: Handler

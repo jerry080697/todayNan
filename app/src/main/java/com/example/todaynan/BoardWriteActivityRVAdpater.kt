@@ -1,13 +1,12 @@
 package com.example.todaynan
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todaynan.data.entity.MyLikedPost
 import com.example.todaynan.databinding.MyLikedPostBinding
-import java.util.Date
 
 class BoardWriteActivityRVAdpater(private val items: List<MyLikedPost>) : RecyclerView.Adapter<BoardWriteActivityRVAdpater.ViewHolder>() {
 

@@ -1,4 +1,4 @@
-package com.example.todaynan
+package com.example.todaynan.ui.signup
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

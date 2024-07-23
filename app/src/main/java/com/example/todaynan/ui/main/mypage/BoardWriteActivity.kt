@@ -1,30 +1,32 @@
-package com.example.todaynan
+package com.example.todaynan.ui.main.mypage
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todaynan.databinding.ActivityBoardReplyBinding
+import com.example.todaynan.BoardLikedRVAdapter
+import com.example.todaynan.data.entity.MyLikedPost
+import com.example.todaynan.R
+import com.example.todaynan.databinding.ActivityBoardWriteBinding
 
 
-class BoardReplyActivity : AppCompatActivity() {
+class BoardWriteActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityBoardReplyBinding
+    private lateinit var binding: ActivityBoardWriteBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityBoardReplyBinding.inflate(layoutInflater)
+        binding = ActivityBoardWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val recyclerView: RecyclerView = findViewById(R.id.board_reply_rv)
+
+        val recyclerView: RecyclerView = findViewById(R.id.board_write_rv)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
         val adapter = BoardLikedRVAdapter(items)
         recyclerView.adapter = adapter
-
-        binding.boardReplyBackBtn.setOnClickListener {
+        binding.boardWriteBackBtn.setOnClickListener {
             finish()
         }
 

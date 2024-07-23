@@ -1,8 +1,12 @@
-package com.example.todaynan
+package com.example.todaynan.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import com.example.todaynan.ui.main.board.BoardFragment
+import com.example.todaynan.ui.main.location.LocationFragment
+import com.example.todaynan.ui.main.mypage.MyPageFragment
+import com.example.todaynan.R
+import com.example.todaynan.ui.main.search.SearchFragment
 import com.example.todaynan.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

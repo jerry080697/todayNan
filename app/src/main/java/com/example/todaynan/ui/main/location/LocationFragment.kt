@@ -1,4 +1,4 @@
-package com.example.todaynan
+package com.example.todaynan.ui.main.location
 
 import android.os.Bundle
 import android.view.LayoutInflater

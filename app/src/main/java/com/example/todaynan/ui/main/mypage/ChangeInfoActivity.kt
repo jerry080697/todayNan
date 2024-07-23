@@ -1,4 +1,4 @@
-package com.example.todaynan
+package com.example.todaynan.ui.main.mypage
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,23 +18,23 @@ class ChangeInfoActivity : AppCompatActivity() {
           finish()
         }
         binding.changeNickname.setOnClickListener{
-            val intent=Intent(this,ChangeNicknameActivity::class.java)
+            val intent=Intent(this, ChangeNicknameActivity::class.java)
             startActivity(intent)
         }
         binding.changeLocation.setOnClickListener {
-            val intent=Intent(this,ChangeLocationActivity::class.java)
+            val intent=Intent(this, ChangeLocationActivity::class.java)
             startActivity(intent)
         }
         binding.changeInterest.setOnClickListener {
-            val intent=Intent(this,ChangeInterestActivity::class.java)
+            val intent=Intent(this, ChangeInterestActivity::class.java)
             startActivity(intent)
         }
         binding.changeWithdraw.setOnClickListener {
-            val intent=Intent(this,ChangeWithdrawActivity::class.java)
+            val intent=Intent(this, ChangeWithdrawActivity::class.java)
             startActivity(intent)
         }
         binding.changeLogout.setOnClickListener {
-            val intent=Intent(this,ChangeLogoutActivity::class.java)
+            val intent=Intent(this, ChangeLogoutActivity::class.java)
             startActivity(intent)
         }
     }

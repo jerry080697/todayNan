@@ -1,4 +1,4 @@
-package com.example.todaynan
+package com.example.todaynan.ui.main.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todaynan.R
+import com.example.todaynan.RecommendRVAdapter
 import com.example.todaynan.data.entity.Recommend
 import com.example.todaynan.databinding.FragmentSearchBinding
 
