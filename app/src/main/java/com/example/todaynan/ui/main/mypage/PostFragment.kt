@@ -1,33 +1,39 @@
 package com.example.todaynan.ui.main.mypage
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.ui.adapter.PostListRVAdapter
 import com.example.todaynan.R
 import com.example.todaynan.data.entity.PostList
-import com.example.todaynan.databinding.ActivityPostBinding
+import com.example.todaynan.databinding.FragmentPostBinding
+class PostFragment : Fragment() {
 
-class PostActivity : AppCompatActivity() {
+    private lateinit var binding: FragmentPostBinding
 
-    private lateinit var binding: ActivityPostBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityPostBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentPostBinding.inflate(inflater, container, false)
 
-        val recyclerView: RecyclerView = findViewById(R.id.post_list_rv)
-        recyclerView.layoutManager = LinearLayoutManager(this)
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
-        val adapter = PostListRVAdapter(items)
-        recyclerView.adapter = adapter
+        val postAdapter = PostListRVAdapter(items)
+        binding.postListRv.adapter = postAdapter
+        binding.postListRv.layoutManager = LinearLayoutManager(context)
+
 
         binding.postBackBtn.setOnClickListener {
-            finish()
+            parentFragmentManager.popBackStack()
         }
+
+        return binding.root
     }
     private fun generateDummyItems(): List<PostList> {
         val items = ArrayList<PostList>()

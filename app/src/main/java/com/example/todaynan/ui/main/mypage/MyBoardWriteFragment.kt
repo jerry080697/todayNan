@@ -1,34 +1,39 @@
 package com.example.todaynan.ui.main.mypage
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.ui.adapter.BoardLikedRVAdapter
 import com.example.todaynan.data.entity.MyLikedPost
 import com.example.todaynan.R
-import com.example.todaynan.databinding.ActivityBoardLikeBinding
+import com.example.todaynan.databinding.FragmentMyBoardWriteBinding
 
 
-class BoardLikeActivity : AppCompatActivity() {
+class MyBoardWriteFragment : Fragment() {
 
-    private lateinit var binding: ActivityBoardLikeBinding
+    private lateinit var binding: FragmentMyBoardWriteBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityBoardLikeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentMyBoardWriteBinding.inflate(inflater, container, false)
 
-        val recyclerView: RecyclerView = findViewById(R.id.board_like_rv)
-        recyclerView.layoutManager = LinearLayoutManager(this)
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
-        val adapter = BoardLikedRVAdapter(items)
-        recyclerView.adapter = adapter
-        binding.boardLikeBackBtn.setOnClickListener {
-            finish()
-        }
+        val boardWriteAdapter = BoardLikedRVAdapter(items)
+        binding.boardWriteRv.adapter = boardWriteAdapter
+        binding.boardWriteRv.layoutManager = LinearLayoutManager(context)
 
+
+        binding.boardWriteBackBtn.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+        return binding.root
     }
     private fun generateDummyItems(): List<MyLikedPost> {
         val items = ArrayList<MyLikedPost>()

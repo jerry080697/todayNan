@@ -57,5 +57,6 @@ dependencies {
 
     //리사이클러뷰
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.fragment:fragment-ktx:1.5.0")
 
 }

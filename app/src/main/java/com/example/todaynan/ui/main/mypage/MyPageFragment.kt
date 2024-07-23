@@ -1,11 +1,11 @@
 package com.example.todaynan.ui.main.mypage
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.todaynan.R
 import com.example.todaynan.databinding.FragmentMyPageBinding
 
 class MyPageFragment : Fragment() {
@@ -22,22 +22,30 @@ class MyPageFragment : Fragment() {
 
 
         binding.mypageChangeInfoIv.setOnClickListener {
-            val intent=Intent(requireContext(), ChangeInfoActivity::class.java)
-            startActivity(intent)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, ChangeInfoFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
         }
         binding.mypageListIv.setOnClickListener {
-            val intent=Intent(requireContext(), JjimListActivity::class.java)
-            startActivity(intent)
-        }
-        binding.mypagePostIv.setOnClickListener {
-            val intent=Intent(requireContext(), PostActivity::class.java)
-            startActivity(intent)
-        }
-        binding.mypageBoardIv.setOnClickListener {
-            val intent=Intent(requireContext(), BoardActivity::class.java)
-            startActivity(intent)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, JjimListFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
         }
 
+        binding.mypagePostIv.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, PostFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
+        binding.mypageBoardIv.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, MyBoardFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
         return binding.root
     }
 }

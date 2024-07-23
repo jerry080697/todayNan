@@ -1,46 +1,39 @@
 package com.example.todaynan.ui.main.mypage
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.ui.adapter.BoardLikedRVAdapter
 import com.example.todaynan.data.entity.MyLikedPost
 import com.example.todaynan.R
-import com.example.todaynan.databinding.ActivityBoardBinding
+import com.example.todaynan.databinding.FragmentMyBoardReplyBinding
 
-class BoardActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityBoardBinding
+class MyBoardReplyFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityBoardBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private lateinit var binding: FragmentMyBoardReplyBinding
 
-        val recyclerView: RecyclerView = findViewById(R.id.liked_post_rv)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentMyBoardReplyBinding.inflate(inflater, container, false)
+
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
-        val adapter = BoardLikedRVAdapter(items)
-        recyclerView.adapter = adapter
+        val boardReplyAdapter = BoardLikedRVAdapter(items)
+        binding.boardReplyRv.adapter = boardReplyAdapter
+        binding.boardReplyRv.layoutManager = LinearLayoutManager(context)
 
-        binding.boardBackBtn.setOnClickListener {
-            finish()
+
+        binding.boardReplyBackBtn.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
-        binding.likeBoard.setOnClickListener{
-            val intent=Intent(this, BoardLikeActivity::class.java)
-            startActivity(intent)
-        }
-        binding.replyBoard.setOnClickListener{
-            val intent=Intent(this, BoardReplyActivity::class.java)
-            startActivity(intent)
-        }
-        binding.writeBoard.setOnClickListener{
-            val intent=Intent(this, BoardWriteActivity::class.java)
-            startActivity(intent)
-        }
+        return binding.root
     }
     private fun generateDummyItems(): List<MyLikedPost> {
         val items = ArrayList<MyLikedPost>()
