@@ -54,7 +54,28 @@ class DistrictRVAdapter(
         val districtName: TextView = binding.districtNameTv
     }
 }
-class DongRVAdapter(private val items: List<Location>) : RecyclerView.Adapter<DongRVAdapter.ViewHolder>() {
+//class DongRVAdapter(private val items: List<Location>) : RecyclerView.Adapter<DongRVAdapter.ViewHolder>() {
+//
+//    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+//        val binding = DongItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+//        return ViewHolder(binding)
+//    }
+//
+//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+//        val item = items[position]
+//        holder.dongName.text = item.dongName
+//    }
+//
+//    override fun getItemCount(): Int = items.size
+//
+//    inner class ViewHolder(val binding: DongItemBinding) : RecyclerView.ViewHolder(binding.root) {
+//        val dongName: TextView = binding.dongNameTv
+//    }
+//}
+class DongRVAdapter(
+    private val items: List<Location>,
+    private val onItemClick: (Location) -> Unit
+) : RecyclerView.Adapter<DongRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding = DongItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
@@ -64,6 +85,7 @@ class DongRVAdapter(private val items: List<Location>) : RecyclerView.Adapter<Do
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.dongName.text = item.dongName
+        holder.itemView.setOnClickListener { onItemClick(item) } // Set the click listener
     }
 
     override fun getItemCount(): Int = items.size

@@ -1,8 +1,7 @@
 package com.example.todaynan.ui.signup
 
-import android.os.Bundle
+import android.content.Intent
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.data.entity.City
 import com.example.todaynan.data.entity.Location
@@ -13,8 +12,11 @@ import com.example.todaynan.ui.adapter.DistrictRVAdapter
 import com.example.todaynan.ui.adapter.DongRVAdapter
 
 class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding::inflate) {
+    private var selectedCity: String? = null
+    private var selectedDistrict: String? = null
+    private var selectedDong: String? = null
+    private var completeAddress: String? = null
     override fun initAfterBinding() {
-
         val allLocations = generateDummyItems()
         val cities = generateDummyItem()
 
@@ -30,7 +32,9 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
         binding.signupPage3DistrictRv.adapter = districtAdapter
         binding.signupPage3DistrictRv.layoutManager = LinearLayoutManager(this)
 
-        val dongAdapter = DongRVAdapter(emptyList())
+        val dongAdapter = DongRVAdapter(emptyList()) { location ->
+            onDongItemClick(location)
+        }
         binding.signupPage3DongRv.adapter = dongAdapter
         binding.signupPage3DongRv.layoutManager = LinearLayoutManager(this)
 
@@ -40,30 +44,45 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
     }
 
     private fun onCityItemClick(city: City, allLocations: List<Location>) {
-        // 클릭된 도시를 기준으로 Location 데이터 필터링
-        val filteredDistricts = allLocations.filter { it.cityName == city.cityName }
-            .distinctBy { it.districtName } // 중복 구역 제거
+        selectedCity = city.cityName
+        selectedDistrict = null
+        selectedDong = null
+        completeAddress = null
 
-        // DistrictRVAdapter 업데이트
+        val filteredDistricts = allLocations.filter { it.cityName == city.cityName }
+            .distinctBy { it.districtName }
+
         val districtAdapter = DistrictRVAdapter(filteredDistricts) { location ->
             onDistrictItemClick(location, allLocations)
         }
         binding.signupPage3DistrictRv.adapter = districtAdapter
         binding.signupPage3DistrictRv.visibility = View.VISIBLE
-        binding.signupPage3DongRv.visibility = View.GONE // 초기에는 동네 리스트를 숨김
+        binding.signupPage3DongRv.visibility = View.GONE
     }
 
     private fun onDistrictItemClick(location: Location, allLocations: List<Location>) {
-        // 클릭된 구역을 기준으로 Location 데이터 필터링
-        val filteredDongLocations =
-            allLocations.filter { it.districtName == location.districtName }
+        selectedDistrict = location.districtName
+        selectedDong = null
+        completeAddress = null
 
-        // DongRVAdapter 업데이트
-        val dongAdapter = DongRVAdapter(filteredDongLocations)
+        val filteredDongLocations = allLocations.filter { it.districtName == location.districtName }
+
+        val dongAdapter = DongRVAdapter(filteredDongLocations) { dongLocation ->
+            onDongItemClick(dongLocation)
+        }
         binding.signupPage3DongRv.adapter = dongAdapter
         binding.signupPage3DongRv.visibility = View.VISIBLE
     }
+    private fun onDongItemClick(location: Location) {
+        selectedDong = location.dongName
+        completeAddress = "$selectedCity $selectedDistrict $selectedDong"
 
+        // Pass the complete address to Page1SignUpActivity
+        val intent = Intent(this, Page1SignUpActivity::class.java).apply {
+            putExtra("completeAddress", completeAddress)
+        }
+        startActivity(intent)
+    }
     private fun generateDummyItems(): List<Location> {
         val items = ArrayList<Location>()
         items.add(Location("서울특별시", "관악구", "낙성대동"))

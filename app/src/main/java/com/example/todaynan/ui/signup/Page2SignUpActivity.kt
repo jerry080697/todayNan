@@ -1,10 +1,6 @@
 package com.example.todaynan.ui.signup
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import com.example.todaynan.databinding.SignupPage1Binding
 import com.example.todaynan.databinding.SignupPage2Binding
 import com.example.todaynan.ui.BaseActivity
 import com.example.todaynan.ui.main.MainActivity
