@@ -25,9 +25,6 @@ class Page2SignUpActivity : AppCompatActivity() {
         }
 
     }
-
-
-
     fun selectOption1(isSelect : Boolean) {
         if(isSelect){
             binding.signupPet1DarkCv.visibility = View.VISIBLE
@@ -60,10 +57,6 @@ class Page2SignUpActivity : AppCompatActivity() {
             binding.signupPet3Cv.visibility = View.VISIBLE
         }
     }
-
-
-
-
     fun option1(){
         binding.signupPet1Cv.setOnClickListener {
             selectOption1(true)
