@@ -9,20 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.ui.adapter.BoardLikedRVAdapter
 import com.example.todaynan.data.entity.MyLikedPost
 import com.example.todaynan.R
+import com.example.todaynan.databinding.FragmentBoardBinding
 import com.example.todaynan.databinding.FragmentMyBoardWriteBinding
+import com.example.todaynan.ui.BaseFragment
 
 
-class MyBoardWriteFragment : Fragment() {
+class MyBoardWriteFragment : BaseFragment<FragmentMyBoardWriteBinding>(FragmentMyBoardWriteBinding::inflate) {
 
-    private lateinit var binding: FragmentMyBoardWriteBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMyBoardWriteBinding.inflate(inflater, container, false)
-
+    override fun initAfterBinding() {
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
         val boardWriteAdapter = BoardLikedRVAdapter(items)
@@ -33,7 +27,7 @@ class MyBoardWriteFragment : Fragment() {
         binding.boardWriteBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        return binding.root
+
     }
     private fun generateDummyItems(): List<MyLikedPost> {
         val items = ArrayList<MyLikedPost>()

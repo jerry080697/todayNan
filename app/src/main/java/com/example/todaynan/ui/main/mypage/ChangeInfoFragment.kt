@@ -7,17 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.todaynan.R
 import com.example.todaynan.databinding.FragmentChangeInfoBinding
-class ChangeInfoFragment : Fragment() {
+import com.example.todaynan.databinding.FragmentSearchBinding
+import com.example.todaynan.ui.BaseFragment
 
-    private lateinit var binding: FragmentChangeInfoBinding
+class ChangeInfoFragment : BaseFragment<FragmentChangeInfoBinding>(FragmentChangeInfoBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentChangeInfoBinding.inflate(inflater, container, false)
-
+    override fun initAfterBinding() {
 
         binding.changeInfoBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -53,6 +48,5 @@ class ChangeInfoFragment : Fragment() {
                 .commitAllowingStateLoss()
         }
 
-        return binding.root
     }
 }

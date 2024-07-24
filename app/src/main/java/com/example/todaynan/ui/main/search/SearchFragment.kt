@@ -11,18 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.ui.adapter.RecommendRVAdapter
 import com.example.todaynan.data.entity.Recommend
+import com.example.todaynan.databinding.FragmentLocationBinding
 import com.example.todaynan.databinding.FragmentSearchBinding
+import com.example.todaynan.ui.BaseFragment
 
-class SearchFragment : Fragment() {
+class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
-    lateinit var binding: FragmentSearchBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
+    override fun initAfterBinding() {
 
         search()
         chooseType()
@@ -41,8 +36,6 @@ class SearchFragment : Fragment() {
         val recommendRVAdapter2 = RecommendRVAdapter(rList,2)
         binding.resultBlockRv.adapter = recommendRVAdapter2
         binding.resultBlockRv.layoutManager = GridLayoutManager(context, 2)
-
-        return binding.root
     }
 
     private fun search(){

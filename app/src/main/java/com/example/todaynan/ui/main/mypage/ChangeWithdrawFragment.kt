@@ -6,22 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.todaynan.databinding.FragmentChangeWithdrawBinding
+import com.example.todaynan.databinding.FragmentSearchBinding
+import com.example.todaynan.ui.BaseFragment
 
-class ChangeWithdrawFragment : Fragment() {
+class ChangeWithdrawFragment : BaseFragment<FragmentChangeWithdrawBinding>(FragmentChangeWithdrawBinding::inflate) {
 
-    private lateinit var binding: FragmentChangeWithdrawBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentChangeWithdrawBinding.inflate(inflater, container, false)
-
+    override fun initAfterBinding() {
 
         binding.changeWithdrawBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        return binding.root
+
     }
 }
