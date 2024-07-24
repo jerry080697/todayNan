@@ -5,23 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.todaynan.databinding.FragmentBoardBinding
 import com.example.todaynan.databinding.FragmentChangeLogoutBinding
+import com.example.todaynan.ui.BaseFragment
 
-class ChangeLogoutFragment : Fragment() {
+class ChangeLogoutFragment : BaseFragment<FragmentChangeLogoutBinding>(FragmentChangeLogoutBinding::inflate) {
 
-    private lateinit var binding: FragmentChangeLogoutBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentChangeLogoutBinding.inflate(inflater, container, false)
-
+    override fun initAfterBinding() {
 
         binding.changeLogoutBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        return binding.root
+
     }
 }

@@ -5,23 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.todaynan.databinding.FragmentBoardBinding
 import com.example.todaynan.databinding.FragmentChangeInterestBinding
+import com.example.todaynan.ui.BaseFragment
 
-class ChangeInterestFragment : Fragment() {
+class ChangeInterestFragment : BaseFragment<FragmentChangeInterestBinding>(FragmentChangeInterestBinding::inflate) {
 
-    private lateinit var binding: FragmentChangeInterestBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentChangeInterestBinding.inflate(inflater, container, false)
-
+    override fun initAfterBinding() {
 
         binding.changeInterestBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        return binding.root
+
     }
 }

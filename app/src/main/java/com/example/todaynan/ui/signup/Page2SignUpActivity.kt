@@ -4,24 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.todaynan.databinding.SignupPage1Binding
 import com.example.todaynan.databinding.SignupPage2Binding
+import com.example.todaynan.ui.BaseActivity
 import com.example.todaynan.ui.main.MainActivity
 
-class Page2SignUpActivity : AppCompatActivity() {
+class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding::inflate) {
 
-    lateinit var binding: SignupPage2Binding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = SignupPage2Binding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun initAfterBinding() {
 
         option1()
         option2()
         option3()
 
         binding.signupLetsgoBtnDark.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startNextActivity(MainActivity::class.java)
         }
 
     }
