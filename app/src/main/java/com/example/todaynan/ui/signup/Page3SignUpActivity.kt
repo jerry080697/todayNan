@@ -3,6 +3,7 @@ package com.example.todaynan.ui.signup
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+<<<<<<< HEAD
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.data.entity.City
 import com.example.todaynan.data.entity.Location
@@ -20,6 +21,14 @@ class Page3SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = SignupPage3Binding.inflate(layoutInflater)
         setContentView(binding.root)
+=======
+import com.example.todaynan.databinding.SignupPage1Binding
+import com.example.todaynan.databinding.SignupPage3Binding
+import com.example.todaynan.ui.BaseActivity
+
+class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding::inflate) {
+    override fun initAfterBinding() {
+>>>>>>> 7acdb94dba7e38592d38688a468c644ee21a2b10
 
         val allLocations = generateDummyItems()
         val cities = generateDummyItem()

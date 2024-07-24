@@ -4,16 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.todaynan.databinding.SignupPage1Binding
 import com.example.todaynan.databinding.SignupPage8Binding
+import com.example.todaynan.ui.BaseActivity
 
-class Page8SignUpActivity : AppCompatActivity() {
+class Page8SignUpActivity : BaseActivity<SignupPage8Binding>(SignupPage8Binding::inflate) {
 
-    lateinit var binding: SignupPage8Binding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = SignupPage8Binding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun initAfterBinding() {
 
         binding.signupPage8Back.setOnClickListener {
             finish()

@@ -5,22 +5,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todaynan.databinding.SignupPage1Binding
+import com.example.todaynan.ui.BaseActivity
 
-class Page1SignUpActivity : AppCompatActivity() {
+class Page1SignUpActivity : BaseActivity<SignupPage1Binding>(SignupPage1Binding::inflate) {
 
-    lateinit var binding: SignupPage1Binding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = SignupPage1Binding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun initAfterBinding() {
 
         binding.signupAddressSelectCv.setOnClickListener {
-            startActivity(Intent(this, Page3SignUpActivity::class.java))
+            startNextActivity(Page3SignUpActivity::class.java)
         }
 
         binding.signupPlaySelectCv.setOnClickListener {
-            startActivity(Intent(this, Page8SignUpActivity::class.java))
+            startNextActivity(Page8SignUpActivity::class.java)
         }
 
 
@@ -32,7 +28,7 @@ class Page1SignUpActivity : AppCompatActivity() {
         //다음으로 이동
         if(binding.signupNextBtnDark.visibility == View.VISIBLE){
            binding.signupNextBtnDark.setOnClickListener {
-               startActivity(Intent(this, Page2SignUpActivity::class.java))
+               startNextActivity(Page2SignUpActivity::class.java)
            }
         }
 

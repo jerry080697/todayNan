@@ -9,19 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.ui.adapter.PostListRVAdapter
 import com.example.todaynan.R
 import com.example.todaynan.data.entity.PostList
+import com.example.todaynan.databinding.FragmentBoardBinding
 import com.example.todaynan.databinding.FragmentPostBinding
-class PostFragment : Fragment() {
+import com.example.todaynan.ui.BaseFragment
 
-    private lateinit var binding: FragmentPostBinding
+class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::inflate) {
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentPostBinding.inflate(inflater, container, false)
-
+    override fun initAfterBinding() {
 
         val items = generateDummyItems() // 임시 더미 데이터
         val postAdapter = PostListRVAdapter(items)
@@ -33,7 +27,6 @@ class PostFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-        return binding.root
     }
     private fun generateDummyItems(): List<PostList> {
         val items = ArrayList<PostList>()

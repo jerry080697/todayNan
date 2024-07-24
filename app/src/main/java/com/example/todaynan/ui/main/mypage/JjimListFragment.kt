@@ -9,20 +9,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.ui.adapter.RecommendRVAdapter
 import com.example.todaynan.data.entity.Recommend
+import com.example.todaynan.databinding.FragmentBoardBinding
 import com.example.todaynan.databinding.FragmentJjimListBinding
+import com.example.todaynan.ui.BaseFragment
 
 
-class JjimListFragment : Fragment() {
+class JjimListFragment : BaseFragment<FragmentJjimListBinding>(FragmentJjimListBinding::inflate) {
 
-    private lateinit var binding: FragmentJjimListBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentJjimListBinding.inflate(inflater, container, false)
-
+    override fun initAfterBinding() {
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
         val jjimListAdapter = RecommendRVAdapter(items, 2)
@@ -33,7 +27,7 @@ class JjimListFragment : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
-        return binding.root
+
     }
 }
     private fun generateDummyItems(): ArrayList<Recommend> {
