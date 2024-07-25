@@ -1,21 +1,17 @@
 package com.example.todaynan.ui.main.search
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.ui.adapter.RecommendRVAdapter
 import com.example.todaynan.data.entity.Recommend
-import com.example.todaynan.databinding.FragmentLocationBinding
 import com.example.todaynan.databinding.FragmentSearchBinding
 import com.example.todaynan.ui.BaseFragment
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
+
+    var showType: Int = 0   //0: 나열형, 1: 블록형
 
     override fun initAfterBinding() {
 
@@ -53,6 +49,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun chooseType(){
         binding.resultMenuIv.setOnClickListener{
+            if(showType == 0)
+                binding.resultMenuIv.setImageResource(R.drawable.search_menu_list_dark)
+            else
+                binding.resultMenuIv.setImageResource(R.drawable.search_menu_block_dark)
+
             val typeList = mutableListOf<PopupValue>().apply {
                 add(PopupValue(R.drawable.search_menu_list,"나열형"))
                 add(PopupValue(R.drawable.search_menu_block, "블록형"))
@@ -64,12 +65,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                         binding.resultMenuIv.setImageResource(R.drawable.search_menu_list)
                         binding.resultListRv.isVisible = true
                         binding.resultBlockRv.isVisible = false
+                        showType = 0
                     }
 
                     1 -> { //블록형
                         binding.resultMenuIv.setImageResource(R.drawable.search_menu_block)
                         binding.resultListRv.isVisible = false
                         binding.resultBlockRv.isVisible = true
+                        showType = 1
                     }
                 }
             }.apply {
