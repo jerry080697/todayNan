@@ -57,7 +57,7 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
         }
         binding.signupPage3DistrictRv.adapter = districtAdapter
         binding.signupPage3DistrictRv.visibility = View.VISIBLE
-        binding.signupPage3DongRv.visibility = View.GONE
+        binding.signupPage3DongRv.visibility = View.VISIBLE
     }
 
     private fun onDistrictItemClick(location: Location, allLocations: List<Location>) {
