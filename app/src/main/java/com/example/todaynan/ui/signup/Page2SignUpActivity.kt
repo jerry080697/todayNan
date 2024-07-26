@@ -1,10 +1,6 @@
 package com.example.todaynan.ui.signup
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import com.example.todaynan.databinding.SignupPage1Binding
 import com.example.todaynan.databinding.SignupPage2Binding
 import com.example.todaynan.ui.BaseActivity
 import com.example.todaynan.ui.main.MainActivity
@@ -22,9 +18,6 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         }
 
     }
-
-
-
     fun selectOption1(isSelect : Boolean) {
         if(isSelect){
             binding.signupPet1DarkCv.visibility = View.VISIBLE
@@ -57,10 +50,6 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
             binding.signupPet3Cv.visibility = View.VISIBLE
         }
     }
-
-
-
-
     fun option1(){
         binding.signupPet1Cv.setOnClickListener {
             selectOption1(true)
