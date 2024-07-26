@@ -57,7 +57,7 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
         }
         binding.signupPage3DistrictRv.adapter = districtAdapter
         binding.signupPage3DistrictRv.visibility = View.VISIBLE
-        binding.signupPage3DongRv.visibility = View.VISIBLE
+        binding.signupPage3DongRv.visibility = View.GONE // 동 RecyclerView 숨기기
     }
 
     private fun onDistrictItemClick(location: Location, allLocations: List<Location>) {
@@ -73,6 +73,7 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
         binding.signupPage3DongRv.adapter = dongAdapter
         binding.signupPage3DongRv.visibility = View.VISIBLE
     }
+
     private fun onDongItemClick(location: Location) {
         selectedDong = location.dongName
         completeAddress = "$selectedCity $selectedDistrict $selectedDong"
@@ -83,6 +84,7 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
         }
         startActivity(intent)
     }
+
     private fun generateDummyItems(): List<Location> {
         val items = ArrayList<Location>()
         items.add(Location("서울특별시", "관악구", "낙성대동"))
@@ -100,7 +102,6 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
 
         items.add(Location("서울특별시", "강남구", "대치동"))
 
-
         items.add(Location("경기도", "광명시", "철산동"))
         items.add(Location("경기도", "광명시", "하안동"))
         items.add(Location("경기도", "광명시", "소하동"))
@@ -110,7 +111,6 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
         items.add(Location("경기도", "광명시", "일직동"))
 
         items.add(Location("경기도", "안양시", "비산동"))
-
 
         items.add(Location("인천광역시", "미추홀구", "주안동"))
 
