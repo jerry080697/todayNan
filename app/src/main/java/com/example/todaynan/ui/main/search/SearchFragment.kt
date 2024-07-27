@@ -1,5 +1,6 @@
 package com.example.todaynan.ui.main.search
 
+import android.view.KeyEvent
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,29 +43,53 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.searchHomeIcIv.isVisible = true
             binding.searchBar1.isVisible = false
         }
+
+        // 검색 초기화면에서 검색 요청
         binding.searchImageBt0.setOnClickListener {
             hideKeyboard()
-            binding.searchRequest.isVisible = false
-            binding.searchResult.isVisible = true
+            result()
             binding.resultEt.text = binding.requestEt.text
-            //상단바
-            binding.searchHomeIcIv.isVisible = false
-            binding.searchBar1.isVisible = true
         }
+        binding.requestEt.setOnEditorActionListener { v, actionId, event ->
+            if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                hideKeyboard()
+                result()
+                binding.resultEt.text = binding.requestEt.text
+                true // 이벤트 처리 완료
+            } else {
+                false // 이벤트 처리 안 함
+            }
+        }
+        // 검색 결과화면에서 검색 요청
         binding.searchImageBt1.setOnClickListener {
             hideKeyboard()
-            binding.searchRequest.isVisible = false
-            binding.searchResult.isVisible = true
+            result()
             binding.resultEt.text = binding.resultEt.text
-            //상단바
-            binding.searchHomeIcIv.isVisible = false
-            binding.searchBar1.isVisible = true
         }
+        binding.resultEt.setOnEditorActionListener { v, actionId, event ->
+            if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                hideKeyboard()
+                binding.resultEt.text = binding.resultEt.text
+                result()
+                true // 이벤트 처리 완료
+            } else {
+                false // 이벤트 처리 안 함
+            }
+        }
+
         binding.searchBackIv.setOnClickListener {
             binding.requestEt.text = null
             binding.searchRequest.isVisible = true
             binding.searchResult.isVisible = false
         }
+    }
+    private fun result() {
+        // 화면 변경
+        binding.searchRequest.isVisible = false
+        binding.searchResult.isVisible = true
+        // 상단바
+        binding.searchHomeIcIv.isVisible = false
+        binding.searchBar1.isVisible = true
     }
 
     private fun chooseType(){
