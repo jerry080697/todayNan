@@ -1,5 +1,6 @@
 package com.example.todaynan.ui.signup
 
+import android.content.Intent
 import android.view.View
 import com.example.todaynan.databinding.SignupPage2Binding
 import com.example.todaynan.ui.BaseActivity
@@ -14,7 +15,10 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         option3()
 
         binding.signupLetsgoBtnDark.setOnClickListener {
-            startNextActivity(MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
         }
 
     }
