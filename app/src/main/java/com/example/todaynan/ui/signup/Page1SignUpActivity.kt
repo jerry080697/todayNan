@@ -1,15 +1,22 @@
 package com.example.todaynan.ui.signup
 
-import android.content.Intent
-import android.os.Bundle
+
+import android.graphics.Color
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.example.todaynan.databinding.SignupPage1Binding
 import com.example.todaynan.ui.BaseActivity
 
 class Page1SignUpActivity : BaseActivity<SignupPage1Binding>(SignupPage1Binding::inflate) {
 
+
     override fun initAfterBinding() {
+        val completeAddress = intent.getStringExtra("completeAddress")
+
+        if (completeAddress != null) {
+            binding.signupAddressTv.setTextColor(Color.BLACK)
+            binding.signupAddressTv.text = completeAddress
+
+        }
 
         binding.signupAddressSelectCv.setOnClickListener {
             startNextActivity(Page3SignUpActivity::class.java)
