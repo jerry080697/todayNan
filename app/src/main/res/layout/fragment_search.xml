@@ -65,13 +65,26 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:layout_width="240dp"
+            android:id="@+id/search_pet_iv"
+            android:layout_width="210dp"
             android:layout_height="0dp"
             android:src="@drawable/pet_icon"
-            android:layout_margin="70dp"
+            app:layout_constraintBottom_toTopOf="@id/search_home_bt"
             app:layout_constraintTop_toBottomOf="@id/search_bar_0"
             app:layout_constraintStart_toStartOf="@id/search_bar_0"
             app:layout_constraintEnd_toEndOf="@id/search_bar_0" />
+
+        <ImageButton
+            android:id="@+id/search_home_bt"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:src="@drawable/search_home_bt"
+            android:backgroundTint="@color/transparent"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_pet_iv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -133,7 +146,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        
+
+        <ImageView
+            android:id="@+id/search_home_ic_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/search_home_icon"
+            android:visibility="gone"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/result_logo_iv"
+            app:layout_constraintBottom_toBottomOf="@id/result_logo_iv"
+            app:layout_constraintTop_toTopOf="@id/result_logo_iv" />
+
         <ImageView
             android:id="@+id/search_back_iv"
             android:layout_width="25dp"

@@ -35,10 +35,28 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun search(){
+        binding.searchHomeBt.setOnClickListener {
+            binding.searchRequest.isVisible = false
+            binding.searchResult.isVisible = true
+            //상단바
+            binding.searchHomeIcIv.isVisible = true
+            binding.searchBar1.isVisible = false
+        }
         binding.searchImageBt0.setOnClickListener {
             binding.searchRequest.isVisible = false
             binding.searchResult.isVisible = true
             binding.resultEt.text = binding.requestEt.text
+            //상단바
+            binding.searchHomeIcIv.isVisible = false
+            binding.searchBar1.isVisible = true
+        }
+        binding.searchImageBt1.setOnClickListener {
+            binding.searchRequest.isVisible = false
+            binding.searchResult.isVisible = true
+            binding.resultEt.text = binding.resultEt.text
+            //상단바
+            binding.searchHomeIcIv.isVisible = false
+            binding.searchBar1.isVisible = true
         }
         binding.searchBackIv.setOnClickListener {
             binding.requestEt.text = null
