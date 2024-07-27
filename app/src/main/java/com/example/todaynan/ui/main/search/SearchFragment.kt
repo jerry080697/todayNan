@@ -43,6 +43,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.searchBar1.isVisible = false
         }
         binding.searchImageBt0.setOnClickListener {
+            hideKeyboard()
             binding.searchRequest.isVisible = false
             binding.searchResult.isVisible = true
             binding.resultEt.text = binding.requestEt.text
@@ -51,6 +52,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.searchBar1.isVisible = true
         }
         binding.searchImageBt1.setOnClickListener {
+            hideKeyboard()
             binding.searchRequest.isVisible = false
             binding.searchResult.isVisible = true
             binding.resultEt.text = binding.resultEt.text
