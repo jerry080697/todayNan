@@ -42,6 +42,9 @@ abstract class BaseFragment<VB : ViewBinding>(
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-
+    // 키보드를 숨기는 메소드
+    protected fun hideKeyboard() {
+        (activity as? BaseActivity<*>)?.hideKeyboard(requireView())
+    }
 
 }

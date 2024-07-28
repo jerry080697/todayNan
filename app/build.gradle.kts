@@ -54,7 +54,8 @@ dependencies {
     //CardView
     implementation("com.android.support:design:29.0.0")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
-
+    //csv
+    implementation ("com.opencsv:opencsv:5.6")
     //리사이클러뷰
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("androidx.fragment:fragment-ktx:1.5.0")

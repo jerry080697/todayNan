@@ -10,6 +10,7 @@ import com.example.todaynan.ui.BaseActivity
 import com.example.todaynan.ui.adapter.CityRVAdapter
 import com.example.todaynan.ui.adapter.DistrictRVAdapter
 import com.example.todaynan.ui.adapter.DongRVAdapter
+import com.example.todaynan.utils.CSVUtils
 
 class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding::inflate) {
     private var selectedCity: String? = null
@@ -86,84 +87,31 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
     }
 
     private fun generateDummyItems(): List<Location> {
-        val items = ArrayList<Location>()
-        items.add(Location("서울특별시", "관악구", "낙성대동"))
-        items.add(Location("서울특별시", "관악구", "난공동"))
-        items.add(Location("서울특별시", "관악구", "난항동"))
-        items.add(Location("서울특별시", "관악구", "남현동"))
-        items.add(Location("서울특별시", "관악구", "대학동"))
-        items.add(Location("서울특별시", "관악구", "미성동"))
-        items.add(Location("서울특별시", "관악구", "보라매동"))
-        items.add(Location("서울특별시", "관악구", "봉천동"))
-        items.add(Location("서울특별시", "관악구", "삼성동"))
-        items.add(Location("서울특별시", "관악구", "서림동"))
-        items.add(Location("서울특별시", "관악구", "서원동"))
-        items.add(Location("서울특별시", "관악구", "성현동"))
-
-        items.add(Location("서울특별시", "강남구", "대치동"))
-
-        items.add(Location("경기도", "광명시", "철산동"))
-        items.add(Location("경기도", "광명시", "하안동"))
-        items.add(Location("경기도", "광명시", "소하동"))
-        items.add(Location("경기도", "광명시", "광명동"))
-        items.add(Location("경기도", "광명시", "노온사동"))
-        items.add(Location("경기도", "광명시", "학온동"))
-        items.add(Location("경기도", "광명시", "일직동"))
-
-        items.add(Location("경기도", "안양시", "비산동"))
-
-        items.add(Location("인천광역시", "미추홀구", "주안동"))
-
-        items.add(Location("부산광역시", "해운대구", "반여동"))
-
-        items.add(Location("울산광역시", "중구", "교동"))
-
-        items.add(Location("대구광역시", "북구", "검단동"))
-
-        items.add(Location("광주광역시", "서구", "금호동"))
-
-        items.add(Location("대전광역시", "동구", "가양동"))
-
-        items.add(Location("세종특별자치시", "ㅁㅁ구", "보람동"))
-
-        items.add(Location("강원도", "원주시", "우산동"))
-
-        items.add(Location("충청북도", "괴산군", "괴산읍"))
-
-        items.add(Location("충청남도", "보령시", "대청동"))
-
-        items.add(Location("전라남도", "여수시", "동문동"))
-
-        items.add(Location("전라북도", "익산시", "동산동"))
-
-        items.add(Location("경상남도", "김해시", "구산동"))
-
-        items.add(Location("경상북도", "안동시", "광석동"))
-
-        items.add(Location("제주특별자치도", "제주시", "화북동"))
+        val csvFileName = "location.csv"
+        val items = CSVUtils.readLocations(this, csvFileName)
 
         return items
     }
 
     private fun generateDummyItem(): List<City> {
         val item = ArrayList<City>()
-        item.add(City("서울특별시"))
+        item.add(City("강원특별자치도"))
         item.add(City("경기도"))
-        item.add(City("인천광역시"))
-        item.add(City("부산광역시"))
-        item.add(City("울산광역시"))
-        item.add(City("대구광역시"))
-        item.add(City("광주광역시"))
-        item.add(City("대전광역시"))
-        item.add(City("세종특별자치시"))
-        item.add(City("강원도"))
-        item.add(City("충청북도"))
-        item.add(City("충청남도"))
-        item.add(City("전라북도"))
-        item.add(City("전라남도"))
-        item.add(City("경상북도"))
         item.add(City("경상남도"))
+        item.add(City("경상북도"))
+        item.add(City("광주광역시"))
+        item.add(City("대구광역시"))
+        item.add(City("대전광역시"))
+        item.add(City("부산광역시"))
+        item.add(City("서울특별시"))
+        item.add(City("세종특별자치시"))
+        item.add(City("울산광역시"))
+        item.add(City("인천광역시"))
+        item.add(City("전라남도"))
+        item.add(City("전북특별자치도"))
         item.add(City("제주특별자치도"))
+        item.add(City("충청남도"))
+        item.add(City("충청북도"))
 
         return item
     }
