@@ -41,6 +41,7 @@ class Page1SignUpActivity : BaseActivity<SignupPage1Binding>(SignupPage1Binding:
 
         if(intent.hasExtra("option2")){
             binding.signupPlaySelectTv.text = intent.getStringExtra("option2")
+            binding.signupPlaySelectTv.setTextColor(Color.BLACK)
         }
 
     }
