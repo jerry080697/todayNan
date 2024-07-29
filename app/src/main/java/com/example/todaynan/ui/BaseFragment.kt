@@ -16,21 +16,18 @@ abstract class BaseFragment<VB : ViewBinding>(
     protected val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflate.invoke(inflater, container, false)
-
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initAfterBinding()
     }
 
-    //onDestroyView 시에 Binding 해제
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -46,5 +43,4 @@ abstract class BaseFragment<VB : ViewBinding>(
     protected fun hideKeyboard() {
         (activity as? BaseActivity<*>)?.hideKeyboard(requireView())
     }
-
 }

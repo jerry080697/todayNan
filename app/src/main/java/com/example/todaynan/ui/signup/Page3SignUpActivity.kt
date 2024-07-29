@@ -11,7 +11,6 @@ import com.example.todaynan.ui.adapter.CityRVAdapter
 import com.example.todaynan.ui.adapter.DistrictRVAdapter
 import com.example.todaynan.ui.adapter.DongRVAdapter
 import com.example.todaynan.utils.CSVUtils
-
 class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding::inflate) {
     private var selectedCity: String? = null
     private var selectedDistrict: String? = null
