@@ -19,7 +19,7 @@ android {
 
     buildFeatures {
         viewBinding = true
-        dataBinding=true
+        dataBinding = true
     }
 
     buildTypes {
@@ -64,5 +64,10 @@ dependencies {
     // Google Map
     implementation ("com.google.android.gms:play-services-maps:18.0.0")
     implementation ("com.google.android.gms:play-services-location:21.3.0")
+
+    implementation ("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
+    implementation ("com.google.android.material:material:1.4.0")
+
+
 
 }
