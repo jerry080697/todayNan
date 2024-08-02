@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.todaynan.databinding.FragmentBoardBinding
 import com.example.todaynan.databinding.FragmentChangeInterestBinding
@@ -15,6 +16,9 @@ class ChangeInterestFragment : BaseFragment<FragmentChangeInterestBinding>(Fragm
 
         binding.changeInterestBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+        binding.changeInterestChangeBtnIv.setOnClickListener {
+            Toast.makeText(context, "내 관심사가 수정되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
     }
