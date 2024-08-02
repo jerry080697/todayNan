@@ -2,7 +2,6 @@ package com.example.todaynan.ui.main.search
 
 import android.view.KeyEvent
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.ui.adapter.RecommendRVAdapter
@@ -32,7 +31,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val recommendRVAdapter2 = RecommendRVAdapter(rList,2)
         binding.resultBlockRv.adapter = recommendRVAdapter2
-        binding.resultBlockRv.layoutManager = GridLayoutManager(context, 2)
+        binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun search(){
