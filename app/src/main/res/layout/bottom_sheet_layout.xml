@@ -37,7 +37,5 @@
                     tools:listitem="@layout/location_place_item"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </FrameLayout>
 </layout>

@@ -1,9 +1,13 @@
 package com.example.todaynan.ui.main.location
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +31,9 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
     private var currentMarker: Marker? = null
     private lateinit var locationAdapter: LocationPlaceRVAdapter
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<NestedScrollView>
+    private lateinit var locationSearchEt: EditText
+    private lateinit var locationSearchBtn: View
+    private lateinit var currentLocationTv: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,11 +60,21 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
         locationAdapter = LocationPlaceRVAdapter(generateDummyItems())
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = locationAdapter
+
+        locationSearchEt = binding.locationSearchEt
+        locationSearchBtn = binding.locationSearchBtn
+        currentLocationTv = binding.currentLocationTv
+        locationSearchBtn.setOnClickListener {
+            val searchText = locationSearchEt.text.toString()
+            currentLocationTv.text = searchText
+        }
+
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
-
+        // 초기 마커 설정
         currentMarker = setupMarker(Place("서울역", "서울특별시 용산구 한강대로 405", "서울역 설명~", 37.554722, 126.970833, true, R.drawable.default_profile_img))
         currentMarker?.showInfoWindow()
     }
@@ -109,8 +126,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
         items.add(Place("용산역", "서울 용산구 한강대로 23길 55", "용산의 기차역", 37.5325, 126.965, false, R.drawable.default_profile_img))
         items.add(Place("서울역", "서울 용산구 한강대로 405", "서울의 기차역", 37.554722, 126.970833, true, R.drawable.default_profile_img))
         items.add(Place("용산역", "서울 용산구 한강대로 23길 55", "용산의 기차역", 37.5325, 126.965, false, R.drawable.default_profile_img))
-
-
         return items
     }
 }
