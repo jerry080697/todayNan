@@ -1,7 +1,7 @@
 package com.example.todaynan.ui.main.mypage
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todaynan.ui.adapter.BoardLikedRVAdapter
+import com.example.todaynan.ui.adapter.PostRVAdapter
 import com.example.todaynan.data.entity.Post
 import com.example.todaynan.R
 import com.example.todaynan.databinding.FragmentMyBoardBinding
@@ -11,7 +11,7 @@ class MyBoardFragment : BaseFragment<FragmentMyBoardBinding>(FragmentMyBoardBind
     override fun initAfterBinding() {
 
     val items = generateDummyItems() // 데이터 생성 (임시 함수)
-    val boardAdapter = BoardLikedRVAdapter(items)
+    val boardAdapter = PostRVAdapter(items)
     binding.likedPostRv.adapter = boardAdapter
     binding.likedPostRv.layoutManager = LinearLayoutManager(context)
 
