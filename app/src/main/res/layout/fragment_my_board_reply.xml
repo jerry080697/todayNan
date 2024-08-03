@@ -54,9 +54,9 @@
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="15dp"
+        tools:listitem="@layout/item_post"
         app:layout_constraintTop_toBottomOf="@id/board_reply_search_bar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/my_liked_post"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

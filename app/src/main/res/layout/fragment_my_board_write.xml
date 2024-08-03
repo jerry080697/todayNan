@@ -54,6 +54,5 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/board_write_search_bar"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/my_liked_post"
-        />
+        tools:listitem="@layout/item_post"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

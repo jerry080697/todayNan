@@ -58,7 +58,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="420dp"
                 app:cardCornerRadius="5dp"
                 android:id="@+id/like_board"
                 android:layout_marginHorizontal="20dp"
@@ -73,7 +73,7 @@
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/my_liked_post" />
+                    tools:listitem="@layout/item_like_post" />
 
                 <ImageView
                     android:layout_width="wrap_content"
