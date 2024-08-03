@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/recruit_tv"
+        android:id="@+id/detail_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="구인 게시판"
@@ -20,15 +20,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/recruit_search_bar"
+        android:id="@+id/detail_search_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintStart_toEndOf="@id/recruit_tv"
+        app:layout_constraintStart_toEndOf="@id/detail_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/recruit_tv"
-        app:layout_constraintTop_toTopOf="@id/recruit_tv" >
+        app:layout_constraintBottom_toBottomOf="@id/detail_tv"
+        app:layout_constraintTop_toTopOf="@id/detail_tv" >
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -61,13 +61,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/recruit_loc_cl"
+        android:id="@+id/detail_loc_cl"
         android:layout_width="60dp"
         android:layout_height="20dp"
         android:background="@drawable/item_location_bg"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@id/recruit_tv"
-        app:layout_constraintTop_toBottomOf="@id/recruit_tv">
+        app:layout_constraintStart_toStartOf="@id/detail_tv"
+        app:layout_constraintTop_toBottomOf="@id/detail_tv">
         <ImageView
             android:id="@+id/loc_info_iv"
             android:layout_width="13dp"
@@ -94,12 +94,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/recruit_register_cl"
+        android:id="@+id/detail_register_cl"
         android:layout_width="70dp"
         android:layout_height="20dp"
         android:background="@drawable/item_write_bg"
-        app:layout_constraintEnd_toEndOf="@id/recruit_search_bar"
-        app:layout_constraintTop_toTopOf="@id/recruit_loc_cl" >
+        app:layout_constraintEnd_toEndOf="@id/detail_search_bar"
+        app:layout_constraintTop_toTopOf="@id/detail_loc_cl" >
         <ImageView
             android:id="@+id/register_iv"
             android:layout_width="20dp"
@@ -124,15 +124,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recruit_board_rv"
+        android:id="@+id/detail_board_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         tools:listitem="@layout/item_post"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/recruit_loc_cl"
+        app:layout_constraintTop_toBottomOf="@id/detail_loc_cl"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/recruit_loc_cl"
-        app:layout_constraintEnd_toEndOf="@id/recruit_register_cl"/>
+        app:layout_constraintStart_toStartOf="@id/detail_loc_cl"
+        app:layout_constraintEnd_toEndOf="@id/detail_register_cl"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

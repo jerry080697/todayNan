@@ -1,20 +1,35 @@
 package com.example.todaynan.ui.main.board
 
+import android.os.Bundle
 import android.view.KeyEvent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.data.entity.Post
-import com.example.todaynan.databinding.FragmentRecruitBinding
+import com.example.todaynan.databinding.FragmentDetailBinding
 import com.example.todaynan.ui.BaseFragment
 import com.example.todaynan.ui.adapter.PostRVAdapter
 
-class RecruitFragment: BaseFragment<FragmentRecruitBinding>(FragmentRecruitBinding::inflate) {
+class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding::inflate) {
+
+    companion object {
+        fun newInstance(text: String): DetailFragment {
+            val fragment = DetailFragment()
+            val args = Bundle()
+            args.putString("type", text)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun initAfterBinding() {
+
+        val text = arguments?.getString("type")
+        binding.detailTv.text = text
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
         val boardLikeAdapter = PostRVAdapter(items)
-        binding.recruitBoardRv.adapter = boardLikeAdapter
-        binding.recruitBoardRv.layoutManager = LinearLayoutManager(context)
+        binding.detailBoardRv.adapter = boardLikeAdapter
+        binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
 
         binding.searchImageBt1.setOnClickListener {
             hideKeyboard()
