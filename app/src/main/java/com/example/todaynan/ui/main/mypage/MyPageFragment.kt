@@ -1,12 +1,6 @@
 package com.example.todaynan.ui.main.mypage
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.todaynan.R
-import com.example.todaynan.databinding.FragmentBoardBinding
 import com.example.todaynan.databinding.FragmentMyPageBinding
 import com.example.todaynan.ui.BaseFragment
 
@@ -29,7 +23,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
 
         binding.mypagePostIv.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, PostFragment())
+                .replace(R.id.main_frm, ChatFragment())
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }
