@@ -1,5 +1,6 @@
 package com.example.todaynan.ui.main.board
 
+import android.view.KeyEvent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.data.entity.Post
@@ -15,6 +16,20 @@ class RecruitFragment: BaseFragment<FragmentRecruitBinding>(FragmentRecruitBindi
         binding.recruitBoardRv.adapter = boardLikeAdapter
         binding.recruitBoardRv.layoutManager = LinearLayoutManager(context)
 
+        binding.searchImageBt1.setOnClickListener {
+            hideKeyboard()
+            // 검색 결과 서버 요청
+        }
+        binding.resultEt.setOnEditorActionListener { v, actionId, event ->
+            if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                hideKeyboard()
+                binding.resultEt.text = binding.resultEt.text
+                // 검색 결과 서버 요청
+                true // 이벤트 처리 완료
+            } else {
+                false // 이벤트 처리 안 함
+            }
+        }
     }
 
     private fun generateDummyItems(): List<Post> {
