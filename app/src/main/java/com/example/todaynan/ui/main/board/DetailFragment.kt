@@ -27,10 +27,10 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         binding.detailTv.text = type
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
-        val boardLikeAdapter = PostRVAdapter(items)
-        binding.detailBoardRv.adapter = boardLikeAdapter
+        val boardAdapter = PostRVAdapter(items)
+        binding.detailBoardRv.adapter = boardAdapter
         binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
-        boardLikeAdapter.setMyItemClickListner(object : PostRVAdapter.MyItemClickListner{
+        boardAdapter.setMyItemClickListner(object : PostRVAdapter.MyItemClickListner{
             override fun onItemClick(post: Post) {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.main_frm, PostFragment())

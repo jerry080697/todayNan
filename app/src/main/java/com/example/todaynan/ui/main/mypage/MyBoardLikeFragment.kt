@@ -6,6 +6,7 @@ import com.example.todaynan.data.entity.Post
 import com.example.todaynan.R
 import com.example.todaynan.databinding.FragmentMyBoardLikeBinding
 import com.example.todaynan.ui.BaseFragment
+import com.example.todaynan.ui.main.board.PostFragment
 
 
 class MyBoardLikeFragment : BaseFragment<FragmentMyBoardLikeBinding>(FragmentMyBoardLikeBinding::inflate) {
@@ -16,7 +17,11 @@ class MyBoardLikeFragment : BaseFragment<FragmentMyBoardLikeBinding>(FragmentMyB
         val boardLikeAdapter = PostRVAdapter(items)
         binding.boardLikeRv.adapter = boardLikeAdapter
         binding.boardLikeRv.layoutManager = LinearLayoutManager(context)
+        boardLikeAdapter.setMyItemClickListner(object : PostRVAdapter.MyItemClickListner {
+            override fun onItemClick(post: Post) {
 
+            }
+        })
 
         binding.boardLikeBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()

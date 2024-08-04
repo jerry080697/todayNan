@@ -16,7 +16,11 @@ class MyBoardWriteFragment : BaseFragment<FragmentMyBoardWriteBinding>(FragmentM
         val boardWriteAdapter = PostRVAdapter(items)
         binding.boardWriteRv.adapter = boardWriteAdapter
         binding.boardWriteRv.layoutManager = LinearLayoutManager(context)
+        boardWriteAdapter.setMyItemClickListner(object : PostRVAdapter.MyItemClickListner {
+            override fun onItemClick(post: Post) {
 
+            }
+        })
 
         binding.boardWriteBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()

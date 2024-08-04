@@ -16,7 +16,11 @@ class MyBoardReplyFragment : BaseFragment<FragmentMyBoardReplyBinding>(FragmentM
         val boardReplyAdapter = PostRVAdapter(items)
         binding.boardReplyRv.adapter = boardReplyAdapter
         binding.boardReplyRv.layoutManager = LinearLayoutManager(context)
+        boardReplyAdapter.setMyItemClickListner(object : PostRVAdapter.MyItemClickListner {
+            override fun onItemClick(post: Post) {
 
+            }
+        })
 
         binding.boardReplyBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
