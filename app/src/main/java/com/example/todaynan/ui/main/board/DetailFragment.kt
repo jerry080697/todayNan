@@ -23,8 +23,8 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
 
     override fun initAfterBinding() {
 
-        val text = arguments?.getString("type")
-        binding.detailTv.text = text
+        val type = arguments?.getString("type")
+        binding.detailTv.text = type
 
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
         val boardLikeAdapter = PostRVAdapter(items)
