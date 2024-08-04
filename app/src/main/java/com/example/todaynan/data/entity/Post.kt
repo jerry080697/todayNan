@@ -1,6 +1,6 @@
 package com.example.todaynan.data.entity
 
-data class MyLikedPost(
+data class Post(
     val userName: String,
     val profileImg: Int,
     val creationTime: String,

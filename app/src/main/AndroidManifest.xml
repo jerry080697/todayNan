@@ -38,18 +38,6 @@
         <activity android:name=".ui.signup.Page2SignUpActivity"/>
         <activity android:name=".ui.signup.Page3SignUpActivity"/>
         <activity android:name=".ui.signup.Page8SignUpActivity"/>
-        <activity android:name=".ui.main.mypage.ChangeInfoFragment"/>
-        <activity android:name=".ui.main.mypage.ChangeNicknameFragment"/>
-        <activity android:name=".ui.main.mypage.ChangeLocationFragment"/>
-        <activity android:name=".ui.main.mypage.ChangeInterestFragment"/>
-        <activity android:name=".ui.main.mypage.ChangeLogoutFragment"/>
-        <activity android:name=".ui.main.mypage.ChangeWithdrawFragment"/>
-        <activity android:name=".ui.main.mypage.JjimListFragment"/>
-        <activity android:name=".ui.main.mypage.PostFragment"/>
-        <activity android:name=".ui.main.mypage.MyBoardFragment"/>
-        <activity android:name=".ui.main.mypage.MyBoardLikeFragment"/>
-        <activity android:name=".ui.main.mypage.MyBoardWriteFragment"/>
-        <activity android:name=".ui.main.mypage.MyBoardReplyFragment"/>
     </application>
 
 </manifest>

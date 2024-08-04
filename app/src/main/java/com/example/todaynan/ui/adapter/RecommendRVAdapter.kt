@@ -46,6 +46,7 @@ class RecommendRVAdapter(private val recommendList: ArrayList<Recommend>, privat
         fun bind(recommend: Recommend) {
             binding.itemImageIv.setImageResource(recommend.image!!)
             binding.itemTitleTv.text = recommend.title
+            binding.itemInfoTv.text = recommend.info
         }
     }
 
