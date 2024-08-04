@@ -2,14 +2,19 @@ package com.example.todaynan.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todaynan.R
 import com.example.todaynan.data.entity.Post
 import com.example.todaynan.databinding.ItemPostBinding
 
-class PostRVAdapter(private val items: List<Post>) : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
+class PostRVAdapter(private val pList: List<Post>) : RecyclerView.Adapter<PostRVAdapter.ViewHolder>() {
+
+    interface MyItemClickListner{
+        fun onItemClick(post: Post)
+    }
+    private lateinit var myItemClickListner: MyItemClickListner
+    fun setMyItemClickListner(itemClickListner: MyItemClickListner){
+        myItemClickListner = itemClickListner
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemPostBinding = ItemPostBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
@@ -17,30 +22,27 @@ class PostRVAdapter(private val items: List<Post>) : RecyclerView.Adapter<PostRV
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
-
-        holder.userName.text = item.userName
-        holder.profileImg.setImageResource(R.drawable.default_profile_img)
-        holder.userLocation.text = item.location
-        holder.creationTime.text= item.creationTime
-        holder.likedNum.text= item.likedNum.toString()
-        holder.replyNum.text=item.replyNum.toString()
-        holder.postTitle.text=item.postTitle
-        holder.postContent.text=item.postContent
+        holder.itemView.setOnClickListener{
+            myItemClickListner.onItemClick(pList[position])
+        }
+        holder.bind(pList[position])
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return pList.size
     }
 
     inner class ViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
-        val profileImg: ImageView = binding.likedPostProfileIv
-        val userName: TextView = binding.likedPostUserNameTv
-        val userLocation:TextView=binding.likedPostUserLocationTv
-        val likedNum:TextView=binding.postLikeNumberTv
-        val replyNum:TextView=binding.postReplyNumberTv
-        val creationTime:TextView=binding.likedPostCreationTimeTv
-        val postTitle:TextView=binding.likedPostTitleTv
-        val postContent:TextView=binding.likedPostContentTv
+        fun bind(post: Post){
+            binding.postProfileIv.setImageResource(post.profileImg!!)
+            binding.postUserNameTv.text = post.userName
+            binding.postUserLocationTv.text = post.location
+            binding.postLikeNumberTv.text = post.likedNum.toString()
+            binding.postReplyNumberTv.text = post.replyNum.toString()
+            binding.likedPostCreationTimeTv.text = post.creationTime
+            binding.likedPostTitleTv.text = post.postTitle
+            binding.likedPostContentTv.text = post.postContent
+        }
+
     }
 }

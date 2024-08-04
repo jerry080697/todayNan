@@ -30,6 +30,15 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         val boardLikeAdapter = PostRVAdapter(items)
         binding.detailBoardRv.adapter = boardLikeAdapter
         binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
+        boardLikeAdapter.setMyItemClickListner(object : PostRVAdapter.MyItemClickListner{
+            override fun onItemClick(post: Post) {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_frm, PostFragment())
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss()
+            }
+
+        })
 
         binding.searchImageBt1.setOnClickListener {
             hideKeyboard()
