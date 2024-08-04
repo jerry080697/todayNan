@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.data.entity.City
 import com.example.todaynan.data.entity.Location
+import com.example.todaynan.data.entity.SignupData
 import com.example.todaynan.databinding.SignupPage3Binding
 import com.example.todaynan.ui.BaseActivity
 import com.example.todaynan.ui.adapter.CityRVAdapter
@@ -15,7 +16,7 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
     private var selectedCity: String? = null
     private var selectedDistrict: String? = null
     private var selectedDong: String? = null
-    private var completeAddress: String? = null
+
     override fun initAfterBinding() {
         val allLocations = generateDummyItems()
         val cities = generateDummyItem()
@@ -47,7 +48,6 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
         selectedCity = city.cityName
         selectedDistrict = null
         selectedDong = null
-        completeAddress = null
 
         val filteredDistricts = allLocations.filter { it.cityName == city.cityName }
             .distinctBy { it.districtName }
@@ -63,7 +63,6 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
     private fun onDistrictItemClick(location: Location, allLocations: List<Location>) {
         selectedDistrict = location.districtName
         selectedDong = null
-        completeAddress = null
 
         val filteredDongLocations = allLocations.filter { it.districtName == location.districtName }
 
@@ -76,12 +75,10 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
 
     private fun onDongItemClick(location: Location) {
         selectedDong = location.dongName
-        completeAddress = "$selectedCity $selectedDistrict $selectedDong"
+        val completeAddress = "$selectedCity $selectedDistrict $selectedDong"
+        SignupData.completeAddress = completeAddress
 
-        // Pass the complete address to Page1SignUpActivity
-        val intent = Intent(this, Page1SignUpActivity::class.java).apply {
-            putExtra("completeAddress", completeAddress)
-        }
+        val intent = Intent(this, Page1SignUpActivity::class.java)
         startActivity(intent)
     }
 
