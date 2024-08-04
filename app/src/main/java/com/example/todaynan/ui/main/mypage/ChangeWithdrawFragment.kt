@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.todaynan.databinding.FragmentChangeWithdrawBinding
 import com.example.todaynan.databinding.FragmentSearchBinding
@@ -15,6 +16,9 @@ class ChangeWithdrawFragment : BaseFragment<FragmentChangeWithdrawBinding>(Fragm
 
         binding.changeWithdrawBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+        binding.withdrawChangeBtnIv.setOnClickListener {
+            Toast.makeText(context, "회원탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show()
         }
 
     }

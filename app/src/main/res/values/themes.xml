@@ -9,4 +9,8 @@
 
     <style name="Theme.TodayNan" parent="Base.Theme.TodayNan" />
 
+    <style name="RoundedTopCorners">
+        <item name="android:background">@drawable/rounded_top_corners</item>
+    </style>
+
 </resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="290dp"
+    android:layout_height="300dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginHorizontal="35dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/item_bg">
+
+
+    <ImageView
+        android:id="@+id/place_img_iv"
+        android:layout_width="250dp"
+        android:layout_height="180dp"
+        android:src="@drawable/item_temp_img"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@id/place_description_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginVertical="20dp"
+        android:id="@+id/place_description_box"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="25dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+            android:id="@+id/place_name_tv"
+            android:layout_width="200dp"
+            android:layout_height="25dp"
+            android:text="월드컵공원 산책로"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/place_address_tv"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="서울 마포구 하늘공원로 86"
+            android:textSize="14sp"
+            android:textColor="@color/gray1"
+            app:layout_constraintTop_toBottomOf="@id/place_name_tv"
+            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/place_detail_tv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textStyle="bold"
+            android:text="장소 서어어어어어어얼명"
+            android:textSize="14dp"
+            app:layout_constraintTop_toBottomOf="@id/place_address_tv"
+            app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/place_like_off"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="visible"
+            android:src="@drawable/item_like_off"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/place_name_tv"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/place_like_on"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:src="@drawable/item_like_on"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/place_name_tv"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

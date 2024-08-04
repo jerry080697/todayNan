@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="@id/board_write_back_btn"
         app:layout_constraintBottom_toBottomOf="@id/board_write_back_btn"/>
     <ImageView
-        android:id="@+id/board_write_search_bar"
+        android:id="@+id/board_write_search_bar_iv"
         android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,10 +38,11 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="80dp"/>
     <EditText
+        android:id="@+id/board_write_search_bar_et"
         android:hint="검색"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/board_write_search_bar"
+        app:layout_constraintStart_toStartOf="@id/board_write_search_bar_iv"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/transparent"
         android:layout_marginTop="80dp"
@@ -54,7 +55,7 @@
         android:layout_marginHorizontal="15dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/board_write_search_bar"
+        app:layout_constraintTop_toBottomOf="@id/board_write_search_bar_iv"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_post"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
