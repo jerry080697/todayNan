@@ -1,6 +1,6 @@
 package com.example.todaynan.data.entity
 
-data class PostList(
+data class Chat(
     val userName: String,
     val imageUrl: Int,
     val content:String,

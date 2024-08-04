@@ -1,15 +1,9 @@
 package com.example.todaynan.ui.main.mypage
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.ui.adapter.RecommendRVAdapter
 import com.example.todaynan.data.entity.Recommend
-import com.example.todaynan.databinding.FragmentBoardBinding
 import com.example.todaynan.databinding.FragmentJjimListBinding
 import com.example.todaynan.ui.BaseFragment
 
@@ -21,7 +15,7 @@ class JjimListFragment : BaseFragment<FragmentJjimListBinding>(FragmentJjimListB
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
         val jjimListAdapter = RecommendRVAdapter(items, 2)
         binding.jjimListRv.adapter = jjimListAdapter
-        binding.jjimListRv.layoutManager = GridLayoutManager(context, 2)
+        binding.jjimListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         binding.jjimListBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
