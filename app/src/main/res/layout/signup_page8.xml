@@ -146,6 +146,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_3_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -197,6 +198,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_4_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -248,6 +250,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_5_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -299,6 +302,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_6_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -350,6 +354,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_7_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -401,6 +406,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_8_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -452,6 +458,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_9_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -503,6 +510,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_10_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -554,6 +562,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_11_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -605,6 +614,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_12_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -656,6 +666,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_13_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -707,6 +718,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_14_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -758,6 +770,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_15_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -809,6 +822,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_16_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -860,6 +874,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_17_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -911,6 +926,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_18_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -962,6 +978,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_19_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -1013,6 +1030,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_20_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
@@ -1064,6 +1082,7 @@
             android:background="@drawable/rectangle_2" />
 
         <TextView
+            android:id="@+id/signup_select_21_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
