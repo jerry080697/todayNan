@@ -6,13 +6,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
-import com.example.todaynan.data.entity.MyLikedPost
-import com.example.todaynan.databinding.MyLikedPostBinding
+import com.example.todaynan.data.entity.Post
+import com.example.todaynan.databinding.ItemLikePostBinding
 
-class BoardWriteActivityRVAdpater(private val items: List<MyLikedPost>) : RecyclerView.Adapter<BoardWriteActivityRVAdpater.ViewHolder>() {
+class LikePostRVAdapter(private val items: List<Post>) : RecyclerView.Adapter<LikePostRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding= MyLikedPostBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
+        val binding: ItemLikePostBinding = ItemLikePostBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
         return ViewHolder(binding)
     }
 
@@ -22,7 +22,6 @@ class BoardWriteActivityRVAdpater(private val items: List<MyLikedPost>) : Recycl
         holder.userName.text = item.userName
         holder.profileImg.setImageResource(R.drawable.default_profile_img)
         holder.userLocation.text = item.location
-        holder.boardTitle.text=item.boardTitle
         holder.creationTime.text= item.creationTime
         holder.likedNum.text= item.likedNum.toString()
         holder.replyNum.text=item.replyNum.toString()
@@ -34,14 +33,13 @@ class BoardWriteActivityRVAdpater(private val items: List<MyLikedPost>) : Recycl
         return items.size
     }
 
-    inner class ViewHolder(val binding: MyLikedPostBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemLikePostBinding) : RecyclerView.ViewHolder(binding.root) {
         val profileImg: ImageView = binding.likedPostProfileIv
         val userName: TextView = binding.likedPostUserNameTv
         val userLocation:TextView=binding.likedPostUserLocationTv
         val likedNum:TextView=binding.postLikeNumberTv
         val replyNum:TextView=binding.postReplyNumberTv
         val creationTime:TextView=binding.likedPostCreationTimeTv
-        val boardTitle:TextView=binding.likedPostBoardNameTv
         val postTitle:TextView=binding.likedPostTitleTv
         val postContent:TextView=binding.likedPostContentTv
     }
