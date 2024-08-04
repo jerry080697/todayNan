@@ -32,8 +32,9 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
         boardAdapter.setMyItemClickListner(object : PostRVAdapter.MyItemClickListner{
             override fun onItemClick(post: Post) {
+                val postFragment = PostFragment.newInstance(binding.detailTv.text.toString())
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_frm, PostFragment())
+                    .replace(R.id.main_frm, postFragment)
                     .addToBackStack(null)
                     .commitAllowingStateLoss()
             }
