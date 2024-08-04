@@ -29,7 +29,7 @@ class SearchMenuPopup(
         val binding = PopupResultMenuBinding.inflate(inflater, null, false)
         contentView = binding.root
 
-        width = getDp(context, 110.0f)  //팝업창 가로 길이 설정
+        width = getDp(context, 120.0f)  //팝업창 가로 길이 설정
 
         val layoutParam = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 80)
 

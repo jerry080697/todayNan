@@ -7,13 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
-import com.example.todaynan.data.entity.PostList
-import com.example.todaynan.databinding.PostListBinding
+import com.example.todaynan.data.entity.Chat
+import com.example.todaynan.databinding.ItemChatBinding
 
-class PostListRVAdapter(private val items: List<PostList>) : RecyclerView.Adapter<PostListRVAdapter.ViewHolder>() {
+class ChatRVAdapter(private val items: List<Chat>) : RecyclerView.Adapter<ChatRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val binding:PostListBinding= PostListBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
+        val binding:ItemChatBinding = ItemChatBinding.inflate(LayoutInflater.from(viewGroup.context),viewGroup,false)
         return ViewHolder(binding)
     }
 
@@ -37,7 +37,7 @@ class PostListRVAdapter(private val items: List<PostList>) : RecyclerView.Adapte
         return items.size
     }
 
-    inner class ViewHolder(val binding: PostListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root) {
         val profileImg:ImageView=binding.postListUserProfileIv
         val userName: TextView = binding.postListUserNameTv
         val content:TextView=binding.postListContentTv

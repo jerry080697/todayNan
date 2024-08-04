@@ -1,5 +1,10 @@
 package com.example.todaynan.ui.main
 
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.app.ActivityCompat
 import com.example.todaynan.ui.main.board.BoardFragment
 import com.example.todaynan.ui.main.location.LocationFragment
 import com.example.todaynan.ui.main.mypage.MyPageFragment
@@ -11,7 +16,38 @@ import com.example.todaynan.ui.BaseActivity
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
     override fun initAfterBinding() {
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         initBottomNavigation()
+    }
+
+    // 뒤로가기 버튼 눌렀을 때 발동되는 함수 (두번 눌러야 종료)
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        var isExit : Boolean = false
+        override fun handleOnBackPressed() {
+            // 백 스택의 크기를 확인
+            val backStackCount = supportFragmentManager.backStackEntryCount
+
+            if(backStackCount == 0){
+                if(isExit) {
+                    ActivityCompat.finishAffinity(this@MainActivity)
+                    System.runFinalization()
+                    System.exit(0)
+                }
+                else {
+                    Toast.makeText(this@MainActivity, "종료하려면 뒤로가기를 한 번 더 누르세요.", Toast.LENGTH_SHORT).show()
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                    isExit = true
+                }, 300)
+                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                    isExit = false
+                }, 3000)
+            }else {
+                // 백 스택의 크기가 1이 아니면 백 스택에서 이전 프래그먼트로 이동
+                supportFragmentManager.popBackStack()
+            }
+        }
     }
 
     private fun initBottomNavigation(){
