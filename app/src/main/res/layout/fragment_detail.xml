@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/detail_back_btn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/detail_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="구인 게시판"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textColor="#411010"
         android:textStyle="bold"
         android:layout_marginTop="30dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/detail_back_btn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,14 +69,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/detail_loc_cl"
         android:layout_width="60dp"
         android:layout_height="20dp"
         android:background="@drawable/item_location_bg"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@id/detail_tv"
+        app:layout_constraintStart_toStartOf="@id/detail_back_btn"
         app:layout_constraintTop_toBottomOf="@id/detail_tv">
         <ImageView
             android:id="@+id/loc_info_iv"
@@ -92,7 +102,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/loc_info_iv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/detail_register_cl"
         android:layout_width="70dp"

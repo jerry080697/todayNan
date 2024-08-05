@@ -55,12 +55,14 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                 false // 이벤트 처리 안 함
             }
         }
-
         binding.detailRegisterCl.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, RegisterFragment())
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
+        }
+        binding.detailBackBtn.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
     }
 
