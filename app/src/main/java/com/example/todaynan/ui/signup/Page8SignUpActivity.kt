@@ -23,9 +23,8 @@ class Page8SignUpActivity : BaseActivity<SignupPage8Binding>(SignupPage8Binding:
 
         addOptionList()
 
-        for (i: Int in 0..4) {
-            Log.d("option",optionList[optionListIndex.indexOf(i)])
-        }
+        Log.d("option", AppData.perfer.toString())
+
 
         option1()
         option2()
@@ -55,6 +54,13 @@ class Page8SignUpActivity : BaseActivity<SignupPage8Binding>(SignupPage8Binding:
                 SignupData.selectedOptions.clear()
                 SignupData.selectedOptions.addAll(selectedOptions)
                 AppData.perfer = selectedOptions as ArrayList<String>
+
+                Log.d("option2",AppData.perfer[0])
+                Log.d("option2",AppData.perfer[1])
+                Log.d("option2",AppData.perfer[2])
+                Log.d("option2",AppData.perfer[3])
+                Log.d("option2",AppData.perfer[4])
+
 
                 /*val status = true
                 val intent = Intent(this, Page1SignUpActivity::class.java)
@@ -89,11 +95,6 @@ class Page8SignUpActivity : BaseActivity<SignupPage8Binding>(SignupPage8Binding:
         optionList.add(18, "레고")
         optionList.add(19, "pc게임")
         optionList.add(20, "모바일게임")
-        optionListIndex.add(0)
-        optionListIndex.add(1)
-        optionListIndex.add(2)
-        optionListIndex.add(3)
-        optionListIndex.add(4)
 
     }
 
