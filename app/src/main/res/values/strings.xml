@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TodayNan</string>
+    <string name="kakao_native_key">1d0c95e1e877cf9d2fd0b8f48d1a8599</string>
+    <string name="kakao_key">kakao1d0c95e1e877cf9d2fd0b8f48d1a8599</string>
 </resources>

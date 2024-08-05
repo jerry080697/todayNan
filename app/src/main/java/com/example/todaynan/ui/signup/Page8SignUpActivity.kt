@@ -2,6 +2,7 @@ package com.example.todaynan.ui.signup
 
 import  android.content.Intent
 import android.view.View
+import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.SignupData
 import com.example.todaynan.databinding.SignupPage8Binding
 import com.example.todaynan.ui.BaseActivity
@@ -44,11 +45,13 @@ class Page8SignUpActivity : BaseActivity<SignupPage8Binding>(SignupPage8Binding:
             if (selectedOptions.size in 1..5) {
                 SignupData.selectedOptions.clear()
                 SignupData.selectedOptions.addAll(selectedOptions)
+                AppData.perfer = selectedOptions as ArrayList<String>
 
-                val status = true
+                /*val status = true
                 val intent = Intent(this, Page1SignUpActivity::class.java)
                 intent.putExtra("status", status)
-                startActivity(intent)
+                startActivity(intent)*/
+                finish()
             }
         }
 

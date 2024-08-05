@@ -68,6 +68,7 @@ dependencies {
     implementation ("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
     implementation ("com.google.android.material:material:1.4.0")
 
-
+    // 카카오 로그인
+    implementation ("com.kakao.sdk:v2-user:2.20.3")
 
 }
