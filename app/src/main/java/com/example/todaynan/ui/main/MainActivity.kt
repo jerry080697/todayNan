@@ -2,6 +2,7 @@ package com.example.todaynan.ui.main
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
@@ -9,6 +10,7 @@ import com.example.todaynan.ui.main.board.BoardFragment
 import com.example.todaynan.ui.main.location.LocationFragment
 import com.example.todaynan.ui.main.mypage.MyPageFragment
 import com.example.todaynan.R
+import com.example.todaynan.base.AppData
 import com.example.todaynan.ui.main.search.SearchFragment
 import com.example.todaynan.databinding.ActivityMainBinding
 import com.example.todaynan.ui.BaseActivity
@@ -16,6 +18,12 @@ import com.example.todaynan.ui.BaseActivity
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
     override fun initAfterBinding() {
+        // 회원가입 정보 확인
+        Log.d("TAG", AppData.address)
+        Log.d("TAG", AppData.perfer.toString())
+        Log.d("TAG", AppData.nickname)
+        Log.d("TAG", AppData.mypet)
+
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         initBottomNavigation()
     }

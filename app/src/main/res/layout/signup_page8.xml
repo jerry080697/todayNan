@@ -306,7 +306,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브1"
+            android:text="영화"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -332,7 +332,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브1"
+            android:text="영화"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -358,7 +358,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브2"
+            android:text="드라마"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -384,7 +384,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브2"
+            android:text="드라마"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -410,7 +410,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브3"
+            android:text="예능"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -436,7 +436,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브3"
+            android:text="예능"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -462,7 +462,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브4"
+            android:text="웹소설"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -488,7 +488,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브4"
+            android:text="웹소설"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -514,7 +514,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브5"
+            android:text="웹툰"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -540,7 +540,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브5"
+            android:text="웹툰"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -566,7 +566,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브6"
+            android:text="음악감상"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -592,7 +592,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브6"
+            android:text="음악감상"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -618,7 +618,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브7"
+            android:text="에세이"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -644,7 +644,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브7"
+            android:text="에세이"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -670,7 +670,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브8"
+            android:text="소설"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -696,7 +696,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브8"
+            android:text="소설"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -722,7 +722,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브9"
+            android:text="시"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -748,7 +748,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브9"
+            android:text="시"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -774,7 +774,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브10"
+            android:text="베이킹"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -800,7 +800,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브10"
+            android:text="베이킹"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -826,7 +826,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브11"
+            android:text="뜨개질"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -852,7 +852,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브11"
+            android:text="뜨개질"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -878,7 +878,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브12"
+            android:text="자수"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -904,7 +904,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브12"
+            android:text="자수"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -930,7 +930,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브13"
+            android:text="퍼즐"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -956,7 +956,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브13"
+            android:text="퍼즐"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -982,7 +982,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브14"
+            android:text="레고"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -1008,7 +1008,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브14"
+            android:text="레고"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -1034,7 +1034,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브15"
+            android:text="pc게임"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -1060,7 +1060,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브15"
+            android:text="pc게임"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -1086,7 +1086,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브16"
+            android:text="모바일게임"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -1112,7 +1112,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브16"
+            android:text="모바일게임"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />

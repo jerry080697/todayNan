@@ -2,6 +2,8 @@ package com.example.todaynan.ui.signup
 
 import android.content.Intent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import com.example.todaynan.base.AppData
 import com.example.todaynan.databinding.SignupPage2Binding
 import com.example.todaynan.ui.BaseActivity
 import com.example.todaynan.ui.main.MainActivity
@@ -13,6 +15,15 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         option2()
         option3()
 
+        binding.signupPage2Et.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
+                AppData.nickname = binding.signupPage2Et.text.toString()
+                hideKeyboard(binding.signupPage2Et)
+                true // 이벤트 처리 완료
+            } else {
+                false // 이벤트 처리 안 함
+            }
+        }
         binding.signupLetsgoBtnDark.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -25,9 +36,11 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         if (isSelect) {
             binding.signupPet1DarkCv.visibility = View.VISIBLE
             binding.signupPet1Cv.visibility = View.INVISIBLE
+            AppData.mypet = "강아지"
         } else {
             binding.signupPet1DarkCv.visibility = View.INVISIBLE
             binding.signupPet1Cv.visibility = View.VISIBLE
+            AppData.mypet = ""
         }
     }
 
@@ -35,9 +48,11 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         if (isSelect) {
             binding.signupPet2DarkCv.visibility = View.VISIBLE
             binding.signupPet2Cv.visibility = View.INVISIBLE
+            AppData.mypet = "고양이"
         } else {
             binding.signupPet2DarkCv.visibility = View.INVISIBLE
             binding.signupPet2Cv.visibility = View.VISIBLE
+            AppData.mypet = ""
         }
     }
 
@@ -45,9 +60,11 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         if (isSelect) {
             binding.signupPet3DarkCv.visibility = View.VISIBLE
             binding.signupPet3Cv.visibility = View.INVISIBLE
+            AppData.mypet = "쿼카"
         } else {
             binding.signupPet3DarkCv.visibility = View.INVISIBLE
             binding.signupPet3Cv.visibility = View.VISIBLE
+            AppData.mypet = ""
         }
     }
 

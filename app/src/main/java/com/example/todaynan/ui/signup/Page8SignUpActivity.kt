@@ -1,7 +1,9 @@
 package com.example.todaynan.ui.signup
 
 import  android.content.Intent
+import android.util.Log
 import android.view.View
+import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.SignupData
 import com.example.todaynan.databinding.SignupPage8Binding
 import com.example.todaynan.ui.BaseActivity
@@ -10,11 +12,19 @@ class Page8SignUpActivity : BaseActivity<SignupPage8Binding>(SignupPage8Binding:
 
     private val selectedOptions = mutableListOf<String>()
     private val selectedOptionsIndex = mutableListOf<Int>()
+    private val optionList = mutableListOf<String>()
+    private val optionListIndex = mutableListOf<Int>()
 
     override fun initAfterBinding() {
 
         binding.signupPage8Back.setOnClickListener {
             finish()
+        }
+
+        addOptionList()
+
+        for (i: Int in 0..4) {
+            Log.d("option",optionList[optionListIndex.indexOf(i)])
         }
 
         option1()
@@ -44,16 +54,48 @@ class Page8SignUpActivity : BaseActivity<SignupPage8Binding>(SignupPage8Binding:
             if (selectedOptions.size in 1..5) {
                 SignupData.selectedOptions.clear()
                 SignupData.selectedOptions.addAll(selectedOptions)
+                AppData.perfer = selectedOptions as ArrayList<String>
 
-                val status = true
+                /*val status = true
                 val intent = Intent(this, Page1SignUpActivity::class.java)
                 intent.putExtra("status", status)
-                startActivity(intent)
+                startActivity(intent)*/
+                finish()
             }
         }
 
     }
 
+
+    fun addOptionList(){
+        optionList.add(0, "맛집 탐방")
+        optionList.add(1, "카페")
+        optionList.add(2, "산책")
+        optionList.add(3, "익스트림")
+        optionList.add(4, "드라이브")
+        optionList.add(5, "영화")
+        optionList.add(6, "드라마")
+        optionList.add(7, "예능")
+        optionList.add(8, "웹소설")
+        optionList.add(9, "웹툰")
+        optionList.add(10, "음악감상")
+        optionList.add(11, "에세이")
+        optionList.add(12, "소설")
+        optionList.add(13, "시")
+        optionList.add(14, "베이킹")
+        optionList.add(15, "뜨개질")
+        optionList.add(16, "자수")
+        optionList.add(17, "퍼즐")
+        optionList.add(18, "레고")
+        optionList.add(19, "pc게임")
+        optionList.add(20, "모바일게임")
+        optionListIndex.add(0)
+        optionListIndex.add(1)
+        optionListIndex.add(2)
+        optionListIndex.add(3)
+        optionListIndex.add(4)
+
+    }
 
     fun selectOption1(isSelect: Boolean) {
         if (isSelect) {

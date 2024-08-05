@@ -3,6 +3,7 @@ package com.example.todaynan.ui.signup
 import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.City
 import com.example.todaynan.data.entity.Location
 import com.example.todaynan.data.entity.SignupData
@@ -12,6 +13,7 @@ import com.example.todaynan.ui.adapter.CityRVAdapter
 import com.example.todaynan.ui.adapter.DistrictRVAdapter
 import com.example.todaynan.ui.adapter.DongRVAdapter
 import com.example.todaynan.utils.CSVUtils
+
 class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding::inflate) {
     private var selectedCity: String? = null
     private var selectedDistrict: String? = null
@@ -76,10 +78,12 @@ class Page3SignUpActivity : BaseActivity<SignupPage3Binding>(SignupPage3Binding:
     private fun onDongItemClick(location: Location) {
         selectedDong = location.dongName
         val completeAddress = "$selectedCity $selectedDistrict $selectedDong"
-        SignupData.completeAddress = completeAddress
+        //SignupData.completeAddress = completeAddress
+        AppData.address = completeAddress
 
-        val intent = Intent(this, Page1SignUpActivity::class.java)
-        startActivity(intent)
+        //val intent = Intent(this, Page1SignUpActivity::class.java)
+        //startActivity(intent)
+        finish()
     }
 
     private fun generateDummyItems(): List<Location> {
