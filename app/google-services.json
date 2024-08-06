@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "428674157221",
+    "project_id": "todaynan-2fd4c",
+    "storage_bucket": "todaynan-2fd4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428674157221:android:ab6010d1007bf2b8179b4c",
+        "android_client_info": {
+          "package_name": "com.example.todaynan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANpTAIA0BeHWVTZOeC2AhT0gfyLo3MyYk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
