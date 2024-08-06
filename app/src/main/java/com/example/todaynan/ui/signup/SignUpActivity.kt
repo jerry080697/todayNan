@@ -4,6 +4,9 @@ import android.content.Intent
 import android.util.Log
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
+import com.example.todaynan.data.entity.GoogleRequest
+import com.example.todaynan.data.remote.user.GoogleResponse
+import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.databinding.ActivitySignupBinding
 import com.example.todaynan.ui.BaseActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -11,8 +14,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
+import com.google.gson.GsonBuilder
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class SignUpActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding::inflate) {
 
@@ -67,6 +76,11 @@ class SignUpActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding
 
                     Log.d("TAG", "Email: ${account.email ?: ""}")
                     Log.d("TAG", "authCode: ${account.serverAuthCode}")
+                    // accessToken 발급
+                    if (account.serverAuthCode != null){
+                        Log.d("TAG", "authCode Try!")
+                        getAccessToken(account.serverAuthCode!!)
+                    }
                 } catch (e: ApiException) {
                     e.printStackTrace()
                     Log.d("TAG", e.toString())
@@ -74,4 +88,33 @@ class SignUpActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding
             }
         }
     }
+    private fun getAccessToken(authCode:String) {
+        val gson = GsonBuilder().setLenient().create()
+        val gServer = Retrofit.Builder()
+            .baseUrl("https://www.googleapis.com")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(UserInterface::class.java)
+
+        gServer.getAccessToken(
+            request = GoogleRequest(
+                grant_type = "authorization_code",
+                client_id = getString(R.string.google_client_id),
+                client_secret = getString(R.string.google_client_secret),
+                code = authCode
+            )
+        ).enqueue(object : Callback<GoogleResponse> {
+            override fun onResponse(call: Call<GoogleResponse>, response: Response<GoogleResponse>) {
+                if(response.isSuccessful) {
+                    val accessToken = response.body()?.access_token.orEmpty()
+
+                    Log.d("TAG", "SUCCESS_accessToken: $accessToken")
+                }
+            }
+            override fun onFailure(call: Call<GoogleResponse>, t: Throwable) {
+                Log.e("TAG", "FAIL_accessToken: ",t.fillInStackTrace() )
+            }
+        })
+    }
+
 }

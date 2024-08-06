@@ -1,5 +1,6 @@
 package com.example.todaynan.data.remote.user
 
+import com.example.todaynan.data.entity.GoogleRequest
 import com.example.todaynan.data.entity.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -8,6 +9,11 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface UserInterface {
+    // 구글 accessToken 발급
+    @POST("oauth2/v4/token")
+    fun getAccessToken(
+        @Body request: GoogleRequest
+    ): Call<GoogleResponse>
 
     // 회원가입
     @POST("/user/signup")
