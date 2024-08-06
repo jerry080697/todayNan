@@ -1,6 +1,7 @@
 package com.example.todaynan.ui.signup
 
 import android.util.Log
+import com.example.todaynan.base.AppData
 import com.example.todaynan.databinding.ActivitySignupBinding
 import com.example.todaynan.ui.BaseActivity
 import com.kakao.sdk.auth.model.OAuthToken
@@ -21,6 +22,7 @@ class SignUpActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding
 
         binding.kakaoBtn.setOnClickListener {
             UserApiClient.instance.loginWithKakaoAccount(this, callback = kakaoCallback)
+            AppData.socialType = "KAKAO"
         }
 
     }

@@ -1,12 +1,21 @@
 package com.example.todaynan.ui.signup
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.example.todaynan.base.AppData
+import com.example.todaynan.data.entity.User
+import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.user.Token
+import com.example.todaynan.data.remote.user.UserInterface
+import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.SignupPage2Binding
 import com.example.todaynan.ui.BaseActivity
 import com.example.todaynan.ui.main.MainActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding::inflate) {
 
@@ -28,15 +37,40 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+
+            appSignUp()
+
             finish()
         }
+    }
+
+    private fun appSignUp() {
+        val userService = getRetrofit().create(UserInterface::class.java)
+        val user = User(AppData.nickname, AppData.preferIdx, AppData.address, AppData.mypet)
+
+        userService.signUp(AppData.socialToken, AppData.socialType, user).enqueue(object :
+            Callback<UserResponse<Token>> {
+            override fun onResponse(
+                call: Call<UserResponse<Token>>,
+                response: Response<UserResponse<Token>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
+            }
+
+            override fun onFailure(call: Call<UserResponse<Token>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+
+        })
     }
 
     fun selectOption1(isSelect: Boolean) {
         if (isSelect) {
             binding.signupPet1DarkCv.visibility = View.VISIBLE
             binding.signupPet1Cv.visibility = View.INVISIBLE
-            AppData.mypet = "강아지"
+            AppData.mypet = "DOG"
         } else {
             binding.signupPet1DarkCv.visibility = View.INVISIBLE
             binding.signupPet1Cv.visibility = View.VISIBLE
@@ -48,7 +82,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         if (isSelect) {
             binding.signupPet2DarkCv.visibility = View.VISIBLE
             binding.signupPet2Cv.visibility = View.INVISIBLE
-            AppData.mypet = "고양이"
+            AppData.mypet = "CAT"
         } else {
             binding.signupPet2DarkCv.visibility = View.INVISIBLE
             binding.signupPet2Cv.visibility = View.VISIBLE
@@ -60,7 +94,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         if (isSelect) {
             binding.signupPet3DarkCv.visibility = View.VISIBLE
             binding.signupPet3Cv.visibility = View.INVISIBLE
-            AppData.mypet = "쿼카"
+            AppData.mypet = "QUOKKA"
         } else {
             binding.signupPet3DarkCv.visibility = View.INVISIBLE
             binding.signupPet3Cv.visibility = View.VISIBLE
