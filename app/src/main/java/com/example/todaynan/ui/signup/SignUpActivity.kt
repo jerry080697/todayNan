@@ -109,6 +109,8 @@ class SignUpActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding
                     val accessToken = response.body()?.access_token.orEmpty()
 
                     Log.d("TAG", "SUCCESS_accessToken: $accessToken")
+                    AppData.socialToken = accessToken
+                    startNextActivity(Page1SignUpActivity::class.java)
                 }
             }
             override fun onFailure(call: Call<GoogleResponse>, t: Throwable) {

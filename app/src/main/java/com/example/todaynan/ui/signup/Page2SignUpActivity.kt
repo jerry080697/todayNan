@@ -57,6 +57,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
                 Log.d("SERVER/SUCCESS", response.toString())
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
+                AppData.appToken = resp!!.result.accessToken
             }
 
             override fun onFailure(call: Call<UserResponse<Token>>, t: Throwable) {

@@ -5,6 +5,7 @@ import android.app.Application
 class AppData : Application() {
 
     companion object{
+        var appToken: String = ""
         var socialToken: String = ""
         var socialType: String = ""
         var address: String = ""
