@@ -33,11 +33,11 @@ class Page1SignUpActivity : BaseActivity<SignupPage1Binding>(SignupPage1Binding:
             binding.signupAddressTv.setTextColor(Color.BLACK)
             binding.signupAddressTv.text = AppData.address
         }
-        if(AppData.perfer.isNotEmpty()) {
-            binding.signupPlaySelectTv.text = AppData.perfer.joinToString(", ")
+        if(AppData.preferStr.isNotEmpty()) {
+            binding.signupPlaySelectTv.text = AppData.preferStr.joinToString(", ")
             binding.signupPlaySelectTv.setTextColor(Color.BLACK)
         }
-        if (AppData.address.isNotEmpty() && AppData.perfer.isNotEmpty()) {
+        if (AppData.address.isNotEmpty() && AppData.preferStr.isNotEmpty()) {
             binding.signupNextBtn.visibility = View.INVISIBLE
             binding.signupNextBtnDark.visibility = View.VISIBLE
         }

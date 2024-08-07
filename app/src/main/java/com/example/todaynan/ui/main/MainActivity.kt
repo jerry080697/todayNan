@@ -20,7 +20,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun initAfterBinding() {
         // 회원가입 정보 확인
         Log.d("TAG", AppData.address)
-        Log.d("TAG", AppData.perfer.toString())
+        Log.d("TAG", AppData.preferStr.toString())
         Log.d("TAG", AppData.nickname)
         Log.d("TAG", AppData.mypet)
 
