@@ -57,7 +57,10 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
                 Log.d("SERVER/SUCCESS", response.toString())
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
-                AppData.appToken = resp!!.result.accessToken
+                val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("appToken", resp!!.result.accessToken)
+                editor.apply()
             }
 
             override fun onFailure(call: Call<UserResponse<Token>>, t: Throwable) {
