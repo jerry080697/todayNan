@@ -5,10 +5,12 @@ import android.os.Looper
 import android.util.Log
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
+import com.example.todaynan.data.entity.User
 import com.example.todaynan.databinding.ActivitySplashBinding
 import com.example.todaynan.ui.BaseActivity
 import com.example.todaynan.ui.main.MainActivity
 import com.example.todaynan.ui.signup.SignUpActivity
+import com.google.gson.Gson
 import com.kakao.sdk.common.util.Utility
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
@@ -24,8 +26,17 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         Log.d("HASH", keyHash)
 
         // 회원 여부 확인
+        val gson: Gson = Gson()
         val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
         AppData.appToken = sharedPreferences.getString("appToken", "").toString()
+        val userJson = sharedPreferences.getString("user", null)
+        if(!userJson.isNullOrEmpty()){
+            val user = gson.fromJson(userJson, User::class.java)
+            AppData.nickname = user.nickname
+            AppData.preferIdx = user.prefer
+            AppData.address = user.address
+            AppData.mypet = user.mypet
+        }
 
         handler = Handler(Looper.getMainLooper())
         runnable = object : Runnable {

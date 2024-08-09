@@ -13,6 +13,7 @@ import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.SignupPage2Binding
 import com.example.todaynan.ui.BaseActivity
 import com.example.todaynan.ui.main.MainActivity
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,6 +46,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
     }
 
     private fun appSignUp() {
+        val gson: Gson = Gson()
         val userService = getRetrofit().create(UserInterface::class.java)
         val user = User(AppData.nickname, AppData.preferIdx, AppData.address, AppData.mypet)
 
@@ -57,9 +59,14 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
                 Log.d("SERVER/SUCCESS", response.toString())
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
+
                 val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
+                // 토큰
                 editor.putString("appToken", resp!!.result.accessToken)
+                // 회원정보
+                val userJson = gson.toJson(user)
+                editor.putString("user", userJson)
                 editor.apply()
             }
 
