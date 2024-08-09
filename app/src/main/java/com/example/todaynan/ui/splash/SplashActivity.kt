@@ -46,7 +46,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
                     1 -> setContentView(R.layout.splash_screen2)
                     2 -> setContentView(R.layout.splash_screen3)
                     else -> {
-                        Log.d("TAG_token", AppData.appToken)
+                        Log.d("TAG_tokenInSplash", AppData.appToken)
                         if(AppData.appToken.isNullOrEmpty())
                             startActivityWithClear(SignUpActivity::class.java)
                         else

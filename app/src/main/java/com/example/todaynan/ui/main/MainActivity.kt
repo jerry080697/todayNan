@@ -19,6 +19,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun initAfterBinding() {
         // 회원가입 정보 확인
+        val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
+        AppData.appToken = sharedPreferences.getString("appToken", "").toString()
+        Log.d("TAG_tokenInMain", AppData.appToken)
         Log.d("TAG", AppData.address)
         Log.d("TAG", AppData.preferIdx.toString())
         Log.d("TAG", AppData.nickname)

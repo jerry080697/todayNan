@@ -4,6 +4,7 @@ import com.example.todaynan.data.entity.GoogleRequest
 import com.example.todaynan.data.entity.User
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -23,4 +24,10 @@ interface UserInterface {
         @Body user: User
     ): Call<UserResponse<Token>>
 
+    // 로그인
+    @GET("/user/login/")
+    fun login(
+        @Query("accessToken") accessToken: String,
+        @Query("loginType") type: String,
+    ): Call<UserResponse<Login>>
 }
