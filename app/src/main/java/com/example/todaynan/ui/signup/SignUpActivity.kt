@@ -5,10 +5,14 @@ import android.util.Log
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.GoogleRequest
+import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.user.GoogleResponse
+import com.example.todaynan.data.remote.user.Login
 import com.example.todaynan.data.remote.user.UserInterface
+import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.ActivitySignupBinding
 import com.example.todaynan.ui.BaseActivity
+import com.example.todaynan.ui.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -110,7 +114,7 @@ class SignUpActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding
 
                     Log.d("TAG", "SUCCESS_accessToken: $accessToken")
                     AppData.socialToken = accessToken
-                    startNextActivity(Page1SignUpActivity::class.java)
+                    available()
                 }
             }
             override fun onFailure(call: Call<GoogleResponse>, t: Throwable) {
@@ -119,4 +123,39 @@ class SignUpActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding
         })
     }
 
+    // 기존 계정이 있는지 로그인 시도
+    private fun available(){
+        val userService = getRetrofit().create(UserInterface::class.java)
+
+        userService.login(AppData.socialToken, AppData.socialType).enqueue(object :
+            Callback<UserResponse<Login>>{
+            override fun onResponse(
+                call: Call<UserResponse<Login>>,
+                response: Response<UserResponse<Login>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
+
+                val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("socialToken", AppData.socialToken)
+                editor.putString("socialType", AppData.socialType)
+                if(resp!!.isSuccess){
+                    editor.putString("appToken", resp!!.result.accessToken)
+                    editor.apply()
+
+                    startNextActivity(MainActivity::class.java)
+                }else{
+                    startNextActivity(Page1SignUpActivity::class.java)
+                }
+
+            }
+
+            override fun onFailure(call: Call<UserResponse<Login>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+
+        })
+    }
 }

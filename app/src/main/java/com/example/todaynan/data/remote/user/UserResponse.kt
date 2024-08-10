@@ -16,3 +16,10 @@ data class Token(
     @SerializedName(value="accessToken")val accessToken: String,
     @SerializedName(value="refreshToken")val refreshToken: String,
 ): Serializable
+
+data class Login(
+    @SerializedName(value="user_id")val userId: Int,
+    @SerializedName(value="accessToken")val accessToken: String,
+    @SerializedName(value="refreshToken")val refreshToken: String,
+    @SerializedName(value="expiration")val expiration: String,
+): Serializable

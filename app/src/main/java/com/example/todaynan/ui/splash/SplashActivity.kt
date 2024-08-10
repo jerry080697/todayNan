@@ -3,14 +3,15 @@ package com.example.todaynan.ui.splash
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.Toast
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
+import com.example.todaynan.data.entity.User
 import com.example.todaynan.databinding.ActivitySplashBinding
 import com.example.todaynan.ui.BaseActivity
+import com.example.todaynan.ui.main.MainActivity
 import com.example.todaynan.ui.signup.SignUpActivity
+import com.google.gson.Gson
 import com.kakao.sdk.common.util.Utility
-import com.kakao.sdk.user.UserApiClient
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
 
@@ -24,16 +25,17 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         val keyHash = Utility.getKeyHash(this)
         Log.d("HASH", keyHash)
 
-        // 로그인 여부 확인
-        UserApiClient.instance.accessTokenInfo { token, error ->
-            if (error != null) {
-                Log.e("TAG", "카카오 미연동", error)
-                //Toast.makeText(this@SplashActivity, "비회원입니다", Toast.LENGTH_SHORT).show()
-            } else if (token != null) {
-                Log.i("TAG", "카카오 연동 $token")
-                AppData.socialToken = token.toString()
-                //Toast.makeText(this@SplashActivity, "회원입니다", Toast.LENGTH_SHORT).show()
-            }
+        // 회원 여부 확인
+        val gson: Gson = Gson()
+        val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
+        AppData.appToken = sharedPreferences.getString("appToken", "").toString()
+        val userJson = sharedPreferences.getString("user", null)
+        if(!userJson.isNullOrEmpty()){
+            val user = gson.fromJson(userJson, User::class.java)
+            AppData.nickname = user.nickname
+            AppData.preferIdx = user.prefer
+            AppData.address = user.address
+            AppData.mypet = user.mypet
         }
 
         handler = Handler(Looper.getMainLooper())
@@ -44,7 +46,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
                     1 -> setContentView(R.layout.splash_screen2)
                     2 -> setContentView(R.layout.splash_screen3)
                     else -> {
-                        startActivityWithClear(SignUpActivity::class.java)
+                        Log.d("TAG_tokenInSplash", AppData.appToken)
+                        if(AppData.appToken.isNullOrEmpty())
+                            startActivityWithClear(SignUpActivity::class.java)
+                        else
+                            startActivityWithClear(MainActivity::class.java)
                         finish()
                     }
                 }
