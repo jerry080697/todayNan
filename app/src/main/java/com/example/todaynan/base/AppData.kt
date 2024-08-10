@@ -1,9 +1,7 @@
 package com.example.todaynan.base
 
 import android.app.Application
-
 class AppData : Application() {
-
     companion object{
         var appToken: String = ""
         var socialToken: String = ""
@@ -14,5 +12,4 @@ class AppData : Application() {
         var nickname: String = ""
         var mypet: String = ""
     }
-
 }

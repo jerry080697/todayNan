@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
-
+import retrofit2.http.GET
 interface UserInterface {
     // 구글 accessToken 발급
     @POST("oauth2/v4/token")
@@ -22,5 +22,4 @@ interface UserInterface {
         @Query("loginType") type: String,
         @Body user: User
     ): Call<UserResponse<Token>>
-
 }
