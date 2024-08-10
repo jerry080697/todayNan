@@ -137,10 +137,11 @@ class SignUpActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
 
+                val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("socialToken", AppData.socialToken)
+                editor.putString("socialType", AppData.socialType)
                 if(resp!!.isSuccess){
-                    val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    // 토큰
                     editor.putString("appToken", resp!!.result.accessToken)
                     editor.apply()
 

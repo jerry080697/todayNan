@@ -11,24 +11,90 @@ import com.example.todaynan.ui.main.location.LocationFragment
 import com.example.todaynan.ui.main.mypage.MyPageFragment
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
+import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.user.Login
+import com.example.todaynan.data.remote.user.UserInterface
+import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.ui.main.search.SearchFragment
 import com.example.todaynan.databinding.ActivityMainBinding
 import com.example.todaynan.ui.BaseActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
+
+    private val userService = getRetrofit().create(UserInterface::class.java)
 
     override fun initAfterBinding() {
         // 회원가입 정보 확인
         val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
         AppData.appToken = sharedPreferences.getString("appToken", "").toString()
+        AppData.socialType = sharedPreferences.getString("socialType", "").toString()
+        AppData.socialToken = sharedPreferences.getString("socialToken", "").toString()
         Log.d("TAG_tokenInMain", AppData.appToken)
+        Log.d("TAG_socialTokenInMain", AppData.socialToken)
+        Log.d("TAG_socialType", AppData.socialType)
         Log.d("TAG", AppData.address)
         Log.d("TAG", AppData.preferIdx.toString())
         Log.d("TAG", AppData.nickname)
         Log.d("TAG", AppData.mypet)
 
+        autoLogin()
+
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         initBottomNavigation()
+    }
+
+    private fun autoLogin(){
+        userService.autoLogin().enqueue(object :
+            Callback<UserResponse<Login>> {
+            override fun onResponse(
+                call: Call<UserResponse<Login>>,
+                response: Response<UserResponse<Login>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
+                if(resp != null){
+                    if(!resp.isSuccess){    // false = 토큰 만료
+                        login()     // 재로그인하여 accessToken 재발급
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse<Login>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+        })
+    }
+
+    private fun login(){
+        userService.login(AppData.socialToken, AppData.socialType).enqueue(object :
+            Callback<UserResponse<Login>>{
+            override fun onResponse(
+                call: Call<UserResponse<Login>>,
+                response: Response<UserResponse<Login>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
+
+                if(resp!!.isSuccess) {
+                    val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    // 토큰
+                    editor.putString("appToken", resp!!.result.accessToken)
+                    AppData.appToken = resp!!.result.accessToken
+                    Log.d("TAG_tokenReissue", AppData.appToken)
+                    editor.apply()
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse<Login>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+        })
     }
 
     // 뒤로가기 버튼 눌렀을 때 발동되는 함수 (두번 눌러야 종료)

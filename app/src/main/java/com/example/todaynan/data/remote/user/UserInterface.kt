@@ -30,4 +30,9 @@ interface UserInterface {
         @Query("accessToken") accessToken: String,
         @Query("loginType") type: String,
     ): Call<UserResponse<Login>>
+
+    // 자동 로그인
+    @GET("/user/auto-login/")
+    fun autoLogin(
+    ): Call<UserResponse<Login>>
 }
