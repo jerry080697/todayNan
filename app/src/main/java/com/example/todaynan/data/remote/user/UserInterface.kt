@@ -1,6 +1,7 @@
 package com.example.todaynan.data.remote.user
 
 import com.example.todaynan.data.entity.GoogleRequest
+import com.example.todaynan.data.entity.PostWrite
 import com.example.todaynan.data.entity.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -36,4 +37,10 @@ interface UserInterface {
     fun autoLogin(
         @Header("authorization") accessToken: String,
     ): Call<UserResponse<Login>>
+
+    //게시글 작성
+    @POST("/post")
+    fun post(
+        @Body post: PostWrite
+    ): Call<UserResponse<PostResponse>>
 }

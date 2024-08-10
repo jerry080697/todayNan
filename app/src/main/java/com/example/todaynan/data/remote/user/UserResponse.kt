@@ -23,3 +23,11 @@ data class Login(
     @SerializedName(value="refreshToken")val refreshToken: String,
     @SerializedName(value="expiration")val expiration: String,
 ): Serializable
+
+data class PostResponse(
+    @SerializedName(value="post_id")val post_id: Int,
+    @SerializedName(value="user_id")val user_id: Int,
+    @SerializedName(value="title")val title: String,
+    @SerializedName(value="content")val content: String,
+    @SerializedName(value="category")val category: String
+): Serializable
