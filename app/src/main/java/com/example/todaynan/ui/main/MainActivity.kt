@@ -47,7 +47,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun autoLogin(){
-        userService.autoLogin().enqueue(object :
+        val request = "Bearer "+AppData.appToken
+
+        userService.autoLogin(request).enqueue(object :
             Callback<UserResponse<Login>> {
             override fun onResponse(
                 call: Call<UserResponse<Login>>,
@@ -59,6 +61,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 if(resp != null){
                     if(!resp.isSuccess){    // false = 토큰 만료
                         login()     // 재로그인하여 accessToken 재발급
+                    }else{  //true = 자동 로그인 성공
+                        val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        // 토큰
+                        editor.putString("appToken", resp!!.result.accessToken)
+                        AppData.appToken = resp!!.result.accessToken
+                        Log.d("TAG_tokenAuto", AppData.appToken)
+                        editor.apply()
                     }
                 }
             }

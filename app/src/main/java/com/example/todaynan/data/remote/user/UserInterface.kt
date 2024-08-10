@@ -34,5 +34,6 @@ interface UserInterface {
     // 자동 로그인
     @GET("/user/auto-login/")
     fun autoLogin(
+        @Header("authorization") accessToken: String,
     ): Call<UserResponse<Login>>
 }
