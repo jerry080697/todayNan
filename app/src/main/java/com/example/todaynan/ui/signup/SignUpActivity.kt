@@ -147,6 +147,8 @@ class SignUpActivity : BaseActivity<ActivitySignupBinding>(ActivitySignupBinding
 
                     startNextActivity(MainActivity::class.java)
                 }else{
+                    editor.apply()
+
                     startNextActivity(Page1SignUpActivity::class.java)
                 }
 
