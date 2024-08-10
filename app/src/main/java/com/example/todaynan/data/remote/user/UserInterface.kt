@@ -8,7 +8,6 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
-import retrofit2.http.GET
 interface UserInterface {
     // 구글 accessToken 발급
     @POST("oauth2/v4/token")
@@ -23,9 +22,6 @@ interface UserInterface {
         @Query("loginType") type: String,
         @Body user: User
     ): Call<UserResponse<Token>>
-<<<<<<< HEAD
-=======
-
     // 로그인
     @GET("/user/login/")
     fun login(
@@ -37,5 +33,6 @@ interface UserInterface {
     @GET("/user/auto-login/")
     fun autoLogin(
     ): Call<UserResponse<Login>>
->>>>>>> 3989687f73fa0348f936b0f8bcab1bea0f8f4dc3
+
+    //밖 장소 검색
 }

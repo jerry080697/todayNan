@@ -23,3 +23,5 @@ data class Login(
     @SerializedName(value="refreshToken")val refreshToken: String,
     @SerializedName(value="expiration")val expiration: String,
 ): Serializable
+
+

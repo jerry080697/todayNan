@@ -75,8 +75,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
         // 초기 마커 설정
-        currentMarker = setupMarker(Place("서울역", "서울특별시 용산구 한강대로 405", "서울역 설명~", 37.554722, 126.970833, true, R.drawable.default_profile_img))
-        currentMarker?.showInfoWindow()
+        //currentMarker = setupMarker(Place("서울역", "서울특별시 용산구 한강대로 405", "서울역 설명~", 37.554722, 126.970833, true, R.drawable.default_profile_img))
+        //currentMarker?.showInfoWindow()
     }
 
     private fun setupMarker(locationLatLngEntity: Place): Marker? {
@@ -118,14 +118,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
 
     private fun generateDummyItems(): List<Place> {
         val items = ArrayList<Place>()
-        items.add(Place("서울역", "서울 용산구 한강대로 405", "서울의 기차역", 37.554722, 126.970833, true, R.drawable.default_profile_img))
-        items.add(Place("용산역", "서울 용산구 한강대로 23길 55", "용산의 기차역", 37.5325, 126.965, false, R.drawable.default_profile_img))
-        items.add(Place("서울역", "서울 용산구 한강대로 405", "서울의 기차역", 37.554722, 126.970833, true, R.drawable.default_profile_img))
-        items.add(Place("용산역", "서울 용산구 한강대로 23길 55", "용산의 기차역", 37.5325, 126.965, false, R.drawable.default_profile_img))
-        items.add(Place("서울역", "서울 용산구 한강대로 405", "서울의 기차역", 37.554722, 126.970833, true, R.drawable.default_profile_img))
-        items.add(Place("용산역", "서울 용산구 한강대로 23길 55", "용산의 기차역", 37.5325, 126.965, false, R.drawable.default_profile_img))
-        items.add(Place("서울역", "서울 용산구 한강대로 405", "서울의 기차역", 37.554722, 126.970833, true, R.drawable.default_profile_img))
-        items.add(Place("용산역", "서울 용산구 한강대로 23길 55", "용산의 기차역", 37.5325, 126.965, false, R.drawable.default_profile_img))
+        items.add(Place("서울역", "서울 용산구 한강대로 405", "서울의 기차역", 37.554722, 126.970833, true, "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA3MTJfNTkg%2FMDAxNzIwNzg4MDQ4NTY1.NjFBo1PR-NvFACZPM5V0ESP3RbT6IhHrQn8XPgoytncg.bEQme0xO6XBvZKP939ZQOjvkePYyXgfJf1oTsSAfjN8g.JPEG%2FIMG_6315.jpg&type=a340"))
+        items.add(Place("용산역", "서울 용산구 한강대로 23길 55", "용산의 기차역", 37.5325, 126.965, false, "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA3MTJfNTkg%2FMDAxNzIwNzg4MDQ4NTY1.NjFBo1PR-NvFACZPM5V0ESP3RbT6IhHrQn8XPgoytncg.bEQme0xO6XBvZKP939ZQOjvkePYyXgfJf1oTsSAfjN8g.JPEG%2FIMG_6315.jpg&type=a340"))
+        items.add(Place("서울역", "서울 용산구 한강대로 405", "서울의 기차역", 37.554722, 126.970833, true,"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA3MTJfNTkg%2FMDAxNzIwNzg4MDQ4NTY1.NjFBo1PR-NvFACZPM5V0ESP3RbT6IhHrQn8XPgoytncg.bEQme0xO6XBvZKP939ZQOjvkePYyXgfJf1oTsSAfjN8g.JPEG%2FIMG_6315.jpg&type=a340"))
+
         return items
     }
 }
