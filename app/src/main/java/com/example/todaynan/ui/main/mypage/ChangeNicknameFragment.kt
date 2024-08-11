@@ -16,7 +16,6 @@ import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.user.ChangeNickNameResponse
 import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
-import com.example.todaynan.databinding.FragmentBoardBinding
 import com.example.todaynan.databinding.FragmentChangeNicknameBinding
 import com.example.todaynan.ui.BaseFragment
 import retrofit2.Call
@@ -26,9 +25,7 @@ import retrofit2.Response
 class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(FragmentChangeNicknameBinding::inflate) {
 
     private val userService = getRetrofit().create(UserInterface::class.java)
-    private lateinit var nickNameEt: EditText
-    private lateinit var newNickNameTv:TextView
-    private lateinit var changeBtn:ImageView
+
     override fun initAfterBinding() {
 
         binding.changeNicknameBackBtn.setOnClickListener {
@@ -43,8 +40,10 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                 Toast.makeText(context, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
+
         binding.changeNicknameCurrentNicknameTv.text = AppData.nickname
     }
+
     private fun sendNicknameChangeRequest(newNickname: String) {
         val request = ChangeNewNicknameRequest(nickname = newNickname)
 
@@ -52,9 +51,10 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
 
         userService.changeNickname(accessToken, request).enqueue(object : Callback<UserResponse<ChangeNickNameResponse>> {
             override fun onResponse(call: Call<UserResponse<ChangeNickNameResponse>>, response: Response<UserResponse<ChangeNickNameResponse>>) {
-                Log.d("ChangeNickname", "Response code: ${response.code()}")
-                Log.d("ChangeNickname", "Response body: ${response.body()}")
-                Log.d("ChangeNickname", "Response message: ${response.message()}")
+                Log.d("ChangeNicknameFragment", "Response code: ${response.code()}")
+                Log.d("ChangeNicknameFragment", "Response body: ${response.body()}")
+                Log.d("ChangeNicknameFragment", "Response message: ${response.message()}")
+
                 if (response.body()?.isSuccess == true) {
                     AppData.nickname = newNickname
                     binding.changeNicknameCurrentNicknameTv.text = newNickname
@@ -63,6 +63,7 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                     Toast.makeText(context, "닉네임 변경에 실패했습니다: ${response.body()?.message ?: "Unknown error"}", Toast.LENGTH_SHORT).show()
                 }
             }
+
             override fun onFailure(call: Call<UserResponse<ChangeNickNameResponse>>, t: Throwable) {
                 Toast.makeText(context, "서버와 통신 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }

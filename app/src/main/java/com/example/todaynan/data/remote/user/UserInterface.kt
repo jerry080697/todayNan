@@ -44,4 +44,6 @@ interface UserInterface {
         @Header("authorization") accessToken: String,
         @Body request: ChangeNewNicknameRequest
     ): Call<UserResponse<ChangeNickNameResponse>>
+
+
 }
