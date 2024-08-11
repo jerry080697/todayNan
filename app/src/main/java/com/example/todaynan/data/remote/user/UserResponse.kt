@@ -24,4 +24,7 @@ data class Login(
     @SerializedName(value="expiration")val expiration: String,
 ): Serializable
 
+data class ChangeNickNameResponse(
+    @SerializedName(value = "message")val message: String
+):Serializable
 
