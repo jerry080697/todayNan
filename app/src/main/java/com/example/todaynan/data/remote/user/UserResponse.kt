@@ -31,3 +31,7 @@ data class PostResponse(
     @SerializedName(value="content")val content: String,
     @SerializedName(value="category")val category: String
 ): Serializable
+
+data class ChangeNickNameResponse(
+    @SerializedName(value = "message")val message: String
+):Serializable

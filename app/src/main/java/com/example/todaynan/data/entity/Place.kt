@@ -7,5 +7,5 @@ data class Place(
     var latitude: Double?,
     var longitude: Double?,
     var isLike:Boolean,
-    var imgUrl:Int
+    var imgUrl:String
 )

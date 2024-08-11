@@ -40,7 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginTop="300dp"
-        android:src="@drawable/pet_icon"
+        android:src="@drawable/bird"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="80dp"
         android:layout_marginStart="50dp"
