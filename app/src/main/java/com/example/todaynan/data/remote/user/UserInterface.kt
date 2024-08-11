@@ -41,6 +41,7 @@ interface UserInterface {
     //게시글 작성
     @POST("/post")
     fun post(
+        @Header("authorization") accessToken: String,
         @Body post: PostWrite
     ): Call<UserResponse<PostResponse>>
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import com.example.todaynan.R
+import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.Post
 import com.example.todaynan.data.entity.PostWrite
 import com.example.todaynan.data.remote.getRetrofit
@@ -74,9 +75,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
     private fun fetchPostsFromServer() {
         // 예시 데이터로 PostWrite 객체 생성
         val postWrite = PostWrite(content = "Sample Content" ,title = "Sample Title" ,category = "General")
+        val request = "Bearer "+ AppData.appToken
 
         // 서버에 게시글 요청
-        userService.post(postWrite).enqueue(object : Callback<UserResponse<PostResponse>> {
+        userService.post(request, postWrite).enqueue(object : Callback<UserResponse<PostResponse>> {
             override fun onResponse(
                 call: Call<UserResponse<PostResponse>>,
                 response: Response<UserResponse<PostResponse>>

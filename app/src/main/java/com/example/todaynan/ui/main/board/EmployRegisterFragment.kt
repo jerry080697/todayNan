@@ -1,5 +1,6 @@
 import android.util.Log
 import android.view.KeyEvent
+import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.PostWrite
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.user.PostResponse
@@ -43,8 +44,9 @@ class EmployRegisterFragment : BaseFragment<FragmentEmployRegisterBinding>(Fragm
 
     private fun postWrite(title: String, content: String, category: String) {
         val postWrite = PostWrite(content, title, category)
+        val request = "Bearer "+ AppData.appToken
 
-        userService.post(postWrite).enqueue(object :
+        userService.post(request, postWrite).enqueue(object :
             Callback<UserResponse<PostResponse>> {
             override fun onResponse(
                 call: Call<UserResponse<PostResponse>>,
