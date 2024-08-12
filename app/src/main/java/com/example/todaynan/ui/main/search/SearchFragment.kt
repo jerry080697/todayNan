@@ -1,13 +1,29 @@
 package com.example.todaynan.ui.main.search
 
 import android.view.KeyEvent
+import android.view.View
 import com.example.todaynan.R
+import com.example.todaynan.base.AppData
 import com.example.todaynan.databinding.FragmentSearchBinding
 import com.example.todaynan.ui.BaseFragment
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
     override fun initAfterBinding() {
+
+        if(AppData.mypet == "DOG"){
+            binding.searchPetFox.visibility = View.VISIBLE
+            binding.searchPetBird.visibility = View.GONE
+            binding.searchPetBear.visibility = View.GONE
+        }else if(AppData.mypet == "CAT"){
+            binding.searchPetBird.visibility = View.VISIBLE
+            binding.searchPetFox.visibility = View.GONE
+            binding.searchPetBear.visibility = View.GONE
+        }else if(AppData.mypet == "QUOKKA"){
+            binding.searchPetBear.visibility = View.VISIBLE
+            binding.searchPetFox.visibility = View.GONE
+            binding.searchPetBird.visibility = View.GONE
+        }
 
         changeScreen()
     }

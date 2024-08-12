@@ -131,47 +131,53 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
 
     fun selectOption1(isSelect: Boolean) {
         if (isSelect) {
-            binding.signupPet1DarkCv.visibility = View.VISIBLE
-            binding.signupPet1Cv.visibility = View.INVISIBLE
+            binding.foxOffIv.visibility = View.INVISIBLE
+            binding.foxOnIv.visibility = View.VISIBLE
+            binding.foxTextTv.visibility = View.VISIBLE
             AppData.mypet = "DOG"
         } else {
-            binding.signupPet1DarkCv.visibility = View.INVISIBLE
-            binding.signupPet1Cv.visibility = View.VISIBLE
+            binding.foxOffIv.visibility = View.VISIBLE
+            binding.foxOnIv.visibility = View.INVISIBLE
+            binding.foxTextTv.visibility = View.INVISIBLE
             AppData.mypet = ""
         }
     }
 
     fun selectOption2(isSelect: Boolean) {
         if (isSelect) {
-            binding.signupPet2DarkCv.visibility = View.VISIBLE
-            binding.signupPet2Cv.visibility = View.INVISIBLE
+            binding.birdOffIv.visibility = View.INVISIBLE
+            binding.birdOnIv.visibility = View.VISIBLE
+            binding.birdTextTv.visibility = View.VISIBLE
             AppData.mypet = "CAT"
         } else {
-            binding.signupPet2DarkCv.visibility = View.INVISIBLE
-            binding.signupPet2Cv.visibility = View.VISIBLE
+            binding.birdOffIv.visibility = View.VISIBLE
+            binding.birdOnIv.visibility = View.INVISIBLE
+            binding.birdTextTv.visibility = View.INVISIBLE
             AppData.mypet = ""
         }
     }
 
     fun selectOption3(isSelect: Boolean) {
         if (isSelect) {
-            binding.signupPet3DarkCv.visibility = View.VISIBLE
-            binding.signupPet3Cv.visibility = View.INVISIBLE
+            binding.bearOffIv.visibility = View.INVISIBLE
+            binding.bearOnIv.visibility = View.VISIBLE
+            binding.bearTextTv.visibility = View.VISIBLE
             AppData.mypet = "QUOKKA"
         } else {
-            binding.signupPet3DarkCv.visibility = View.INVISIBLE
-            binding.signupPet3Cv.visibility = View.VISIBLE
+            binding.bearOffIv.visibility = View.VISIBLE
+            binding.bearOnIv.visibility = View.INVISIBLE
+            binding.bearTextTv.visibility = View.INVISIBLE
             AppData.mypet = ""
         }
     }
 
     fun option1() {
-        binding.signupPet1Cv.setOnClickListener {
+        binding.foxOffIv.setOnClickListener {
             selectOption1(true)
             checkToNext()
             duplicateCheck(1)
         }
-        binding.signupPet1DarkCv.setOnClickListener {
+        binding.foxOnIv.setOnClickListener {
             selectOption1(false)
             checkToNext()
             duplicateCheck(-1)
@@ -179,12 +185,12 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
     }
 
     fun option2() {
-        binding.signupPet2Cv.setOnClickListener {
+        binding.birdOffIv.setOnClickListener {
             selectOption2(true)
             checkToNext()
             duplicateCheck(2)
         }
-        binding.signupPet2DarkCv.setOnClickListener {
+        binding.birdOnIv.setOnClickListener {
             selectOption2(false)
             checkToNext()
             duplicateCheck(-1)
@@ -192,12 +198,12 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
     }
 
     fun option3() {
-        binding.signupPet3Cv.setOnClickListener {
+        binding.bearOffIv.setOnClickListener {
             selectOption3(true)
             checkToNext()
             duplicateCheck(3)
         }
-        binding.signupPet3DarkCv.setOnClickListener {
+        binding.bearOnIv.setOnClickListener {
             selectOption3(false)
             checkToNext()
             duplicateCheck(-1)
@@ -205,8 +211,8 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
     }
 
     private fun checkToNext() {
-        if (binding.signupPet1DarkCv.visibility == View.VISIBLE || binding.signupPet2DarkCv.visibility == View.VISIBLE
-            || binding.signupPet3DarkCv.visibility == View.VISIBLE) {
+        if (binding.foxOnIv.visibility == View.VISIBLE || binding.birdOnIv.visibility == View.VISIBLE
+            || binding.bearOnIv.visibility == View.VISIBLE) {
             binding.signupLetsgoBtn.visibility = View.INVISIBLE
             binding.signupLetsgoBtnDark.visibility = View.VISIBLE
         } else {
@@ -218,31 +224,37 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
     private fun duplicateCheck(selectedOption: Int) {
         when (selectedOption) {
             1 -> {
-                binding.signupPet2DarkCv.visibility = View.INVISIBLE
-                binding.signupPet2Cv.visibility = View.VISIBLE
-                binding.signupPet3DarkCv.visibility = View.INVISIBLE
-                binding.signupPet3Cv.visibility = View.VISIBLE
+                binding.birdOnIv.visibility = View.INVISIBLE
+                binding.birdTextTv.visibility = View.INVISIBLE
+                binding.birdOffIv.visibility = View.VISIBLE
+                binding.bearOnIv.visibility = View.INVISIBLE
+                binding.bearTextTv.visibility = View.INVISIBLE
+                binding.bearOffIv.visibility = View.VISIBLE
             }
             2 -> {
-                binding.signupPet1DarkCv.visibility = View.INVISIBLE
-                binding.signupPet1Cv.visibility = View.VISIBLE
-                binding.signupPet3DarkCv.visibility = View.INVISIBLE
-                binding.signupPet3Cv.visibility = View.VISIBLE
+                binding.foxOnIv.visibility = View.INVISIBLE
+                binding.foxTextTv.visibility = View.INVISIBLE
+                binding.foxOffIv.visibility = View.VISIBLE
+                binding.bearOnIv.visibility = View.INVISIBLE
+                binding.bearTextTv.visibility = View.INVISIBLE
+                binding.bearOffIv.visibility = View.VISIBLE
             }
             3 -> {
-                binding.signupPet1DarkCv.visibility = View.INVISIBLE
-                binding.signupPet1Cv.visibility = View.VISIBLE
-                binding.signupPet2DarkCv.visibility = View.INVISIBLE
-                binding.signupPet2Cv.visibility = View.VISIBLE
+                binding.foxOnIv.visibility = View.INVISIBLE
+                binding.foxTextTv.visibility = View.INVISIBLE
+                binding.foxOffIv.visibility = View.VISIBLE
+                binding.birdOnIv.visibility = View.INVISIBLE
+                binding.birdTextTv.visibility = View.INVISIBLE
+                binding.birdOffIv.visibility = View.VISIBLE
             }
             else -> {
                 // 모든 옵션을 활성화 상태로 되돌림
-                binding.signupPet1Cv.visibility = View.VISIBLE
-                binding.signupPet1DarkCv.visibility = View.INVISIBLE
-                binding.signupPet2Cv.visibility = View.VISIBLE
-                binding.signupPet2DarkCv.visibility = View.INVISIBLE
-                binding.signupPet3Cv.visibility = View.VISIBLE
-                binding.signupPet3DarkCv.visibility = View.INVISIBLE
+                binding.foxOffIv.visibility = View.VISIBLE
+                binding.foxOnIv.visibility = View.INVISIBLE
+                binding.birdOffIv.visibility = View.VISIBLE
+                binding.birdOnIv.visibility = View.INVISIBLE
+                binding.bearOffIv.visibility = View.VISIBLE
+                binding.bearOnIv.visibility = View.INVISIBLE
             }
         }
     }
