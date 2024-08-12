@@ -1,11 +1,10 @@
 package com.example.todaynan.ui.main.mypage
 
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ChangeNewNicknameRequest
 import com.example.todaynan.data.remote.getRetrofit
@@ -25,6 +24,15 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
     private var isNicknameChecked = false
 
     override fun initAfterBinding() {
+        // 엔터 입력 시
+        binding.changeNicknameNewNicknameEt.setOnEditorActionListener { v, actionId, event ->
+            if ((event != null && event.keyCode == KeyEvent.KEYCODE_ENTER)) {
+                hideKeyboard()
+                true // 이벤트 처리 완료
+            } else {
+                false // 이벤트 처리 안 함
+            }
+        }
         // SharedPreferences에서 현재 닉네임 로드, 없으면 AppData.nickname 사용
         val currentNickname = loadNicknameFromPreferences().takeIf { it.isNotEmpty() } ?: AppData.nickname
         binding.changeNicknameCurrentNicknameTv.text = currentNickname
@@ -64,6 +72,7 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                     isNicknameChecked = true
                     binding.changeNicknameAlertMessagePass.visibility = View.VISIBLE
                     binding.changeNicknameAlertMessageFail.visibility = View.GONE
+                    hideKeyboard()
                 } else {
                     isNicknameChecked = false
                     binding.changeNicknameAlertMessagePass.visibility = View.GONE
