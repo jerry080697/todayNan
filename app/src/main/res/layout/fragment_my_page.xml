@@ -36,16 +36,41 @@
         android:layout_marginTop="30dp"/>
 
     <ImageView
-        android:id="@+id/mypage_pet_iv"
+        android:id="@+id/mypage_pet_fox"
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_marginTop="300dp"
-        android:src="@drawable/pet_icon"
+        android:src="@drawable/fox"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="80dp"
         android:layout_marginStart="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/mypage_pet_bird"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="300dp"
+        android:src="@drawable/bird"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="80dp"
+        android:layout_marginStart="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/mypage_pet_bear"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="300dp"
+        android:src="@drawable/bear"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="80dp"
+        android:layout_marginStart="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
 
     <ImageView
         android:layout_width="100dp"

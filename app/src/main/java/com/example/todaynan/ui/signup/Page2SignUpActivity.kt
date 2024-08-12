@@ -4,9 +4,11 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.User
 import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.user.NicknameDuplicateResponse
 import com.example.todaynan.data.remote.user.Token
 import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
@@ -19,6 +21,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding::inflate) {
+    private val userService = getRetrofit().create(UserInterface::class.java)
 
     override fun initAfterBinding() {
         option1()
@@ -43,6 +46,55 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
 
             finish()
         }
+        binding.signupDuplicationCheckIv.setOnClickListener {
+            val nickname = binding.signupPage2Et.text.toString()
+            if (nickname.isNotEmpty()) {
+                checkNicknameDuplication(nickname)
+            } else {
+                Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun checkNicknameDuplication(nickname: String) {
+        val accessToken = "Bearer ${AppData.appToken}"
+        userService.checkNicknameDuplicate(accessToken,nickname)
+            .enqueue(object : Callback<UserResponse<NicknameDuplicateResponse>> {
+                override fun onResponse(
+                    call: Call<UserResponse<NicknameDuplicateResponse>>,
+                    response: Response<UserResponse<NicknameDuplicateResponse>>
+                ) {
+                    Log.d("SERVER/SUCCESS", response.toString())
+                    val resp = response.body()
+                    Log.d("SERVER/SUCCESS", resp.toString())
+
+                    if (response.isSuccessful && resp?.isSuccess == true) {
+                        Toast.makeText(
+                            this@Page2SignUpActivity,
+                            "사용 가능한 닉네임입니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        hideKeyboard(binding.signupDuplicationCheckIv)
+                    } else {
+                        Toast.makeText(
+                            this@Page2SignUpActivity,
+                            "닉네임이 이미 존재합니다: ${resp?.message ?: "Unknown error"}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<UserResponse<NicknameDuplicateResponse>>,
+                    t: Throwable
+                ) {
+                    Log.d("SERVER/FAILURE", t.message.toString())
+                    Toast.makeText(
+                        this@Page2SignUpActivity,
+                        "서버와 통신 중 오류가 발생했습니다.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 
     private fun appSignUp() {
@@ -56,9 +108,9 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
                 call: Call<UserResponse<Token>>,
                 response: Response<UserResponse<Token>>
             ) {
-                Log.d("SERVER/SUCCESS", response.toString())
+                Log.d("SERVER/SUCCESS_signup", response.toString())
                 val resp = response.body()
-                Log.d("SERVER/SUCCESS", resp.toString())
+                Log.d("SERVER/SUCCESS_signup", resp.toString())
 
                 val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
                 val editor = sharedPreferences.edit()

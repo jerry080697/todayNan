@@ -17,9 +17,6 @@ class ChangeInterestFragment : BaseFragment<FragmentChangeInterestBinding>(Fragm
         binding.changeInterestBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        binding.changeInterestChangeBtnIv.setOnClickListener {
-            Toast.makeText(context, "내 관심사가 수정되었습니다.", Toast.LENGTH_SHORT).show()
-        }
 
     }
 }

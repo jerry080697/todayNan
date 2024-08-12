@@ -23,3 +23,25 @@ data class Login(
     @SerializedName(value="refreshToken")val refreshToken: String,
     @SerializedName(value="expiration")val expiration: String,
 ): Serializable
+
+data class ChangeNickNameResponse(
+    @SerializedName(value = "message")val message: String
+):Serializable
+
+data class NicknameDuplicateResponse(
+    @SerializedName(value = "isSuccess")val isSuccess: Boolean,
+    @SerializedName(value = "code")val code: String,
+    @SerializedName(value = "message")val message: String
+) : Serializable
+data class ChangeLocationResponse(
+    @SerializedName(value = "isSuccess")val isSuccess: Boolean,
+    @SerializedName(value = "code")val code: String,
+    @SerializedName(value = "message")val message: String,
+    @SerializedName(value = "result")val result: String
+) : Serializable
+data class SignOutResponse(
+    @SerializedName(value = "isSuccess")val isSuccess: Boolean,
+    @SerializedName(value = "code")val code: String,
+    @SerializedName(value = "message")val message: String,
+    @SerializedName(value = "result")val result: String
+) : Serializable
