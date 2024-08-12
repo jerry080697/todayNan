@@ -50,7 +50,10 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
             }
         }
 
-        binding.changeNicknameChangeBtnIv.setOnClickListener {
+        binding.changeNicknameChangeBtnIv.setOnClickListener{
+            Toast.makeText(context, "닉네임 입력 후 중복검사를 시행하세요.", Toast.LENGTH_SHORT).show()
+        }
+        binding.changeNicknameChangeBtnDarkIv.setOnClickListener {
             val newNickname = binding.changeNicknameNewNicknameEt.text.toString()
             if (newNickname.isNotEmpty()) {
                 if (binding.changeNicknameAlertMessagePass.visibility == View.VISIBLE) {
@@ -72,11 +75,17 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                     isNicknameChecked = true
                     binding.changeNicknameAlertMessagePass.visibility = View.VISIBLE
                     binding.changeNicknameAlertMessageFail.visibility = View.GONE
+                    // 버튼 활성화 변경
+                    binding.changeNicknameChangeBtnIv.visibility = View.GONE
+                    binding.changeNicknameChangeBtnDarkIv.visibility = View.VISIBLE
                     hideKeyboard()
                 } else {
                     isNicknameChecked = false
                     binding.changeNicknameAlertMessagePass.visibility = View.GONE
                     binding.changeNicknameAlertMessageFail.visibility = View.VISIBLE
+                    // 버튼 활성화
+                    binding.changeNicknameChangeBtnIv.visibility = View.VISIBLE
+                    binding.changeNicknameChangeBtnDarkIv.visibility = View.GONE
                 }
             }
             override fun onFailure(call: Call<UserResponse<NicknameDuplicateResponse>>, t: Throwable) {
