@@ -3,17 +3,13 @@ package com.example.todaynan.ui.main.mypage
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ChangeNewNicknameRequest
 import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.user.NicknameDuplicateResponse
 import com.example.todaynan.data.remote.user.ChangeNickNameResponse
 import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
@@ -26,6 +22,7 @@ import retrofit2.Response
 class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(FragmentChangeNicknameBinding::inflate) {
 
     private val userService = getRetrofit().create(UserInterface::class.java)
+    private var isNicknameChecked = false
 
     override fun initAfterBinding() {
         // SharedPreferences에서 현재 닉네임 로드, 없으면 AppData.nickname 사용
@@ -36,19 +33,56 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
             parentFragmentManager.popBackStack()
         }
 
+        binding.changeNicknameCheckDuplicateIv.setOnClickListener {
+            val newNickname = binding.changeNicknameNewNicknameEt.text.toString()
+            if (newNickname.isNotEmpty()) {
+                checkNicknameDuplicate(newNickname)
+            } else {
+                Toast.makeText(context, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         binding.changeNicknameChangeBtnIv.setOnClickListener {
             val newNickname = binding.changeNicknameNewNicknameEt.text.toString()
             if (newNickname.isNotEmpty()) {
-                sendNicknameChangeRequest(newNickname)
+                if (binding.changeNicknameAlertMessagePass.visibility == View.VISIBLE) {
+                    sendNicknameChangeRequest(newNickname)
+                } else {
+                    Toast.makeText(context, "닉네임 중복 검사를 통과해야 합니다.", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(context, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }
+    private fun checkNicknameDuplicate(nickname: String) {
+        val accessToken = "Bearer "+AppData.appToken
+        userService.checkNicknameDuplicate(accessToken,nickname).enqueue(object : Callback<UserResponse<NicknameDuplicateResponse>> {
+            override fun onResponse(call: Call<UserResponse<NicknameDuplicateResponse>>, response: Response<UserResponse<NicknameDuplicateResponse>>) {
+                Log.d("ChangeNicknameFragment", "Nickname check response code: ${response.code()}")
+                Log.d("ChangeNicknameFragment", "Nickname check response body: ${response.body()}")
+
+                if (response.body()?.isSuccess == true) {
+                    isNicknameChecked = true
+                    binding.changeNicknameAlertMessagePass.visibility = View.VISIBLE
+                    binding.changeNicknameAlertMessageFail.visibility = View.GONE
+                } else {
+                    isNicknameChecked = false
+                    binding.changeNicknameAlertMessagePass.visibility = View.GONE
+                    binding.changeNicknameAlertMessageFail.visibility = View.VISIBLE
+                }
+            }
+            override fun onFailure(call: Call<UserResponse<NicknameDuplicateResponse>>, t: Throwable) {
+                isNicknameChecked = false
+                Log.e("ChangeNicknameFragment", "Network error during nickname check: ${t.message}", t)
+                Toast.makeText(context, "서버와 통신 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
     private fun sendNicknameChangeRequest(newNickname: String) {
         val request = ChangeNewNicknameRequest(nickname = newNickname)
-        val accessToken = "Bearer ${AppData.appToken}"
+        val accessToken = "Bearer "+AppData.appToken
 
         userService.changeNickname(accessToken, request).enqueue(object : Callback<UserResponse<ChangeNickNameResponse>> {
             override fun onResponse(call: Call<UserResponse<ChangeNickNameResponse>>, response: Response<UserResponse<ChangeNickNameResponse>>) {
@@ -57,7 +91,6 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                 Log.d("ChangeNicknameFragment", "Response message: ${response.message()}")
 
                 if (response.isSuccessful) {
-                    // 닉네임을 SharedPreferences에 저장
                     saveNicknameToPreferences(newNickname)
                     binding.changeNicknameCurrentNicknameTv.text = newNickname
                     Toast.makeText(context, "닉네임이 변경되었습니다.", Toast.LENGTH_SHORT).show()
@@ -67,21 +100,18 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                     Toast.makeText(context, "닉네임 변경에 실패했습니다: ${response.body()?.message ?: errorMsg}", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<UserResponse<ChangeNickNameResponse>>, t: Throwable) {
                 Log.e("ChangeNicknameFragment", "Network error: ${t.message}", t)
                 Toast.makeText(context, "서버와 통신 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }
         })
     }
-
     private fun saveNicknameToPreferences(nickname: String) {
         val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("nickname", nickname)
         editor.apply()
     }
-
     private fun loadNicknameFromPreferences(): String {
         val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         return sharedPreferences.getString("nickname", "") ?: ""

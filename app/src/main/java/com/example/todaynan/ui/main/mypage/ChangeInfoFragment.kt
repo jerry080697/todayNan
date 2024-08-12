@@ -1,13 +1,7 @@
 package com.example.todaynan.ui.main.mypage
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.todaynan.R
 import com.example.todaynan.databinding.FragmentChangeInfoBinding
-import com.example.todaynan.databinding.FragmentSearchBinding
 import com.example.todaynan.ui.BaseFragment
 
 class ChangeInfoFragment : BaseFragment<FragmentChangeInfoBinding>(FragmentChangeInfoBinding::inflate) {
@@ -35,15 +29,15 @@ class ChangeInfoFragment : BaseFragment<FragmentChangeInfoBinding>(FragmentChang
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }
-        binding.changeLogout.setOnClickListener{
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, ChangeLogoutFragment())
-                .addToBackStack(null)
-                .commitAllowingStateLoss()
-        }
+//        binding.changeLogout.setOnClickListener{
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.main_frm, ChangeLogoutFragment())
+//                .addToBackStack(null)
+//                .commitAllowingStateLoss()
+//        }
         binding.changeWithdraw.setOnClickListener{
             parentFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, ChangeWithdrawFragment())
+                .replace(R.id.main_frm, ChangeSignOutFragment())
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }

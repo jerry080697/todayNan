@@ -123,13 +123,27 @@
         android:textColor="@color/white"
         android:layout_marginTop="600dp"/>
     <TextView
-        android:id="@+id/change_nickname_alert_message_tv"
+        android:id="@+id/change_nickname_alert_message_fail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/change_nickname_cv"
-        android:text="중복 확인 메시지 여기에 표시"
+        android:text="이미 사용 중인 닉네임입니다."
+        android:textColor="#FF6565"
         android:textSize="15sp"
+        android:layout_marginStart="40dp"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/change_nickname_alert_message_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_nickname_cv"
+        android:text="사용 가능한 닉네임입니다."
+        android:textColor="#23C13D"
+        android:textSize="15sp"
+        android:visibility="gone"
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"/>
 
