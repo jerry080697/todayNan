@@ -107,9 +107,9 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
                 call: Call<UserResponse<Token>>,
                 response: Response<UserResponse<Token>>
             ) {
-                Log.d("SERVER/SUCCESS", response.toString())
+                Log.d("SERVER/SUCCESS_signup", response.toString())
                 val resp = response.body()
-                Log.d("SERVER/SUCCESS", resp.toString())
+                Log.d("SERVER/SUCCESS_signup", resp.toString())
 
                 val sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
@@ -156,7 +156,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         if (isSelect) {
             binding.signupPet3DarkCv.visibility = View.VISIBLE
             binding.signupPet3Cv.visibility = View.INVISIBLE
-            AppData.mypet = "QUAKKA"
+            AppData.mypet = "QUOKKA"
         } else {
             binding.signupPet3DarkCv.visibility = View.INVISIBLE
             binding.signupPet3Cv.visibility = View.VISIBLE

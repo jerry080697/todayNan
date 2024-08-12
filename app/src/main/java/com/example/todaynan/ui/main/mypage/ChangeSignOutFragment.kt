@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.user.SignOutResponse
@@ -65,17 +66,14 @@ class ChangeSignOutFragment : BaseFragment<FragmentChangeSignoutBinding>(Fragmen
                     // 회원 탈퇴 성공 후 처리
                     Toast.makeText(context, "회원탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    // AppData의 로그인 정보 초기화
-                    AppData.appToken= ""
-                    AppData.socialToken= ""
-                    AppData.socialType= ""
-                    AppData.address= ""
-                    AppData.preferStr= ArrayList()
-                    AppData.preferIdx= ArrayList()
-                    AppData.nickname= ""
-                    AppData.mypet= ""
+                    // appToken 정보 초기화로 앱 저장 데이터 초기화
+                    val sharedPreferences = requireContext().getSharedPreferences("userInfo", AppCompatActivity.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("appToken", "")
+                    editor.apply()
                     // 회원가입 화면으로 이동
                     val intent = Intent(requireContext(), SignUpActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
 
                     // 현재 프래그먼트를 종료
