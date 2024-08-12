@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">TodayNan</string>
     <!-- 구글 클라우드 콘솔 OAuth 2.0 클라이언트 웹 ID -->
-    <string name="google_client_id"></string>
-    <string name="google_client_secret"></string>
+    <string name="google_client_id">Client_ID</string>
+    <string name="google_client_secret">Client_Secret</string>
     <!-- 카카오 디벨롭퍼스 네이티브키 -->
     <string name="kakao_native_key">1d0c95e1e877cf9d2fd0b8f48d1a8599</string>
     <string name="kakao_key">kakao1d0c95e1e877cf9d2fd0b8f48d1a8599</string>

@@ -47,8 +47,6 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
             if (newNickname.isNotEmpty()) {
                 if (binding.changeNicknameAlertMessagePass.visibility == View.VISIBLE) {
                     sendNicknameChangeRequest(newNickname)
-                } else {
-                    Toast.makeText(context, "닉네임 중복 검사를 통과해야 합니다.", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(context, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()

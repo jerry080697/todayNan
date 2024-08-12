@@ -1,5 +1,6 @@
 package com.example.todaynan.ui.main.mypage
 
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -10,6 +11,7 @@ import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.FragmentChangeSignoutBinding
 import com.example.todaynan.ui.BaseFragment
+import com.example.todaynan.ui.signup.SignUpActivity // SignUpActivity import
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,8 +62,24 @@ class ChangeSignOutFragment : BaseFragment<FragmentChangeSignoutBinding>(Fragmen
                 Log.d("SignOutResponse", "Response Body: ${response.body()}")
 
                 if (response.isSuccessful && response.body()?.isSuccess == true) {
+                    // 회원 탈퇴 성공 후 처리
                     Toast.makeText(context, "회원탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show()
-                    // 회원탈퇴 후 처리 로직 추가 (예: 로그인 화면으로 이동)
+
+                    // AppData의 로그인 정보 초기화
+                    AppData.appToken= ""
+                    AppData.socialToken= ""
+                    AppData.socialType= ""
+                    AppData.address= ""
+                    AppData.preferStr= ArrayList()
+                    AppData.preferIdx= ArrayList()
+                    AppData.nickname= ""
+                    AppData.mypet= ""
+                    // 회원가입 화면으로 이동
+                    val intent = Intent(requireContext(), SignUpActivity::class.java)
+                    startActivity(intent)
+
+                    // 현재 프래그먼트를 종료
+                    parentFragmentManager.popBackStack()
                 } else {
                     Toast.makeText(context, "회원탈퇴에 실패했습니다: ${response.body()?.message ?: "Unknown error"}", Toast.LENGTH_SHORT).show()
                 }
