@@ -14,12 +14,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
             binding.mypagePetBear.visibility = View.GONE
             binding.mypagePetBird.visibility = View.GONE
         }
-        else if(AppData.mypet=="QUOKKA"){
+        else if(AppData.mypet=="CAT"){
             binding.mypagePetFox.visibility = View.GONE
             binding.mypagePetBear.visibility = View.GONE
             binding.mypagePetBird.visibility = View.VISIBLE
         }
-        else if(AppData.mypet=="CAT"){
+        else if(AppData.mypet=="QUOKKA"){
             binding.mypagePetFox.visibility = View.GONE
             binding.mypagePetBear.visibility = View.VISIBLE
             binding.mypagePetBird.visibility = View.GONE
