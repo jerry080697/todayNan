@@ -15,12 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
-import com.example.todaynan.data.entity.ChangeLocationRequest
-import com.example.todaynan.data.entity.Place
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.user.GooglePlaceResultDTO
-import com.example.todaynan.data.remote.user.LatLng
-import com.example.todaynan.data.remote.user.SearchOutsideResponse
 import com.example.todaynan.data.remote.user.SearchOutsideResult
 import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
@@ -31,7 +27,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import retrofit2.Call
@@ -42,7 +37,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
     private val userService = getRetrofit().create(UserInterface::class.java)
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
-    private var currentMarker: Marker? = null
     private lateinit var locationAdapter: LocationPlaceRVAdapter
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<NestedScrollView>
     private lateinit var locationSearchEt: EditText
@@ -99,6 +93,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
                     if (userResponse?.isSuccess == true) {
                         val places = userResponse.result?.googlePlaceResultDTOList ?: emptyList()
                         updateMapMarkers(places)
+                        val recyclerView = binding.root.findViewById<RecyclerView>(R.id.location_recycler_view)
+                        recyclerView.layoutManager = LinearLayoutManager(context)
                         locationAdapter = LocationPlaceRVAdapter(places) // Use GooglePlaceResultDTO
                         binding.locationRecyclerView.adapter = locationAdapter
                     } else {

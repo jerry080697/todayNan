@@ -48,13 +48,6 @@ data class SignOutResponse(
     @SerializedName(value = "result") val result: String
 ) : Serializable
 
-data class SearchOutsideResponse(
-    @SerializedName("isSuccess") val isSuccess: Boolean,
-    @SerializedName("code") val code: String?,
-    @SerializedName("message") val message: String?,
-    @SerializedName("result") val result: SearchOutsideResult?
-) : Serializable
-
 data class SearchOutsideResult(
     @SerializedName("googlePlaceResultDTOList") val googlePlaceResultDTOList: List<GooglePlaceResultDTO>,
     @SerializedName("pageToken") val pageToken: String?
