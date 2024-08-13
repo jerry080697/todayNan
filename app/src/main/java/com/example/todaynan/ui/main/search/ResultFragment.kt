@@ -39,6 +39,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
 
         chooseType()
         changeScreen()
+        changeLoc()
 
         val place = arguments?.getString("place")
         if(place == "inside"){
@@ -65,6 +66,24 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
             binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
+    }
+
+    private fun changeLoc(){
+        binding.detailLocCl.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, SearchLocationFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+
+            parentFragmentManager.setFragmentResultListener("requestKey", this) { key, bundle ->
+                // 데이터를 수신하고 처리합니다.
+                val requestAddress = bundle.getString("requestAddress")
+                screenAddress = requestAddress.toString()
+                binding.locInfoTv.text = screenAddress.split(" ").last()
+
+                outsideResult(binding.resultEt.text.toString())
+            }
+        }
     }
 
     private fun changeScreen(){
@@ -106,16 +125,11 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
                 Log.d("TAG_outsideSuccess", response.body().toString())
                 val resp = response.body()
                 if(resp?.isSuccess == true && resp?.code == "OK200"){
-                    val bundle = Bundle().apply {
-                        putSerializable("outsideItem", resp!!.result.googlePlaceResultDTOList)
-                        putString("place", "outside")
-                        putString("keyword", keyword)
-                    }
-                    val resultFragment = ResultFragment()
-                    resultFragment.arguments = bundle
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, resultFragment)
-                        .commitAllowingStateLoss()
+                    outsideItemList = resp.result.googlePlaceResultDTOList
+
+                    // 새로운 데이터로 업데이트
+                    (binding.resultListRv.adapter as OutsideRVAdapter).updateData(outsideItemList)
+                    (binding.resultBlockRv.adapter as OutsideRVAdapter).updateData(outsideItemList)
                 }else{
                     Toast.makeText(context, "다시 요청해주세요", Toast.LENGTH_SHORT).show()
                 }

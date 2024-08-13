@@ -13,7 +13,7 @@ import com.example.todaynan.data.remote.place.GoogleItem
 import com.example.todaynan.databinding.ItemRecommend1Binding
 import com.example.todaynan.databinding.ItemRecommend2Binding
 
-class OutsideRVAdapter(private val outsideList: ArrayList<GoogleItem>?, private val type: Int) :
+class OutsideRVAdapter(private var outsideList: ArrayList<GoogleItem>?, private val type: Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private val defaultItem = GoogleItem(null, "가천대학교", "경기도 성남시 수정구 성남대로 1342", null, "학교탐방", false)
@@ -75,6 +75,11 @@ class OutsideRVAdapter(private val outsideList: ArrayList<GoogleItem>?, private 
             .load(imageUrl)
             .apply(RequestOptions().transform(CircleCrop()))
             .into(imageView)
+    }
+
+    fun updateData(newItemList: ArrayList<GoogleItem>?) {
+        outsideList = newItemList
+        notifyDataSetChanged()  // 데이터 변경을 알림
     }
 
 }
