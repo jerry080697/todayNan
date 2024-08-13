@@ -1,11 +1,21 @@
 package com.example.todaynan.ui.main.search
 
+import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
+import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.place.Inside
+import com.example.todaynan.data.remote.place.PlaceInterface
+import com.example.todaynan.data.remote.place.PlaceResponse
 import com.example.todaynan.databinding.FragmentSearchBinding
 import com.example.todaynan.ui.BaseFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
@@ -59,11 +69,43 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
         }
         binding.searchHomeBt.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, ResultFragment())
-                .addToBackStack(null)
-                .commitAllowingStateLoss()
+            Toast.makeText(context, "잠시만 기다려주세요", Toast.LENGTH_SHORT).show()
+            insideResult()
         }
+    }
+
+    private fun insideResult(){
+        val placeService = getRetrofit().create(PlaceInterface::class.java)
+
+        val auth = "Bearer "+AppData.appToken
+        placeService.searchInside(auth).enqueue(object: Callback<PlaceResponse<Inside>> {
+            override fun onResponse(
+                call: Call<PlaceResponse<Inside>>,
+                response: Response<PlaceResponse<Inside>>
+            ) {
+                Log.d("TAG_insideSuccess", response.toString())
+                Log.d("TAG_insideSuccess", response.body().toString())
+                val resp = response.body()
+                if(resp?.isSuccess == true && resp?.code == "SEARCH2003"){
+                    val bundle = Bundle().apply {
+                        putParcelableArrayList("insideItem", resp!!.result.geminiResponseItemDTOList)
+                    }
+                    val resultFragment = ResultFragment()
+                    resultFragment.arguments = bundle
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, resultFragment)
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss()
+                } else{
+                    Toast.makeText(context, "다시 요청해주세요", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<PlaceResponse<Inside>>, t: Throwable) {
+                Log.d("TAG_insideFail", t.message.toString())
+            }
+
+        })
     }
 
 }

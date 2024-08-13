@@ -11,12 +11,12 @@ import com.example.todaynan.ui.BaseFragment
 class JjimListFragment : BaseFragment<FragmentJjimListBinding>(FragmentJjimListBinding::inflate) {
 
     override fun initAfterBinding() {
-
+        /*
         val items = generateDummyItems() // 데이터 생성 (임시 함수)
         val jjimListAdapter = RecommendRVAdapter(items, 2)
         binding.jjimListRv.adapter = jjimListAdapter
         binding.jjimListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
+        */
         binding.jjimListBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }

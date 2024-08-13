@@ -1,53 +1,80 @@
 package com.example.todaynan.ui.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todaynan.data.entity.Recommend
+import com.bumptech.glide.request.RequestOptions
+import com.example.todaynan.R
+import com.example.todaynan.data.remote.place.GeminiItem
 import com.example.todaynan.databinding.ItemRecommend1Binding
 import com.example.todaynan.databinding.ItemRecommend2Binding
 
-class RecommendRVAdapter(private val recommendList: ArrayList<Recommend>, private val type: Int) :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class RecommendRVAdapter(private val insideList: ArrayList<GeminiItem>?, private val type: Int) :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
+    val defaultItem = GeminiItem("시간을 달리는 소녀", "상세설명", "영화", R.drawable.item_temp_img.toString(), false)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (type == 1) {  // 나열형
             val binding: ItemRecommend1Binding = ItemRecommend1Binding
                 .inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
-            ListViewHolder(binding)
+            ListViewHolder(binding, viewGroup.context)
         } else {   // 블록형
             val binding: ItemRecommend2Binding = ItemRecommend2Binding
                 .inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
-            BlockViewHolder(binding)
+            BlockViewHolder(binding, viewGroup.context)
         }
     }
 
-    override fun getItemCount(): Int =recommendList.size
+    override fun getItemCount(): Int = insideList?.size ?: 0
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ListViewHolder) {
-            holder.bind(recommendList[position])
+            holder.bind(insideList?.get(position) ?: defaultItem)
         } else if (holder is BlockViewHolder) {
-            holder.bind(recommendList[position])
+            holder.bind(insideList?.get(position) ?: defaultItem)
         }
     }
 
     //나열형 ViewHolder
-    class ListViewHolder(private val binding: ItemRecommend1Binding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(recommend: Recommend) {
-            binding.itemImageIv.setImageResource(recommend.image!!)
-            binding.itemTitleTv.text = recommend.title
-            binding.itemCategoryTv.text = recommend.category
-            binding.itemInfoTv.text = recommend.info
-            binding.itemDetailTv.text = recommend.detail
+    inner class ListViewHolder(private val binding: ItemRecommend1Binding, private val con: Context) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(geminiItem: GeminiItem) {
+            if(geminiItem.image != ""){
+                setStringImage(geminiItem.image, binding.itemImageIv, con)
+            }
+            binding.itemTitleTv.text = geminiItem.title
+            binding.itemCategoryTv.text = geminiItem.category
+            binding.itemDetailTv.text = geminiItem.description
+            if(geminiItem.isLike){
+                binding.itemLikeOn.visibility = View.VISIBLE
+                binding.itemLikeOff.visibility = View.INVISIBLE
+            }else{
+                binding.itemLikeOn.visibility = View.INVISIBLE
+                binding.itemLikeOff.visibility = View.VISIBLE
+            }
         }
     }
     //블록형 ViewHolder
-    class BlockViewHolder(private val binding: ItemRecommend2Binding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(recommend: Recommend) {
-            binding.itemImageIv.setImageResource(recommend.image!!)
-            binding.itemTitleTv.text = recommend.title
-            binding.itemInfoTv.text = recommend.info
+    inner class BlockViewHolder(private val binding: ItemRecommend2Binding, private val con: Context) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(geminiItem: GeminiItem) {
+            if(geminiItem.image != ""){
+                setStringImage(geminiItem.image, binding.itemImageIv, con)
+            }
+            binding.itemTitleTv.text = geminiItem.title
+            binding.itemInfoTv.text = geminiItem.category
         }
+    }
+
+    // 이미지뷰에 문자열 형태의 이미지를 설정
+    fun setStringImage(imageUrl: String, imageView: ImageView, con: Context) {
+        Glide.with(con)
+            .load(imageUrl)
+            .apply(RequestOptions().transform(CircleCrop()))
+            .into(imageView)
     }
 
 }
