@@ -49,3 +49,28 @@ data class GeminiItem(
         }
     }
 }
+
+// 밖 놀거리 검색 응답값
+data class Outside(
+    @SerializedName(value="googlePlaceResultDTOList")val googlePlaceResultDTOList: ArrayList<GoogleItem>,
+    @SerializedName(value="pageToken")val pageTokenizer: String,
+)
+data class GoogleItem(
+    @SerializedName("geometry") val geometry: Geometry?,
+    @SerializedName("name") val name: String,
+    @SerializedName("address") val address: String,
+    @SerializedName("photoUrl") val photoUrl: String?,
+    @SerializedName("type") val type: String,
+    @SerializedName(value="isLike")var isLike: Boolean,
+): Serializable
+data class Geometry(
+    @SerializedName("viewport") val viewport: Viewport,
+)
+data class Viewport(
+    @SerializedName("low") val low: LatLng,
+    @SerializedName("high") val high: LatLng
+)
+data class LatLng(
+    @SerializedName("lat") val lat: Double,
+    @SerializedName("lng") val lng: Double,
+)

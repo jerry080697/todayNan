@@ -1,49 +1,54 @@
 package com.example.todaynan.ui.main.search
 
-import android.os.Bundle
 import android.view.KeyEvent
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.data.remote.place.GeminiItem
+import com.example.todaynan.data.remote.place.GoogleItem
 import com.example.todaynan.databinding.FragmentResultBinding
 import com.example.todaynan.ui.BaseFragment
+import com.example.todaynan.ui.adapter.OutsideRVAdapter
 import com.example.todaynan.ui.adapter.RecommendRVAdapter
 
 class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding::inflate) {
 
     var showType: Int = 0   //0: 크게 보기, 1: 작게 보기
     private var insideItemList : ArrayList<GeminiItem>? = null
-
-    companion object {
-        fun newInstance(text: String): ResultFragment {
-            val fragment = ResultFragment()
-            val args = Bundle()
-            args.putString("search_word", text)
-            fragment.arguments = args
-            return fragment
-        }
-    }
+    private var outsideItemList: ArrayList<GoogleItem>? = null
 
     override fun initAfterBinding() {
 
-        val word = arguments?.getString("search_word")
+        val word = arguments?.getString("keyword")
         binding.resultEt.setText(word)
 
         chooseType()
         changeScreen()
 
-        // 안 결과 데이터
-        arguments?.let {
-            insideItemList = it.getParcelableArrayList("insideItem")
+        val place = arguments?.getString("place")
+        if(place == "inside"){
+            // 안 결과 데이터
+            arguments?.let {
+                insideItemList = it.getParcelableArrayList("insideItem")
+            }
+            val recommendRVAdapter1 = RecommendRVAdapter(insideItemList,1)
+            binding.resultListRv.adapter = recommendRVAdapter1
+            binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            val recommendRVAdapter2 = RecommendRVAdapter(insideItemList,2)
+            binding.resultBlockRv.adapter = recommendRVAdapter2
+            binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        } else{ // place == "outside"
+            // 밖 결과 데이터
+            arguments?.let {
+                outsideItemList = it.getSerializable("outsideItem") as? ArrayList<GoogleItem>
+            }
+            val recommendRVAdapter1 = OutsideRVAdapter(outsideItemList,1)
+            binding.resultListRv.adapter = recommendRVAdapter1
+            binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            val recommendRVAdapter2 = OutsideRVAdapter(outsideItemList,2)
+            binding.resultBlockRv.adapter = recommendRVAdapter2
+            binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
-
-        val recommendRVAdapter1 = RecommendRVAdapter(insideItemList,1)
-        binding.resultListRv.adapter = recommendRVAdapter1
-        binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val recommendRVAdapter2 = RecommendRVAdapter(insideItemList,2)
-        binding.resultBlockRv.adapter = recommendRVAdapter2
-        binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
     }
 

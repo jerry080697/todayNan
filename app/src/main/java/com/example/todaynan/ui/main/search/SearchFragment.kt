@@ -9,6 +9,7 @@ import com.example.todaynan.R
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.place.Inside
+import com.example.todaynan.data.remote.place.Outside
 import com.example.todaynan.data.remote.place.PlaceInterface
 import com.example.todaynan.data.remote.place.PlaceResponse
 import com.example.todaynan.databinding.FragmentSearchBinding
@@ -48,21 +49,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.searchImageBt0.setOnClickListener {
             hideKeyboard()
             val searchText = binding.requestEt.text.toString()
-            val resultFragment = ResultFragment.newInstance(searchText)
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, resultFragment)
-                .addToBackStack(null)
-                .commitAllowingStateLoss()
+            outsideResult(searchText)
         }
         binding.requestEt.setOnEditorActionListener { v, actionId, event ->
             if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
                 hideKeyboard()
                 val searchText = binding.requestEt.text.toString()
-                val resultFragment = ResultFragment.newInstance(searchText)
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_frm, resultFragment)
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss()
+                outsideResult(searchText)
                 true // 이벤트 처리 완료
             } else {
                 false // 이벤트 처리 안 함
@@ -89,6 +82,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 if(resp?.isSuccess == true && resp?.code == "SEARCH2003"){
                     val bundle = Bundle().apply {
                         putParcelableArrayList("insideItem", resp!!.result.geminiResponseItemDTOList)
+                        putString("place", "inside")
                     }
                     val resultFragment = ResultFragment()
                     resultFragment.arguments = bundle
@@ -103,6 +97,41 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
             override fun onFailure(call: Call<PlaceResponse<Inside>>, t: Throwable) {
                 Log.d("TAG_insideFail", t.message.toString())
+            }
+
+        })
+    }
+
+    private fun outsideResult(keyword: String){
+        val placeService = getRetrofit().create(PlaceInterface::class.java)
+
+        val auth = "Bearer "+AppData.appToken
+        placeService.searchOutside(auth, keyword, null).enqueue(object: Callback<PlaceResponse<Outside>>{
+            override fun onResponse(
+                call: Call<PlaceResponse<Outside>>,
+                response: Response<PlaceResponse<Outside>>
+            ) {
+                Log.d("TAG_outsideSuccess", response.toString())
+                Log.d("TAG_outsideSuccess", response.body().toString())
+                val resp = response.body()
+                if(resp?.isSuccess == true && resp?.code == "OK200"){
+                    val bundle = Bundle().apply {
+                        putSerializable("outsideItem", resp!!.result.googlePlaceResultDTOList)
+                        putString("place", "outside")
+                        putString("keyword", keyword)
+                    }
+                    val resultFragment = ResultFragment()
+                    resultFragment.arguments = bundle
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, resultFragment)
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss()
+                }
+
+            }
+
+            override fun onFailure(call: Call<PlaceResponse<Outside>>, t: Throwable) {
+                Log.d("TAG_outsideFail", t.message.toString())
             }
 
         })
