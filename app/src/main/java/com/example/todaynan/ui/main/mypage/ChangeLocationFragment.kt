@@ -23,6 +23,12 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
     override fun initAfterBinding() {
 
         // SharedPreferences에서 저장된 주소를 불러와 AppData.address에 설정
+        val newAddress = arguments?.getString("new_address")
+        if (newAddress != null) {
+            binding.changeLocationCurrentLocationTv.text = newAddress
+            binding.changeLocationSelectLocationTv.text = newAddress
+            AppData.address = newAddress
+        }
         val currentAddress = loadAddressFromPreferences().takeIf { it.isNotEmpty() } ?: AppData.address
         binding.changeLocationCurrentLocationTv.text = currentAddress
 
