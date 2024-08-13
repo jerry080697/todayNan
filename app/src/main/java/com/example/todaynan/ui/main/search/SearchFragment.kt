@@ -128,8 +128,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                         .replace(R.id.main_frm, resultFragment)
                         .addToBackStack(null)
                         .commitAllowingStateLoss()
+                } else{
+                    Toast.makeText(context, "다시 요청해주세요", Toast.LENGTH_SHORT).show()
                 }
-
             }
 
             override fun onFailure(call: Call<PlaceResponse<Outside>>, t: Throwable) {

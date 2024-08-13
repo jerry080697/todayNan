@@ -1,26 +1,38 @@
 package com.example.todaynan.ui.main.search
 
+import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
+import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.place.GeminiItem
 import com.example.todaynan.data.remote.place.GoogleItem
+import com.example.todaynan.data.remote.place.Outside
+import com.example.todaynan.data.remote.place.PlaceInterface
+import com.example.todaynan.data.remote.place.PlaceResponse
 import com.example.todaynan.databinding.FragmentResultBinding
 import com.example.todaynan.ui.BaseFragment
 import com.example.todaynan.ui.adapter.OutsideRVAdapter
 import com.example.todaynan.ui.adapter.InsideRVAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding::inflate) {
 
     var showType: Int = 0   //0: 크게 보기, 1: 작게 보기
+    lateinit var screenAddress: String
     private var insideItemList : ArrayList<GeminiItem>? = null
     private var outsideItemList: ArrayList<GoogleItem>? = null
 
     override fun initAfterBinding() {
 
-        binding.locInfoTv.text = AppData.address.split(" ").last()
+        screenAddress = AppData.address
+        binding.locInfoTv.text = screenAddress.split(" ").last()
 
         val word = arguments?.getString("keyword")
         binding.resultEt.setText(word)
@@ -60,12 +72,14 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
             hideKeyboard()
             binding.resultEt.text = binding.resultEt.text
             // 검색 결과 갱신
+            outsideResult(binding.resultEt.text.toString())
         }
         binding.resultEt.setOnEditorActionListener { v, actionId, event ->
             if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
                 hideKeyboard()
                 binding.resultEt.text = binding.resultEt.text
                 // 검색 결과 갱신
+                outsideResult(binding.resultEt.text.toString())
                 true // 이벤트 처리 완료
             } else {
                 false // 이벤트 처리 안 함
@@ -76,6 +90,44 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
             parentFragmentManager.popBackStack()
         }
     }
+    private fun outsideResult(keyword: String){
+        val placeService = getRetrofit().create(PlaceInterface::class.java)
+
+        val auth = "Bearer "+AppData.appToken
+        val searchWord = "$screenAddress $keyword"
+        Log.d("TAG_outside", searchWord)
+        placeService.searchOutside(auth, searchWord, null).enqueue(object:
+            Callback<PlaceResponse<Outside>> {
+            override fun onResponse(
+                call: Call<PlaceResponse<Outside>>,
+                response: Response<PlaceResponse<Outside>>
+            ) {
+                Log.d("TAG_outsideSuccess", response.toString())
+                Log.d("TAG_outsideSuccess", response.body().toString())
+                val resp = response.body()
+                if(resp?.isSuccess == true && resp?.code == "OK200"){
+                    val bundle = Bundle().apply {
+                        putSerializable("outsideItem", resp!!.result.googlePlaceResultDTOList)
+                        putString("place", "outside")
+                        putString("keyword", keyword)
+                    }
+                    val resultFragment = ResultFragment()
+                    resultFragment.arguments = bundle
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, resultFragment)
+                        .commitAllowingStateLoss()
+                }else{
+                    Toast.makeText(context, "다시 요청해주세요", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<PlaceResponse<Outside>>, t: Throwable) {
+                Log.d("TAG_outsideFail", t.message.toString())
+            }
+
+        })
+    }
+
 
     private fun chooseType(){
         binding.resultMenuIv.setOnClickListener{
