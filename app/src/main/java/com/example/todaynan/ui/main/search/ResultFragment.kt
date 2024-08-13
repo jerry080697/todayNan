@@ -9,7 +9,7 @@ import com.example.todaynan.data.remote.place.GoogleItem
 import com.example.todaynan.databinding.FragmentResultBinding
 import com.example.todaynan.ui.BaseFragment
 import com.example.todaynan.ui.adapter.OutsideRVAdapter
-import com.example.todaynan.ui.adapter.RecommendRVAdapter
+import com.example.todaynan.ui.adapter.InsideRVAdapter
 
 class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding::inflate) {
 
@@ -29,24 +29,24 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
         if(place == "inside"){
             // 안 결과 데이터
             arguments?.let {
-                insideItemList = it.getParcelableArrayList("insideItem")
+                insideItemList = it.getSerializable("insideItem") as? ArrayList<GeminiItem>
             }
-            val recommendRVAdapter1 = RecommendRVAdapter(insideItemList,1)
-            binding.resultListRv.adapter = recommendRVAdapter1
+            val insideRVAdapter1 = InsideRVAdapter(insideItemList,1)
+            binding.resultListRv.adapter = insideRVAdapter1
             binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            val recommendRVAdapter2 = RecommendRVAdapter(insideItemList,2)
-            binding.resultBlockRv.adapter = recommendRVAdapter2
+            val insideRVAdapter2 = InsideRVAdapter(insideItemList,2)
+            binding.resultBlockRv.adapter = insideRVAdapter2
             binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         } else{ // place == "outside"
             // 밖 결과 데이터
             arguments?.let {
                 outsideItemList = it.getSerializable("outsideItem") as? ArrayList<GoogleItem>
             }
-            val recommendRVAdapter1 = OutsideRVAdapter(outsideItemList,1)
-            binding.resultListRv.adapter = recommendRVAdapter1
+            val outsideRVAdapter1 = OutsideRVAdapter(outsideItemList,1)
+            binding.resultListRv.adapter = outsideRVAdapter1
             binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            val recommendRVAdapter2 = OutsideRVAdapter(outsideItemList,2)
-            binding.resultBlockRv.adapter = recommendRVAdapter2
+            val outsideRVAdapter2 = OutsideRVAdapter(outsideItemList,2)
+            binding.resultBlockRv.adapter = outsideRVAdapter2
             binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 

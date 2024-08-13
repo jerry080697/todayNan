@@ -12,6 +12,7 @@ data class PlaceResponse<T> (
     @SerializedName(value="result")val result: T,
 ): Serializable
 
+// 안 놀거리 검색 응답값
 data class Inside(
     @SerializedName(value="geminiResponseItemDTOList")val geminiResponseItemDTOList: ArrayList<GeminiItem>
 )
@@ -21,34 +22,7 @@ data class GeminiItem(
     @SerializedName(value="category")val category: String,
     @SerializedName(value="image")val image: String,
     @SerializedName(value="isLike")var isLike: Boolean,
-): Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readByte() != 0.toByte()
-    )
-
-    override fun describeContents(): Int {
-        return 0
-    }
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(title)
-        parcel.writeString(description)
-        parcel.writeString(category)
-        parcel.writeString(image)
-        parcel.writeByte(if (isLike) 1 else 0)
-    }
-    companion object CREATOR : Parcelable.Creator<GeminiItem> {
-        override fun createFromParcel(parcel: Parcel): GeminiItem {
-            return GeminiItem(parcel)
-        }
-        override fun newArray(size: Int): Array<GeminiItem?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+): Serializable
 
 // 밖 놀거리 검색 응답값
 data class Outside(

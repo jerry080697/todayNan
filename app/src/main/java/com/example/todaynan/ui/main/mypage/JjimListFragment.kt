@@ -1,8 +1,6 @@
 package com.example.todaynan.ui.main.mypage
 
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
-import com.example.todaynan.ui.adapter.RecommendRVAdapter
 import com.example.todaynan.data.entity.Recommend
 import com.example.todaynan.databinding.FragmentJjimListBinding
 import com.example.todaynan.ui.BaseFragment

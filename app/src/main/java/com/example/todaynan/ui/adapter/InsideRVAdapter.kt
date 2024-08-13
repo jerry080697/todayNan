@@ -14,7 +14,7 @@ import com.example.todaynan.data.remote.place.GeminiItem
 import com.example.todaynan.databinding.ItemRecommend1Binding
 import com.example.todaynan.databinding.ItemRecommend2Binding
 
-class RecommendRVAdapter(private val insideList: ArrayList<GeminiItem>?, private val type: Int) :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class InsideRVAdapter(private val insideList: ArrayList<GeminiItem>?, private val type: Int) :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     val defaultItem = GeminiItem("시간을 달리는 소녀", "상세설명", "영화", R.drawable.item_temp_img.toString(), false)
 

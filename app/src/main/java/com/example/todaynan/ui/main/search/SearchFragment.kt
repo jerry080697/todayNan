@@ -81,7 +81,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 val resp = response.body()
                 if(resp?.isSuccess == true && resp?.code == "SEARCH2003"){
                     val bundle = Bundle().apply {
-                        putParcelableArrayList("insideItem", resp!!.result.geminiResponseItemDTOList)
+                        putSerializable("insideItem", resp!!.result.geminiResponseItemDTOList)
                         putString("place", "inside")
                     }
                     val resultFragment = ResultFragment()
