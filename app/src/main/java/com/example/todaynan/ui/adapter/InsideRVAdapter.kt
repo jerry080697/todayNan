@@ -73,7 +73,6 @@ class InsideRVAdapter(private val insideList: ArrayList<GeminiItem>?, private va
     fun setStringImage(imageUrl: String, imageView: ImageView, con: Context) {
         Glide.with(con)
             .load(imageUrl)
-            .apply(RequestOptions().transform(CircleCrop()))
             .into(imageView)
     }
 
