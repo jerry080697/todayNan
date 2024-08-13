@@ -73,5 +73,5 @@ interface UserInterface {
         @Header("authorization") accessToken: String,
         @Query("searchString") searchString: String,
         @Query("pageToken") pageToken: String
-    ): Call<UserResponse<SearchOutsideResponse>>
+    ): Call<UserResponse<SearchOutsideResult>>
 }

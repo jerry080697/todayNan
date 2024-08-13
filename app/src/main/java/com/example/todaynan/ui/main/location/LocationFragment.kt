@@ -18,10 +18,10 @@ import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ChangeLocationRequest
 import com.example.todaynan.data.entity.Place
 import com.example.todaynan.data.remote.getRetrofit
-import com.example.todaynan.data.remote.user.ChangeLocationResponse
 import com.example.todaynan.data.remote.user.GooglePlaceResultDTO
 import com.example.todaynan.data.remote.user.LatLng
 import com.example.todaynan.data.remote.user.SearchOutsideResponse
+import com.example.todaynan.data.remote.user.SearchOutsideResult
 import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.FragmentLocationBinding
@@ -71,10 +71,6 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
         mapView.getMapAsync(this)
 
         binding.currentLocationTv.setText(AppData.address)
-//        val recyclerView = binding.root.findViewById<RecyclerView>(R.id.location_recycler_view)
-//        locationAdapter = LocationPlaceRVAdapter(generateDummyItems())
-//        recyclerView.layoutManager = LinearLayoutManager(context)
-//        recyclerView.adapter = locationAdapter
 
         locationSearchEt = binding.locationSearchEt
         locationSearchBtn = binding.locationSearchBtn
@@ -90,58 +86,43 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
     private fun searchLocations(searchText: String) {
         val accessToken = "Bearer ${AppData.appToken}"
 
-        userService.searchOutside(accessToken, searchText, pageToken = "").enqueue(object : Callback<UserResponse<SearchOutsideResponse>> {
+        userService.searchOutside(accessToken, searchText, pageToken = "").enqueue(object : Callback<UserResponse<SearchOutsideResult>> {
             override fun onResponse(
-                call: Call<UserResponse<SearchOutsideResponse>>,
-                response: Response<UserResponse<SearchOutsideResponse>>
+                call: Call<UserResponse<SearchOutsideResult>>,
+                response: Response<UserResponse<SearchOutsideResult>>
             ) {
-                Log.d("LocationFragment", "Response Code: ${response.code()}")
-                Log.d("LocationFragment", "Response Body: ${response.body()}")
-                Log.d("LocationFragment", "Response Message: ${response.message()}")
-
                 if (response.isSuccessful) {
                     val userResponse = response.body()
-                    if (userResponse?.isSuccess == true) {
-                        val searchResponse = userResponse.result
-                        if (searchResponse?.isSuccess == true) {
-                            val places = searchResponse.result?.googlePlaceResultDTOList ?: emptyList()
-                            Log.d("LocationFragment", "Places: $places")
+                    Log.d("LocationFragment", "Response Code: ${response.code()}")
+                    Log.d("LocationFragment", "Response Body: $userResponse")
 
-                            if (places.isEmpty()) {
-                                Toast.makeText(context, "검색된 장소가 없습니다.", Toast.LENGTH_SHORT).show()
-                            } else {
-                                updateMapMarkers(places)
-                            }
-                        } else {
-                            Log.d("LocationFragment", "Search response failure: ${searchResponse?.message}")
-                            Toast.makeText(context, "검색 응답 실패: ${searchResponse?.message}", Toast.LENGTH_SHORT).show()
-                        }
+                    if (userResponse?.isSuccess == true) {
+                        val places = userResponse.result?.googlePlaceResultDTOList ?: emptyList()
+                        updateMapMarkers(places)
+                        locationAdapter = LocationPlaceRVAdapter(places) // Use GooglePlaceResultDTO
+                        binding.locationRecyclerView.adapter = locationAdapter
                     } else {
-                        Log.d("LocationFragment", "User response failure: ${userResponse?.message}")
-                        Toast.makeText(context, "API 응답 실패: ${userResponse?.message}", Toast.LENGTH_SHORT).show()
+                        Log.d("LocationFragment", "Search response failure: ${userResponse?.message}")
+                        Toast.makeText(context, "장소 검색에 실패했습니다: ${userResponse?.message}", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Log.e("LocationFragment", "Response error: ${response.errorBody()?.string()}")
-                    Toast.makeText(context, "서버와 통신 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                    Log.d("LocationFragment", "Response error: ${response.errorBody()?.string()}")
+                    Toast.makeText(context, "서버 응답 오류", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<UserResponse<SearchOutsideResponse>>, t: Throwable) {
-                Log.e("LocationFragment", "API 호출 실패: ${t.message}", t)
+            override fun onFailure(call: Call<UserResponse<SearchOutsideResult>>, t: Throwable) {
+                Log.d("LocationFragment", "Request failed: ${t.message}")
                 Toast.makeText(context, "서버와 통신 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }
         })
     }
-
-
-
     private fun updateMapMarkers(places: List<GooglePlaceResultDTO>) {
         // 기존 마커 제거
         googleMap.clear()
 
         // 새로운 마커 추가
         for (place in places) {
-            // 올바른 LatLng 값 사용
             val position = com.google.android.gms.maps.model.LatLng(
                 place.geometry.viewport.low.lat,
                 place.geometry.viewport.low.lng
@@ -189,5 +170,4 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
         super.onLowMemory()
         mapView.onLowMemory()
     }
-
 }

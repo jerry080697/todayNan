@@ -49,36 +49,36 @@ data class SignOutResponse(
 ) : Serializable
 
 data class SearchOutsideResponse(
-    @SerializedName(value = "isSuccess") val isSuccess: Boolean,
-    @SerializedName(value = "code") val code: String,
-    @SerializedName(value = "message") val message: String,
-    @SerializedName(value = "result") val result: SearchOutsideResult
+    @SerializedName("isSuccess") val isSuccess: Boolean,
+    @SerializedName("code") val code: String?,
+    @SerializedName("message") val message: String?,
+    @SerializedName("result") val result: SearchOutsideResult?
 ) : Serializable
 
 data class SearchOutsideResult(
-    @SerializedName(value = "googlePlaceResultDTOList") val googlePlaceResultDTOList: List<GooglePlaceResultDTO>,
-    @SerializedName(value = "pageToken") val pageToken: String
+    @SerializedName("googlePlaceResultDTOList") val googlePlaceResultDTOList: List<GooglePlaceResultDTO>,
+    @SerializedName("pageToken") val pageToken: String?
 ) : Serializable
 
 data class GooglePlaceResultDTO(
-    @SerializedName(value = "geometry") val geometry: Geometry,
-    @SerializedName(value = "name") val name: String,
-    @SerializedName(value = "address") val address: String,
-    @SerializedName(value = "photoUrl") val photoUrl: String,
-    @SerializedName(value = "type") val type: String,
-    @SerializedName(value = "isLike") val isLike: Boolean
+    @SerializedName("geometry") val geometry: Geometry,
+    @SerializedName("name") val name: String,
+    @SerializedName("address") val address: String,
+    @SerializedName("photoUrl") val photoUrl: String,
+    @SerializedName("type") val type: String,
+    @SerializedName("isLike") val isLike: Boolean
 ) : Serializable
 
 data class Geometry(
-    @SerializedName(value = "viewport") val viewport: Viewport
+    @SerializedName("viewport") val viewport: Viewport
 ) : Serializable
 
 data class Viewport(
-    @SerializedName(value = "low") val low: LatLng,
-    @SerializedName(value = "high") val high: LatLng
+    @SerializedName("low") val low: LatLng,
+    @SerializedName("high") val high: LatLng
 ) : Serializable
 
 data class LatLng(
-    @SerializedName(value = "lat") val lat: Double,
-    @SerializedName(value = "lng") val lng: Double
+    @SerializedName("lat") val lat: Double,
+    @SerializedName("lng") val lng: Double
 ) : Serializable
