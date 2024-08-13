@@ -1,6 +1,5 @@
 package com.example.todaynan.ui.main.mypage
 
-import android.os.Bundle
 import android.widget.Toast
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
@@ -15,6 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.content.Context
+import com.example.todaynan.data.entity.User
+import com.google.gson.Gson
 
 class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(FragmentChangeLocationBinding::inflate) {
 
@@ -22,15 +23,7 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
 
     override fun initAfterBinding() {
 
-        // SharedPreferences에서 저장된 주소를 불러와 AppData.address에 설정
-        val newAddress = arguments?.getString("new_address")
-        if (newAddress != null) {
-            binding.changeLocationCurrentLocationTv.text = newAddress
-            binding.changeLocationSelectLocationTv.text = newAddress
-            AppData.address = newAddress
-        }
-        val currentAddress = loadAddressFromPreferences().takeIf { it.isNotEmpty() } ?: AppData.address
-        binding.changeLocationCurrentLocationTv.text = currentAddress
+        binding.changeLocationCurrentLocationTv.text = AppData.address
 
         binding.changeLocationBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -63,10 +56,9 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
                 response: Response<UserResponse<ChangeLocationResponse>>
             ) {
                 if (response.isSuccessful && response.body()?.isSuccess == true) {
+                    AppData.address = newLocation // AppData의 address 업데이트
                     // 주소를 SharedPreferences에 저장
                     saveAddressToPreferences(newLocation)
-
-                    AppData.address = newLocation // AppData의 address 업데이트
                     binding.changeLocationCurrentLocationTv.text = newLocation
                     binding.changeLocationSelectLocationTv.text = newLocation
                     Toast.makeText(context, "동네가 성공적으로 변경되었습니다.", Toast.LENGTH_SHORT).show()
@@ -82,14 +74,12 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
     }
 
     private fun saveAddressToPreferences(address: String) {
-        val sharedPreferences = requireContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE)
+        val user: User = User(AppData.nickname, AppData.preferIdx, AppData.address, AppData.mypet)
+        val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("address", address)
+        val userJson = Gson().toJson(user)
+        editor.putString("user", userJson)
         editor.apply() // or editor.commit() to save synchronously
     }
 
-    private fun loadAddressFromPreferences(): String {
-        val sharedPreferences = requireContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("address", "") ?: ""
-    }
 }
