@@ -38,7 +38,7 @@ interface UserInterface {
         @Header("authorization") accessToken: String,
     ): Call<UserResponse<Login>>
 
-    //게시글 작성
+    // 게시글 작성
     @POST("/post")
     fun post(
         @Header("authorization") accessToken: String,
@@ -51,4 +51,11 @@ interface UserInterface {
         @Header("authorization") accessToken: String,
         @Body request: ChangeNewNicknameRequest
     ): Call<UserResponse<ChangeNickNameResponse>>
+
+    // 구인 게시판 전체 검색
+    @GET("/post/employ")
+    fun getPostEmploy(
+        @Header("authorization") accessToken: String,
+        @Query("page") page: Int
+    ): Call<UserResponse<GetPost>>
 }

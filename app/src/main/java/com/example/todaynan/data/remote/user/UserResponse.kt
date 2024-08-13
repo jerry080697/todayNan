@@ -35,3 +35,24 @@ data class PostResponse(
 data class ChangeNickNameResponse(
     @SerializedName(value = "message")val message: String
 ):Serializable
+
+data class PostList(
+    @SerializedName(value = "postId") val postId: Int,
+    @SerializedName(value = "userId") val userId: Int,
+    @SerializedName(value = "userNickname") val userNickname: String,
+    @SerializedName(value = "userAddress") val userAddress: String,
+    @SerializedName(value = "postTitle") val postTitle: String,
+    @SerializedName(value = "postContent") val postContent: String,
+    @SerializedName(value = "postLike") val postLike: Int,
+    @SerializedName(value = "postComment") val postComment: Int,
+    @SerializedName(value = "createdAt") val createdAt: String
+): Serializable
+
+data class GetPost(
+    @SerializedName(value = "postList") val postList: List<PostList>,
+    @SerializedName(value = "listSize") val listSize: Int,
+    @SerializedName(value = "totalPage") val totalPage: Int,
+    @SerializedName(value = "totalElements") val totalElements: Int,
+    @SerializedName(value = "isFirst") val isFirst: Boolean,
+    @SerializedName(value = "isLast") val isLast: Boolean
+) : Serializable

@@ -4,12 +4,13 @@ import EmployRegisterFragment
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
-import com.example.todaynan.data.entity.Post
-import com.example.todaynan.data.entity.PostWrite
 import com.example.todaynan.data.remote.getRetrofit
-import com.example.todaynan.data.remote.user.PostResponse
+import com.example.todaynan.data.remote.user.GetPost
+import com.example.todaynan.data.remote.user.PostList
 import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.FragmentDetailBinding
@@ -19,9 +20,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding::inflate) {
+class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding::inflate) {
 
-    // Retrofit 인터페이스 초기화
     private val userService = getRetrofit().create(UserInterface::class.java)
 
     companion object {
@@ -35,98 +35,98 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
     }
 
     override fun initAfterBinding() {
+
+        val request = "Bearer "+AppData.appToken
         val type = arguments?.getString("type")
         binding.detailTv.text = type
 
-        // 서버에서 게시글 가져오기
-        fetchPostsFromServer()
+        userService.getPostEmploy(request,1).enqueue(object :
+            Callback<UserResponse<GetPost>> {
+            override fun onResponse(
+                call: Call<UserResponse<GetPost>>,
+                response: Response<UserResponse<GetPost>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
 
-        // 검색 버튼 클릭 시 서버 요청
+                val items = resp?.result?.postList
+
+                if (resp!!.isSuccess) {
+                    val boardAdapter = PostRVAdapter(items!!)
+                    binding.detailBoardRv.adapter = boardAdapter
+                    binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
+                    boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
+                        override fun onItemClick(post: PostList) {
+                            val postFragment = PostFragment.newInstance(binding.detailTv.text.toString())
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.main_frm, postFragment)
+                                .addToBackStack(null)
+                                .commitAllowingStateLoss()
+                        }
+                    })
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse<GetPost>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+        })
+
         binding.searchImageBt1.setOnClickListener {
             hideKeyboard()
-            // 검색 결과 서버 요청 (추가 구현 필요)
+            // 검색 결과 서버 요청
         }
-
-        // 엔터키 입력 시 서버 요청
         binding.resultEt.setOnEditorActionListener { v, actionId, event ->
             if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
                 hideKeyboard()
-                // 검색 결과 서버 요청 (추가 구현 필요)
+                binding.resultEt.text = binding.resultEt.text
+                // 검색 결과 서버 요청
                 true // 이벤트 처리 완료
             } else {
                 false // 이벤트 처리 안 함
             }
         }
-
-        // 게시글 작성 화면으로 이동
         binding.detailRegisterCl.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, EmployRegisterFragment())
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }
-
-        // 뒤로가기 버튼 클릭 시
         binding.detailBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-    }
 
-    private fun fetchPostsFromServer() {
-        // 예시 데이터로 PostWrite 객체 생성
-        val postWrite = PostWrite(content = "Sample Content" ,title = "Sample Title" ,category = "General")
-        val request = "Bearer "+ AppData.appToken
+        // 페이징 처리
+        binding.detailBoardRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
 
-        // 서버에 게시글 요청
-        userService.post(request, postWrite).enqueue(object : Callback<UserResponse<PostResponse>> {
-            override fun onResponse(
-                call: Call<UserResponse<PostResponse>>,
-                response: Response<UserResponse<PostResponse>>
-            ) {
-                if (response.isSuccessful) {
-                    // 서버로부터 받은 데이터 처리
-                    val postResponse = response.body()?.result
-                    if (postResponse != null) {
-                        val post = Post(
-                            userName = "Sample User",
-                            profileImg = R.drawable.default_profile_img,
-                            creationTime = "2024-08-11 12:34",
-                            location = "Sample Location",
-                            postTitle = postResponse.title,
-                            postContent = postResponse.content,
-                            boardTitle = "General",
-                            likedNum = 0,
-                            replyNum = 0,
-                            category = postResponse.category
-                        )
-
-                        // RecyclerView 업데이트
-                        updateRecyclerView(listOf(post))
-                    }
-                } else {
-                    Log.e("DetailFragment", "Server Error: ${response.errorBody()?.string()}")
+                if(!recyclerView.canScrollVertically(1)){ // 스크롤이 끝에 도달했을 때
+                loadNextPage() // 다음 페이지 게시물 가져오기
                 }
             }
-
-            override fun onFailure(call: Call<UserResponse<PostResponse>>, t: Throwable) {
-                Log.e("DetailFragment", "Network Error: ${t.message}")
-            }
         })
+
     }
 
-    private fun updateRecyclerView(posts: List<Post>) {
-        val postAdapter = PostRVAdapter(posts)
-        binding.detailBoardRv.adapter = postAdapter
+    fun loadNextPage() {
 
-        // 아이템 클릭 이벤트 처리
-        postAdapter.setMyItemClickListner(object : PostRVAdapter.MyItemClickListner {
-            override fun onItemClick(post: Post) {
-                val postFragment = PostFragment.newInstance(post.postTitle)
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_frm, postFragment)
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss()
-            }
-        })
     }
+
+
+
+//    private fun generateDummyItems(): List<Post> {
+//        val items = ArrayList<Post>()
+//        items.add(Post("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","안녕하떼여 띠드버거임니당!\n이번 주말에 딩딩이랑 잠실에 갔는데요,,,","추천 게시판",21,15,""))
+//        items.add(Post("재밌으면 짖는 개", R.drawable.default_profile_img,"05.04 14:20","광명시 철산동","성심당","없어지면 내가 가게 차린다ㅋㅋ\n마라탕후루집으로 차릴거임","잡담 게시판",33,50,""))
+//        items.add(Post("AI입니다", R.drawable.default_profile_img,"05.02 11:30","구로구 구로동","현대미술관 띱","저랑 같이 보러 가실 분?\n밥 사드림","구인 게시판",15,10,""))
+//        items.add(Post("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","안녕하떼여 띠드버거임니당!\n이번 주말에 딩딩이랑 잠실에 갔는데요,,,","추천 게시판",21,15,""))
+//        items.add(Post("재밌으면 짖는 개", R.drawable.default_profile_img,"05.04 14:20","광명시 철산동","성심당","없어지면 내가 가게 차린다ㅋㅋ\n마라탕후루집으로 차릴거임","잡담 게시판",33,50,""))
+//        items.add(Post("AI입니다", R.drawable.default_profile_img,"05.02 11:30","구로구 구로동","현대미술관 띱","저랑 같이 보러 가실 분?\n밥 사드림","구인 게시판",15,10,""))
+//        items.add(Post("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","안녕하떼여 띠드버거임니당!\n이번 주말에 딩딩이랑 잠실에 갔는데요,,,","추천 게시판",21,15,""))
+//        items.add(Post("재밌으면 짖는 개", R.drawable.default_profile_img,"05.04 14:20","광명시 철산동","성심당","없어지면 내가 가게 차린다ㅋㅋ\n마라탕후루집으로 차릴거임","잡담 게시판",33,50,""))
+//        items.add(Post("AI입니다", R.drawable.default_profile_img,"05.02 11:30","구로구 구로동","현대미술관 띱","저랑 같이 보러 가실 분?\n밥 사드림","구인 게시판",15,10,""))
+//        return items
+//    }
 }
