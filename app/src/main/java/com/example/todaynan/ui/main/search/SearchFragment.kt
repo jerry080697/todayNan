@@ -106,7 +106,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         val placeService = getRetrofit().create(PlaceInterface::class.java)
 
         val auth = "Bearer "+AppData.appToken
-        placeService.searchOutside(auth, keyword, null).enqueue(object: Callback<PlaceResponse<Outside>>{
+        val searchWord = AppData.address+" "+keyword
+        Log.d("TAG_outside", searchWord)
+        placeService.searchOutside(auth, searchWord, null).enqueue(object: Callback<PlaceResponse<Outside>>{
             override fun onResponse(
                 call: Call<PlaceResponse<Outside>>,
                 response: Response<PlaceResponse<Outside>>

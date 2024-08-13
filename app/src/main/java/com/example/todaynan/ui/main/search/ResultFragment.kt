@@ -4,6 +4,7 @@ import android.view.KeyEvent
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
+import com.example.todaynan.base.AppData
 import com.example.todaynan.data.remote.place.GeminiItem
 import com.example.todaynan.data.remote.place.GoogleItem
 import com.example.todaynan.databinding.FragmentResultBinding
@@ -18,6 +19,8 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
     private var outsideItemList: ArrayList<GoogleItem>? = null
 
     override fun initAfterBinding() {
+
+        binding.locInfoTv.text = AppData.address.split(" ").last()
 
         val word = arguments?.getString("keyword")
         binding.resultEt.setText(word)
