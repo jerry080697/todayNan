@@ -4,6 +4,7 @@ import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ChangeLocationRequest
 import com.example.todaynan.data.entity.ChangeNewNicknameRequest
 import com.example.todaynan.data.entity.GoogleRequest
+import com.example.todaynan.data.entity.SearchOutsideRequest
 import com.example.todaynan.data.entity.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -68,4 +69,11 @@ interface UserInterface {
         @Header("authorization") accessToken: String
     ): Call<UserResponse<SignOutResponse>>
 
+    //장소 검색 밖
+    @GET("/place/search/outside")
+    fun searchOutside(
+        @Header("authorization") accessToken: String,
+        @Query("searchString") searchString: String,
+        @Query("pageToken") pageToken: String
+    ): Call<UserResponse<SearchOutsideResponse>>
 }
