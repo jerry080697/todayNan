@@ -1,10 +1,8 @@
 package com.example.todaynan.data.remote.user
 
-import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ChangeLocationRequest
 import com.example.todaynan.data.entity.ChangeNewNicknameRequest
 import com.example.todaynan.data.entity.GoogleRequest
-import com.example.todaynan.data.entity.SearchOutsideRequest
 import com.example.todaynan.data.entity.User
 import retrofit2.Call
 import retrofit2.http.Body

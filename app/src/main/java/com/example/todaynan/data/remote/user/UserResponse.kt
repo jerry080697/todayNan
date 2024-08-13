@@ -56,11 +56,11 @@ data class SearchOutsideResponse(
 ) : Serializable
 
 data class SearchOutsideResult(
-    @SerializedName(value = "googlePlaceResultDTOList") val googlePlaceResultDTOList: List<GooglePlaceResultDTOList>,
+    @SerializedName(value = "googlePlaceResultDTOList") val googlePlaceResultDTOList: List<GooglePlaceResultDTO>,
     @SerializedName(value = "pageToken") val pageToken: String
 ) : Serializable
 
-data class GooglePlaceResultDTOList(
+data class GooglePlaceResultDTO(
     @SerializedName(value = "geometry") val geometry: Geometry,
     @SerializedName(value = "name") val name: String,
     @SerializedName(value = "address") val address: String,
