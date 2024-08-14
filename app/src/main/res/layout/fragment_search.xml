@@ -65,10 +65,34 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/search_pet_iv"
+            android:id="@+id/search_pet_bird"
             android:layout_width="210dp"
             android:layout_height="0dp"
-            android:src="@drawable/pet_icon"
+            android:src="@drawable/bird"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@id/search_home_bt"
+            app:layout_constraintTop_toBottomOf="@id/search_bar_0"
+            app:layout_constraintStart_toStartOf="@id/search_bar_0"
+            app:layout_constraintEnd_toEndOf="@id/search_bar_0" />
+        <ImageView
+            android:id="@+id/search_pet_fox"
+            android:layout_width="210dp"
+            android:layout_height="0dp"
+            android:src="@drawable/fox"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@id/search_home_bt"
+            app:layout_constraintTop_toBottomOf="@id/search_bar_0"
+            app:layout_constraintStart_toStartOf="@id/search_bar_0"
+            app:layout_constraintEnd_toEndOf="@id/search_bar_0" />
+        <ImageView
+            android:id="@+id/search_pet_bear"
+            android:layout_width="270dp"
+            android:layout_height="0dp"
+            android:src="@drawable/bear"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="30dp"
             app:layout_constraintBottom_toTopOf="@id/search_home_bt"
             app:layout_constraintTop_toBottomOf="@id/search_bar_0"
             app:layout_constraintStart_toStartOf="@id/search_bar_0"
@@ -83,8 +107,7 @@
             android:layout_marginBottom="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_pet_iv" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

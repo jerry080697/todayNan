@@ -9,20 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.remote.getRetrofit
-import com.example.todaynan.data.remote.user.GetPost
-import com.example.todaynan.data.remote.user.PostList
-import com.example.todaynan.data.remote.user.UserInterface
-import com.example.todaynan.data.remote.user.UserResponse
+import com.example.todaynan.data.remote.post.GetPost
+import com.example.todaynan.data.remote.post.PostInterface
+import com.example.todaynan.data.remote.post.PostList
+import com.example.todaynan.data.remote.post.PostResponse
 import com.example.todaynan.databinding.FragmentDetailBinding
 import com.example.todaynan.ui.BaseFragment
 import com.example.todaynan.ui.adapter.PostRVAdapter
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding::inflate) {
 
-    private val userService = getRetrofit().create(UserInterface::class.java)
+    private val postService = getRetrofit().create(PostInterface::class.java)
 
     companion object {
         fun newInstance(text: String): DetailFragment {
@@ -40,35 +41,46 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         val type = arguments?.getString("type")
         binding.detailTv.text = type
 
-        userService.getPostEmploy(request,1).enqueue(object :
-            Callback<UserResponse<GetPost>> {
+        postService.getPostEmploy(request,1).enqueue(object :
+            Callback<PostResponse<GetPost>> {
             override fun onResponse(
-                call: Call<UserResponse<GetPost>>,
-                response: Response<UserResponse<GetPost>>
+                call: Call<PostResponse<GetPost>>,
+                response: Response<PostResponse<GetPost>>
             ) {
                 Log.d("SERVER/SUCCESS", response.toString())
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
 
-                val items = resp?.result?.postList
+                val items = resp?.result?.postList?: emptyList()
 
                 if (resp!!.isSuccess) {
-                    val boardAdapter = PostRVAdapter(items!!)
+                    val boardAdapter = PostRVAdapter(items)
                     binding.detailBoardRv.adapter = boardAdapter
                     binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
                     boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
                         override fun onItemClick(post: PostList) {
-                            val postFragment = PostFragment.newInstance(binding.detailTv.text.toString())
                             parentFragmentManager.beginTransaction()
-                                .replace(R.id.main_frm, postFragment)
+                                .replace(R.id.main_frm, PostFragment().apply{
+                                    arguments = Bundle().apply{
+                                        val gson = Gson()
+                                        val postJson = gson.toJson(post)
+                                        val postIdJson = post.postId
+                                        putString("post", postJson)
+                                        putInt("postId", postIdJson)
+                                    }
+                                })
                                 .addToBackStack(null)
                                 .commitAllowingStateLoss()
                         }
                     })
+
+                    val middleAddress = AppData.address.split(" ")[1]
+
+                    binding.locInfoTv.text = middleAddress
                 }
             }
 
-            override fun onFailure(call: Call<UserResponse<GetPost>>, t: Throwable) {
+            override fun onFailure(call: Call<PostResponse<GetPost>>, t: Throwable) {
                 Log.d("SERVER/FAILURE", t.message.toString())
             }
         })

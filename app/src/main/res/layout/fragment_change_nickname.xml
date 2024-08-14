@@ -78,7 +78,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="#B4B4B4"
+            android:textColor="@color/black"
+            android:textColorHint="#B4B4B4"
             android:textSize="16sp"
             android:hint="입력"
             android:background="@color/transparent"
@@ -96,40 +97,58 @@
 
     </androidx.cardview.widget.CardView>
 
-    <ImageView
+    <TextView
         android:id="@+id/change_nickname_change_btn_iv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="120dp"
-        android:scaleType="fitXY"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="600dp"
-        android:src="@drawable/signup_next_btn">
-    </ImageView>
+        android:layout_marginBottom="50dp"
+        android:text="변경"
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/signup_next_btn">
+    </TextView>
+    <TextView
+        android:id="@+id/change_nickname_change_btn_dark_iv"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="50dp"
+        android:text="변경"
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/letsgo_btn_dark">
+    </TextView>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="변경"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_marginTop="600dp"/>
-    <TextView
-        android:id="@+id/change_nickname_alert_message_tv"
+        android:id="@+id/change_nickname_alert_message_fail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/change_nickname_cv"
-        android:text="중복 확인 메시지 여기에 표시"
+        android:text="이미 사용 중인 닉네임입니다."
+        android:textColor="#FF6565"
         android:textSize="15sp"
+        android:layout_marginStart="40dp"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/change_nickname_alert_message_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/change_nickname_cv"
+        android:text="사용 가능한 닉네임입니다."
+        android:textColor="#23C13D"
+        android:textSize="15sp"
+        android:visibility="gone"
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"/>
 

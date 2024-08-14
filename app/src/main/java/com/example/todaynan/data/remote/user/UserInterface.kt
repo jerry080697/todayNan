@@ -1,15 +1,16 @@
 package com.example.todaynan.data.remote.user
-
+import com.example.todaynan.data.entity.ChangeLocationRequest
 import com.example.todaynan.data.entity.ChangeNewNicknameRequest
 import com.example.todaynan.data.entity.GoogleRequest
-import com.example.todaynan.data.entity.PostWrite
 import com.example.todaynan.data.entity.User
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 interface UserInterface {
     // 구글 accessToken 발급
@@ -38,13 +39,6 @@ interface UserInterface {
         @Header("authorization") accessToken: String,
     ): Call<UserResponse<Login>>
 
-    // 게시글 작성
-    @POST("/post")
-    fun post(
-        @Header("authorization") accessToken: String,
-        @Body post: PostWrite
-    ): Call<UserResponse<PostResponse>>
-
     //닉네임 변경
     @PATCH("/user/nickname")
     fun changeNickname(
@@ -52,10 +46,31 @@ interface UserInterface {
         @Body request: ChangeNewNicknameRequest
     ): Call<UserResponse<ChangeNickNameResponse>>
 
-    // 구인 게시판 전체 검색
-    @GET("/post/employ")
-    fun getPostEmploy(
+    //닉네임 중복 확인
+    @GET("/user/signup/{nickname}")
+    fun checkNicknameDuplicate(
         @Header("authorization") accessToken: String,
-        @Query("page") page: Int
-    ): Call<UserResponse<GetPost>>
+        @Path("nickname") nickname: String
+    ): Call<UserResponse<NicknameDuplicateResponse>>
+
+    //내 동네 변경
+    @PATCH("/user/address")
+    fun changeLocation(
+        @Header("authorization") accessToken: String,
+        @Body request: ChangeLocationRequest
+    ): Call<UserResponse<ChangeLocationResponse>>
+
+    //회원탈퇴
+    @DELETE("/user/signout")
+    fun signOut(
+        @Header("authorization") accessToken: String
+    ): Call<UserResponse<SignOutResponse>>
+
+    //장소 검색 밖
+    @GET("/place/search/outside")
+    fun searchOutside(
+        @Header("authorization") accessToken: String,
+        @Query("searchString") searchString: String,
+        @Query("pageToken") pageToken: String
+    ): Call<UserResponse<SearchOutsideResult>>
 }

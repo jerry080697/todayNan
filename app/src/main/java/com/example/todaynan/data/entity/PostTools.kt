@@ -8,3 +8,7 @@ data class PostWrite(
     @SerializedName(value="title")val title: String,
     @SerializedName(value="category")val category: String
 ): Serializable
+
+data class ReplyWrite(
+    @SerializedName(value="comment")val comment: String
+): Serializable

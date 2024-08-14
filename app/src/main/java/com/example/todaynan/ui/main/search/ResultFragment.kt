@@ -1,52 +1,89 @@
 package com.example.todaynan.ui.main.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
-import com.example.todaynan.data.entity.Recommend
+import com.example.todaynan.base.AppData
+import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.place.GeminiItem
+import com.example.todaynan.data.remote.place.GoogleItem
+import com.example.todaynan.data.remote.place.Outside
+import com.example.todaynan.data.remote.place.PlaceInterface
+import com.example.todaynan.data.remote.place.PlaceResponse
 import com.example.todaynan.databinding.FragmentResultBinding
 import com.example.todaynan.ui.BaseFragment
-import com.example.todaynan.ui.adapter.RecommendRVAdapter
+import com.example.todaynan.ui.adapter.OutsideRVAdapter
+import com.example.todaynan.ui.adapter.InsideRVAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding::inflate) {
 
     var showType: Int = 0   //0: 크게 보기, 1: 작게 보기
-
-    companion object {
-        fun newInstance(text: String): ResultFragment {
-            val fragment = ResultFragment()
-            val args = Bundle()
-            args.putString("search_word", text)
-            fragment.arguments = args
-            return fragment
-        }
-    }
+    lateinit var screenAddress: String
+    private var insideItemList : ArrayList<GeminiItem>? = null
+    private var outsideItemList: ArrayList<GoogleItem>? = null
 
     override fun initAfterBinding() {
 
-        val word = arguments?.getString("search_word")
+        screenAddress = AppData.address
+        binding.locInfoTv.text = screenAddress.split(" ").last()
+
+        val word = arguments?.getString("keyword")
         binding.resultEt.setText(word)
 
         chooseType()
         changeScreen()
+        changeLoc()
 
-        //임시 데이터
-        var rList = ArrayList<Recommend>()
-        rList.apply {
-            add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀1", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-            add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀2", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-            add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀3", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
+        val place = arguments?.getString("place")
+        if(place == "inside"){
+            // 안 결과 데이터
+            arguments?.let {
+                insideItemList = it.getSerializable("insideItem") as? ArrayList<GeminiItem>
+            }
+            val insideRVAdapter1 = InsideRVAdapter(insideItemList,1)
+            binding.resultListRv.adapter = insideRVAdapter1
+            binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            val insideRVAdapter2 = InsideRVAdapter(insideItemList,2)
+            binding.resultBlockRv.adapter = insideRVAdapter2
+            binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        } else{ // place == "outside"
+            // 밖 결과 데이터
+            arguments?.let {
+                outsideItemList = it.getSerializable("outsideItem") as? ArrayList<GoogleItem>
+            }
+            val outsideRVAdapter1 = OutsideRVAdapter(outsideItemList,1)
+            binding.resultListRv.adapter = outsideRVAdapter1
+            binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            val outsideRVAdapter2 = OutsideRVAdapter(outsideItemList,2)
+            binding.resultBlockRv.adapter = outsideRVAdapter2
+            binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
-        val recommendRVAdapter1 = RecommendRVAdapter(rList,1)
-        binding.resultListRv.adapter = recommendRVAdapter1
-        binding.resultListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val recommendRVAdapter2 = RecommendRVAdapter(rList,2)
-        binding.resultBlockRv.adapter = recommendRVAdapter2
-        binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    }
 
+    private fun changeLoc(){
+        binding.detailLocCl.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, SearchLocationFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+
+            parentFragmentManager.setFragmentResultListener("requestKey", this) { key, bundle ->
+                // 데이터를 수신하고 처리합니다.
+                val requestAddress = bundle.getString("requestAddress")
+                screenAddress = requestAddress.toString()
+                binding.locInfoTv.text = screenAddress.split(" ").last()
+
+                outsideResult(binding.resultEt.text.toString())
+            }
+        }
     }
 
     private fun changeScreen(){
@@ -54,12 +91,14 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
             hideKeyboard()
             binding.resultEt.text = binding.resultEt.text
             // 검색 결과 갱신
+            outsideResult(binding.resultEt.text.toString())
         }
         binding.resultEt.setOnEditorActionListener { v, actionId, event ->
             if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
                 hideKeyboard()
                 binding.resultEt.text = binding.resultEt.text
                 // 검색 결과 갱신
+                outsideResult(binding.resultEt.text.toString())
                 true // 이벤트 처리 완료
             } else {
                 false // 이벤트 처리 안 함
@@ -70,6 +109,39 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
             parentFragmentManager.popBackStack()
         }
     }
+    private fun outsideResult(keyword: String){
+        val placeService = getRetrofit().create(PlaceInterface::class.java)
+
+        val auth = "Bearer "+AppData.appToken
+        val searchWord = "$screenAddress $keyword"
+        Log.d("TAG_outside", searchWord)
+        placeService.searchOutside(auth, searchWord, null).enqueue(object:
+            Callback<PlaceResponse<Outside>> {
+            override fun onResponse(
+                call: Call<PlaceResponse<Outside>>,
+                response: Response<PlaceResponse<Outside>>
+            ) {
+                Log.d("TAG_outsideSuccess", response.toString())
+                Log.d("TAG_outsideSuccess", response.body().toString())
+                val resp = response.body()
+                if(resp?.isSuccess == true && resp?.code == "OK200"){
+                    outsideItemList = resp.result.googlePlaceResultDTOList
+
+                    // 새로운 데이터로 업데이트
+                    (binding.resultListRv.adapter as OutsideRVAdapter).updateData(outsideItemList)
+                    (binding.resultBlockRv.adapter as OutsideRVAdapter).updateData(outsideItemList)
+                }else{
+                    Toast.makeText(context, "다시 요청해주세요", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<PlaceResponse<Outside>>, t: Throwable) {
+                Log.d("TAG_outsideFail", t.message.toString())
+            }
+
+        })
+    }
+
 
     private fun chooseType(){
         binding.resultMenuIv.setOnClickListener{

@@ -32,7 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_marginTop="15dp"
         app:layout_constraintTop_toBottomOf="@id/board_logo_iv"
         app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
@@ -44,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="420dp"
                 app:cardCornerRadius="5dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/hot_board"
                 android:layout_marginHorizontal="20dp"
                 android:orientation="vertical">
@@ -92,6 +92,7 @@
                 android:id="@+id/talk_board"
                 android:gravity="center"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="50dp"
                 android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="wrap_content"

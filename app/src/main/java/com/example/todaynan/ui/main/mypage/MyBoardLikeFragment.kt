@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.ui.adapter.PostRVAdapter
 import com.example.todaynan.data.entity.Post
 import com.example.todaynan.R
-import com.example.todaynan.data.remote.user.PostList
 import com.example.todaynan.databinding.FragmentMyBoardLikeBinding
 import com.example.todaynan.ui.BaseFragment
 
