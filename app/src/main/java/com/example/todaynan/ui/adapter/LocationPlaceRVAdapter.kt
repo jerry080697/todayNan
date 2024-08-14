@@ -7,15 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.todaynan.R
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.PlaceLikeRequest
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.user.GooglePlaceResultDTO
-import com.example.todaynan.data.remote.user.PlaceLikeResponse
 import com.example.todaynan.data.remote.user.PlaceLikeResult
 import com.example.todaynan.data.remote.user.PlaceUnlikeResponse
-import com.example.todaynan.data.remote.user.SearchOutsideResult
 import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.LocationPlaceItemBinding
@@ -48,7 +45,6 @@ class LocationPlaceRVAdapter(private val places: List<GooglePlaceResultDTO>) : R
                 .load(place.photoUrl)
                 .into(binding.placeImgIv)
 
-            // 좋아요 상태에 따라 UI 설정
             if (place.isLike) {
                 binding.placeLikeOn.visibility = View.VISIBLE
                 binding.placeLikeOff.visibility = View.GONE
@@ -56,8 +52,6 @@ class LocationPlaceRVAdapter(private val places: List<GooglePlaceResultDTO>) : R
                 binding.placeLikeOn.visibility = View.GONE
                 binding.placeLikeOff.visibility = View.VISIBLE
             }
-
-            // 좋아요 버튼 클릭 리스너 설정
             binding.placeLikeOff.setOnClickListener {
                 place.isLike = true
                 handleLikeClick(place)
@@ -86,10 +80,9 @@ class LocationPlaceRVAdapter(private val places: List<GooglePlaceResultDTO>) : R
             userService.placeLike("Bearer ${AppData.appToken}", request).enqueue(object : Callback<UserResponse<PlaceLikeResult>> {
                 override fun onResponse(call: Call<UserResponse<PlaceLikeResult>>, response: Response<UserResponse<PlaceLikeResult>>) {
                     if (response.isSuccessful) {
-                        // 서버 응답에서 likeId를 업데이트
                         val likeId = response.body()?.result?.likeId
                         if (likeId != null) {
-                            place.likeId = likeId // 업데이트
+                            place.likeId = likeId
                             Log.d("LocationPlaceRVAdapter", "Place liked successfully with likeId: $likeId")
                         }
 

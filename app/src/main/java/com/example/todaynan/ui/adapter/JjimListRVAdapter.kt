@@ -6,8 +6,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.todaynan.R
-import com.example.todaynan.data.entity.Recommend
 import com.example.todaynan.data.remote.user.UserLikeItem
 import com.example.todaynan.databinding.ItemRecommend2Binding
 
@@ -21,7 +19,6 @@ class JjimListRVAdapter(private val items: List<UserLikeItem>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        // 이미지 로딩은 Glide 등을 사용
         Glide.with(holder.itemView.context)
             .load(item.image)
             .into(holder.profileImg)
