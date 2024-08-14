@@ -46,7 +46,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
 
             finish()
         }
-        binding.signupDuplicationCheckIv.setOnClickListener {
+        binding.signupDuplicationCheckIvLight.setOnClickListener {
             val nickname = binding.signupPage2Et.text.toString()
             if (nickname.isNotEmpty()) {
                 checkNicknameDuplication(nickname)
@@ -73,7 +73,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
                             "사용 가능한 닉네임입니다.",
                             Toast.LENGTH_SHORT
                         ).show()
-                        hideKeyboard(binding.signupDuplicationCheckIv)
+                        hideKeyboard(binding.signupDuplicationCheckIvLight)
                     } else {
                         Toast.makeText(
                             this@Page2SignUpActivity,

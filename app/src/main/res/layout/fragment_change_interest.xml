@@ -421,7 +421,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/signup_select_8_dark"
+        android:id="@+id/changeInterest_select_8_dark"
         android:layout_width="92dp"
         android:layout_height="36dp"
         android:layout_marginTop="18dp"
@@ -993,7 +993,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/signupchange_interest_select_19_dark"
+        android:id="@+id/change_interest_select_19_dark"
         android:layout_width="92dp"
         android:layout_height="36dp"
         android:layout_marginTop="18dp"
@@ -1044,7 +1044,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/signup_select_20_dark"
+        android:id="@+id/change_interest_select_20_dark"
         android:layout_width="92dp"
         android:layout_height="36dp"
         android:layout_marginTop="18dp"
@@ -1147,21 +1147,21 @@
             android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/change_interest_next_btn_bef_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="645dp"
-        android:visibility="gone"
         app:cardCornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="50dp"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="107dp"
             android:layout_height="44dp"
+
             android:src="@drawable/complete_btn" />
 
         <TextView
@@ -1173,5 +1173,33 @@
             android:textColor="@color/white"
             android:textSize="17dp"
             android:textStyle="bold" />
+
     </androidx.cardview.widget.CardView>
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/change_interest_next_btn_bef_dark"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="645dp"-->
+<!--        android:visibility="gone"-->
+<!--        app:cardCornerRadius="15dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="107dp"-->
+<!--            android:layout_height="44dp"-->
+<!--            android:src="@drawable/complete_btn" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="37dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:text="완료"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="17dp"-->
+<!--            android:textStyle="bold" />-->
+<!--    </androidx.cardview.widget.CardView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

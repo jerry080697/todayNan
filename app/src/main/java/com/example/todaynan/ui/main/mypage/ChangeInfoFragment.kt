@@ -3,6 +3,7 @@ package com.example.todaynan.ui.main.mypage
 import com.example.todaynan.R
 import com.example.todaynan.databinding.FragmentChangeInfoBinding
 import com.example.todaynan.ui.BaseFragment
+import com.example.todaynan.ui.signup.ChangeInterestFragment
 
 class ChangeInfoFragment : BaseFragment<FragmentChangeInfoBinding>(FragmentChangeInfoBinding::inflate) {
 
@@ -29,12 +30,6 @@ class ChangeInfoFragment : BaseFragment<FragmentChangeInfoBinding>(FragmentChang
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }
-//        binding.changeLogout.setOnClickListener{
-//            parentFragmentManager.beginTransaction()
-//                .replace(R.id.main_frm, ChangeLogoutFragment())
-//                .addToBackStack(null)
-//                .commitAllowingStateLoss()
-//        }
         binding.changeWithdraw.setOnClickListener{
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, ChangeSignOutFragment())
