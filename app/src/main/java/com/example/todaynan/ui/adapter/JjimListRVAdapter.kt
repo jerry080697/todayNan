@@ -2,6 +2,7 @@ package com.example.todaynan.ui.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,6 +39,8 @@ class JjimListRVAdapter(private val items: MutableList<UserLikeItem>) : Recycler
         holder.title.text = item.title
         holder.address.text = item.placeAddress
 
+        holder.itemLikeOff.visibility = View.INVISIBLE
+        holder.itemLikeOn.visibility = View.VISIBLE
         holder.itemLikeOn.setOnClickListener {
             handleUnlikeClick(item.likeId, position, holder)
         }
@@ -75,5 +78,6 @@ class JjimListRVAdapter(private val items: MutableList<UserLikeItem>) : Recycler
         val title: TextView = binding.itemTitleTv
         val address: TextView = binding.itemInfoTv
         val itemLikeOn: ImageView = binding.itemLikeOn
+        val itemLikeOff: ImageView = binding.itemLikeOff
     }
 }
