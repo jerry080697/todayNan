@@ -1,6 +1,5 @@
 package com.example.todaynan.ui.main.search
 
-import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
@@ -158,6 +157,8 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
             SearchMenuPopup(context = requireContext(), popupList = typeList){ _, _, position->
                 when (position) {
                     0 -> { //크게 보기
+                        // 검색 결과 갱신
+                        outsideResult(binding.resultEt.text.toString())
                         binding.resultMenuIv.setImageResource(R.drawable.search_menu_list)
                         binding.resultListRv.isVisible = true
                         binding.resultBlockRv.isVisible = false
@@ -165,6 +166,8 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
                     }
 
                     1 -> { //작게 보기
+                        // 검색 결과 갱신
+                        outsideResult(binding.resultEt.text.toString())
                         binding.resultMenuIv.setImageResource(R.drawable.search_menu_block)
                         binding.resultListRv.isVisible = false
                         binding.resultBlockRv.isVisible = true

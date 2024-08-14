@@ -7,15 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.request.RequestOptions
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.place.AddResult
 import com.example.todaynan.data.remote.place.GeminiItem
-import com.example.todaynan.data.remote.place.GoogleItem
 import com.example.todaynan.data.remote.place.LikeALL
 import com.example.todaynan.data.remote.place.LikeItem
 import com.example.todaynan.data.remote.place.PlaceInterface
@@ -97,6 +94,31 @@ class InsideRVAdapter(private val insideList: ArrayList<GeminiItem>?, private va
             }
             binding.itemTitleTv.text = geminiItem.title
             binding.itemInfoTv.text = geminiItem.category
+            if(geminiItem.isLike){
+                binding.itemLikeOn.visibility = View.VISIBLE
+                binding.itemLikeOff.visibility = View.INVISIBLE
+            }else{
+                binding.itemLikeOn.visibility = View.INVISIBLE
+                binding.itemLikeOff.visibility = View.VISIBLE
+            }
+
+            val pInfo = PlaceRequest(
+                title = geminiItem.title,
+                description = geminiItem.description,
+                placeAddress = geminiItem.category,
+                image = geminiItem.image,
+                category = "IN"
+            )
+            binding.itemLikeOff.setOnClickListener {
+                binding.itemLikeOn.visibility = View.VISIBLE
+                binding.itemLikeOff.visibility = View.INVISIBLE
+                addLike(pInfo)
+            }
+            binding.itemLikeOn.setOnClickListener {
+                binding.itemLikeOn.visibility = View.INVISIBLE
+                binding.itemLikeOff.visibility = View.VISIBLE
+                deleteLike(geminiItem)
+            }
         }
     }
 

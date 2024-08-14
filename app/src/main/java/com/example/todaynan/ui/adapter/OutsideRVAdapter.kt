@@ -94,6 +94,31 @@ class OutsideRVAdapter(private var outsideList: ArrayList<GoogleItem>?, private 
             }
             binding.itemTitleTv.text = googleItem.name
             binding.itemInfoTv.text = googleItem.type
+            if(googleItem.isLike){
+                binding.itemLikeOn.visibility = View.VISIBLE
+                binding.itemLikeOff.visibility = View.INVISIBLE
+            }else{
+                binding.itemLikeOn.visibility = View.INVISIBLE
+                binding.itemLikeOff.visibility = View.VISIBLE
+            }
+
+            val pInfo = PlaceRequest(
+                title = googleItem.name,
+                description = googleItem.type,
+                placeAddress = googleItem.address,
+                image = googleItem.photoUrl.toString(),
+                category = "OUT"
+            )
+            binding.itemLikeOff.setOnClickListener {
+                binding.itemLikeOn.visibility = View.VISIBLE
+                binding.itemLikeOff.visibility = View.INVISIBLE
+                addLike(pInfo)
+            }
+            binding.itemLikeOn.setOnClickListener {
+                binding.itemLikeOn.visibility = View.INVISIBLE
+                binding.itemLikeOff.visibility = View.VISIBLE
+                deleteLike(googleItem)
+            }
         }
     }
 

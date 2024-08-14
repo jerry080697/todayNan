@@ -58,9 +58,9 @@
         android:layout_height="17dp"
         android:visibility="gone"
         android:src="@drawable/item_like_on"
-        android:layout_marginEnd="13dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_image_iv" />
+        app:layout_constraintTop_toTopOf="parent"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
