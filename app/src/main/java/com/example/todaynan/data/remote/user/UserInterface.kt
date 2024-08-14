@@ -3,7 +3,9 @@ package com.example.todaynan.data.remote.user
 import com.example.todaynan.data.entity.ChangeLocationRequest
 import com.example.todaynan.data.entity.ChangeNewNicknameRequest
 import com.example.todaynan.data.entity.GoogleRequest
+import com.example.todaynan.data.entity.PlaceLikeRequest
 import com.example.todaynan.data.entity.User
+import com.example.todaynan.data.remote.place.PlaceInterface
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -74,4 +76,25 @@ interface UserInterface {
         @Query("searchString") searchString: String,
         @Query("pageToken") pageToken: String
     ): Call<UserResponse<SearchOutsideResult>>
+
+    //장소 좋아요
+    @POST("/place/like")
+    fun placeLike(
+        @Header("authorization") accessToken: String,
+        @Body request: PlaceLikeRequest
+    ):Call<UserResponse<PlaceLikeResult>>
+
+    //장소 좋아요 삭제
+    @DELETE("/place/like/{like_id}")
+    fun placeUnlike(
+        @Header("authorization") accessToken: String,
+        @Path("like_id") likeId: Int
+    ): Call<UserResponse<PlaceUnlikeResponse>>
+
+    //장소 좋아요 모아보기
+    @GET("/place/like")
+    fun placeLikeLoad(
+        @Header("authorization") accessToken: String,
+    ):Call<UserResponse<PlaceLikeLoadResult>>
+
 }
