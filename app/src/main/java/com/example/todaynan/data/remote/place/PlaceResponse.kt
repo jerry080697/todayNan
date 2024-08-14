@@ -49,6 +49,21 @@ data class LatLng(
     @SerializedName("lng") val lng: Double,
 )
 
+// 좋아요 모아보기 응답값
+data class LikeALL(
+    @SerializedName("userLikeItems") val userLikeItems: List<LikeItem>
+)
+data class LikeItem(
+    @SerializedName(value="like_id") val likeId: Int,
+    @SerializedName(value="title") val title: String,
+    @SerializedName(value="category") val category: String,
+    @SerializedName(value="description") val description: String,
+    @SerializedName(value="place_address") val placeAddress: String,
+    @SerializedName(value="image") val image: String,
+    @SerializedName(value="created_at") val createdAt: String,
+    @SerializedName(value="updated_at") val updatedAt: String,
+)
+
 // 좋아요 등록 응답값
 data class AddResult(
     @SerializedName(value="like_id") val likeId: Int,
