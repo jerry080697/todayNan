@@ -1,45 +1,54 @@
 package com.example.todaynan.ui.main.mypage
 
-import com.example.todaynan.R
-import com.example.todaynan.data.entity.Recommend
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todaynan.base.AppData
+import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.user.PlaceLikeLoadResult
+import com.example.todaynan.data.remote.user.UserInterface
+import com.example.todaynan.data.remote.user.UserLikeItem
+import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.FragmentJjimListBinding
 import com.example.todaynan.ui.BaseFragment
-
+import com.example.todaynan.ui.adapter.JjimListRVAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class JjimListFragment : BaseFragment<FragmentJjimListBinding>(FragmentJjimListBinding::inflate) {
 
+    private val userService = getRetrofit().create(UserInterface::class.java)
+
     override fun initAfterBinding() {
-        /*
-        val items = generateDummyItems() // 데이터 생성 (임시 함수)
-        val jjimListAdapter = RecommendRVAdapter(items, 2)
-        binding.jjimListRv.adapter = jjimListAdapter
-        binding.jjimListRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        */
-        binding.jjimListBackBtn.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
+        loadPlaceLikes()
+    }
 
+    private fun loadPlaceLikes() {
+        val accessToken = "Bearer ${AppData.appToken}"
 
+        userService.placeLikeLoad(accessToken).enqueue(object : Callback<UserResponse<PlaceLikeLoadResult>> {
+            override fun onResponse(
+                call: Call<UserResponse<PlaceLikeLoadResult>>,
+                response: Response<UserResponse<PlaceLikeLoadResult>>
+            ) {
+                if (response.isSuccessful) {
+                    val result = response.body()?.result?.userLikeItems ?: emptyList()
+                    setupRecyclerView(result)
+                } else {
+                    Toast.makeText(context, "서버 응답 오류", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse<PlaceLikeLoadResult>>, t: Throwable) {
+                Toast.makeText(context, "서버 응답 오류", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun setupRecyclerView(items: List<UserLikeItem>) {
+        val mutableItems = items.toMutableList() // List<UserLikeItem>을 MutableList<UserLikeItem>으로 변환
+        val adapter = JjimListRVAdapter(mutableItems)
+        binding.jjimListRv.layoutManager = LinearLayoutManager(context)
+        binding.jjimListRv.adapter = adapter
     }
 }
-    private fun generateDummyItems(): ArrayList<Recommend> {
-        val items = ArrayList<Recommend>()
-
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀1", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀2", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀3", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀4", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀5", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀6", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀7", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀8", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀9", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀10", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀11", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀12", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀13", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀14", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-        items.add(Recommend("영화", R.drawable.item_temp_img, "시간을 달리는 소녀15", "드라마/로맨스, 2006", "영화설명 가나다라마바사아자차카타파하"))
-
-        return items
-    }
