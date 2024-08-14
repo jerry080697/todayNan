@@ -51,8 +51,8 @@ class JjimListRVAdapter(private val items: MutableList<UserLikeItem>) : Recycler
     }
 
     private fun handleUnlikeClick(likeId: Int, position: Int, holder: ViewHolder) {
-        userService.placeUnlike(accessToken, likeId).enqueue(object : Callback<UserResponse<PlaceUnlikeResponse>> {
-            override fun onResponse(call: Call<UserResponse<PlaceUnlikeResponse>>, response: Response<UserResponse<PlaceUnlikeResponse>>) {
+        userService.placeUnlike(accessToken, likeId).enqueue(object : Callback<UserResponse<String>> {
+            override fun onResponse(call: Call<UserResponse<String>>, response: Response<UserResponse<String>>) {
                 if (response.isSuccessful && response.body()?.isSuccess == true) {
                     // 로그에 삭제된 likeId 출력
                     Log.d("JjimListRVAdapter", "아이템 삭제됨: likeId = $likeId")
@@ -67,7 +67,7 @@ class JjimListRVAdapter(private val items: MutableList<UserLikeItem>) : Recycler
                 }
             }
 
-            override fun onFailure(call: Call<UserResponse<PlaceUnlikeResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponse<String>>, t: Throwable) {
                 Toast.makeText(holder.itemView.context, "서버 통신 오류", Toast.LENGTH_SHORT).show()
             }
         })
