@@ -157,7 +157,6 @@ class LocationPlaceRVAdapter(
 ) : RecyclerView.Adapter<LocationPlaceRVAdapter.ViewHolder>() {
 
     private val userService = getRetrofit().create(UserInterface::class.java)
-    private val sharedPrefs: SharedPreferences = context.getSharedPreferences("likes_prefs", Context.MODE_PRIVATE)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = LocationPlaceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -180,41 +179,26 @@ class LocationPlaceRVAdapter(
                 .load(place.photoUrl)
                 .into(binding.placeImgIv)
 
-            val uniqueKey = generateUniqueKey(place)
-            val isLiked = getLikeState(uniqueKey)
-            place.isLike = isLiked
-            updateLikeVisibility(isLiked)
+            if(place.isLike){
+                binding.placeLikeOn.visibility = View.VISIBLE
+                binding.placeLikeOff.visibility = View.INVISIBLE
+            } else{
+                binding.placeLikeOn.visibility = View.INVISIBLE
+                binding.placeLikeOff.visibility = View.VISIBLE
+            }
 
             binding.placeLikeOff.setOnClickListener {
                 place.isLike = true
-                saveLikeState(uniqueKey, true)
+                binding.placeLikeOn.visibility = View.VISIBLE
+                binding.placeLikeOff.visibility = View.INVISIBLE
                 handleLikeClick(place)
             }
 
             binding.placeLikeOn.setOnClickListener {
                 place.isLike = false
-                saveLikeState(uniqueKey, false)
-                place.likeId?.let { likeId ->
-                    handleUnlikeClick(likeId)
-                } ?: run {
-                    Log.d("LocationPlaceRVAdapter", "No likeId found for the place")
-                    Toast.makeText(itemView.context, "장소 ID를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
-                }
+                binding.placeLikeOn.visibility = View.INVISIBLE
+                binding.placeLikeOff.visibility = View.VISIBLE
             }
-        }
-
-        private fun generateUniqueKey(place: GooglePlaceResultDTO): String {
-            return "${place.name}_${place.address}_${place.photoUrl}"
-        }
-
-        private fun saveLikeState(uniqueKey: String, isLiked: Boolean) {
-            val editor = sharedPrefs.edit()
-            editor.putBoolean(uniqueKey, isLiked)
-            editor.apply()
-        }
-
-        private fun getLikeState(uniqueKey: String): Boolean {
-            return sharedPrefs.getBoolean(uniqueKey, false)
         }
 
         private fun updateLikeVisibility(isLiked: Boolean) {
@@ -233,7 +217,7 @@ class LocationPlaceRVAdapter(
                 description = place.type,
                 placeAddress = place.address,
                 image = place.photoUrl,
-                category = "IN"
+                category = "OUT"
             )
 
             userService.placeLike("Bearer ${AppData.appToken}", request).enqueue(object : Callback<UserResponse<PlaceLikeResult>> {
