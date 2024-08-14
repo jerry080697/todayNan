@@ -2,9 +2,7 @@ package com.example.todaynan.ui.main.mypage
 
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todaynan.R
 import com.example.todaynan.base.AppData
-import com.example.todaynan.data.entity.Recommend
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.user.PlaceLikeLoadResult
 import com.example.todaynan.data.remote.user.UserInterface
@@ -17,16 +15,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class JjimListFragment : BaseFragment<FragmentJjimListBinding>(FragmentJjimListBinding::inflate) {
 
     private val userService = getRetrofit().create(UserInterface::class.java)
+
     override fun initAfterBinding() {
         loadPlaceLikes()
     }
 
     private fun loadPlaceLikes() {
-        val accessToken = "Bearer "+ AppData.appToken
+        val accessToken = "Bearer ${AppData.appToken}"
 
         userService.placeLikeLoad(accessToken).enqueue(object : Callback<UserResponse<PlaceLikeLoadResult>> {
             override fun onResponse(
@@ -37,7 +35,7 @@ class JjimListFragment : BaseFragment<FragmentJjimListBinding>(FragmentJjimListB
                     val result = response.body()?.result?.userLikeItems ?: emptyList()
                     setupRecyclerView(result)
                 } else {
-
+                    Toast.makeText(context, "서버 응답 오류", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -48,7 +46,8 @@ class JjimListFragment : BaseFragment<FragmentJjimListBinding>(FragmentJjimListB
     }
 
     private fun setupRecyclerView(items: List<UserLikeItem>) {
-        val adapter = JjimListRVAdapter(items)
+        val mutableItems = items.toMutableList() // List<UserLikeItem>을 MutableList<UserLikeItem>으로 변환
+        val adapter = JjimListRVAdapter(mutableItems)
         binding.jjimListRv.layoutManager = LinearLayoutManager(context)
         binding.jjimListRv.adapter = adapter
     }

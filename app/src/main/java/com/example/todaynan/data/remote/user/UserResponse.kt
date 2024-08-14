@@ -54,6 +54,7 @@ data class SearchOutsideResult(
 ) : Serializable
 
 data class GooglePlaceResultDTO(
+    @SerializedName("id") val id: String, // 고유 ID 추가
     @SerializedName("geometry") val geometry: Geometry,
     @SerializedName("name") val name: String,
     @SerializedName("address") val address: String,
