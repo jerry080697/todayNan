@@ -1,17 +1,25 @@
 package com.example.todaynan.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.RequestOptions
+import com.example.todaynan.base.AppData
+import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.place.AddResult
 import com.example.todaynan.data.remote.place.GoogleItem
+import com.example.todaynan.data.remote.place.PlaceInterface
+import com.example.todaynan.data.remote.place.PlaceRequest
+import com.example.todaynan.data.remote.place.PlaceResponse
 import com.example.todaynan.databinding.ItemRecommend1Binding
 import com.example.todaynan.databinding.ItemRecommend2Binding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class OutsideRVAdapter(private var outsideList: ArrayList<GoogleItem>?, private val type: Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -56,6 +64,19 @@ class OutsideRVAdapter(private var outsideList: ArrayList<GoogleItem>?, private 
                 binding.itemLikeOn.visibility = View.INVISIBLE
                 binding.itemLikeOff.visibility = View.VISIBLE
             }
+
+            val pInfo = PlaceRequest(
+                title = googleItem.name,
+                description = googleItem.type,
+                placeAddress = googleItem.address,
+                image = googleItem.photoUrl.toString(),
+                category = "OUT"
+            )
+            binding.itemLikeOff.setOnClickListener {
+                binding.itemLikeOn.visibility = View.VISIBLE
+                binding.itemLikeOff.visibility = View.INVISIBLE
+                addLike(pInfo)
+            }
         }
     }
     //블록형 ViewHolder
@@ -81,4 +102,22 @@ class OutsideRVAdapter(private var outsideList: ArrayList<GoogleItem>?, private 
         notifyDataSetChanged()  // 데이터 변경을 알림
     }
 
+    fun addLike(pRequest: PlaceRequest){
+        val placeService = getRetrofit().create(PlaceInterface::class.java)
+
+        val auth = "Bearer "+AppData.appToken
+        placeService.addLike(auth, pRequest).enqueue(object: Callback<PlaceResponse<AddResult>>{
+            override fun onResponse(
+                call: Call<PlaceResponse<AddResult>>,
+                response: Response<PlaceResponse<AddResult>>
+            ) {
+                Log.d("TAG_SUCCESS_add", response.toString())
+                Log.d("TAG_SUCCESS_add", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<PlaceResponse<AddResult>>, t: Throwable) {
+                Log.d("TAG_FAIL_add", t.message.toString())
+            }
+        })
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.todaynan.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,18 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.example.todaynan.R
+import com.example.todaynan.base.AppData
+import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.place.AddResult
 import com.example.todaynan.data.remote.place.GeminiItem
+import com.example.todaynan.data.remote.place.PlaceInterface
+import com.example.todaynan.data.remote.place.PlaceRequest
+import com.example.todaynan.data.remote.place.PlaceResponse
 import com.example.todaynan.databinding.ItemRecommend1Binding
 import com.example.todaynan.databinding.ItemRecommend2Binding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class InsideRVAdapter(private val insideList: ArrayList<GeminiItem>?, private val type: Int) :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
@@ -56,6 +66,19 @@ class InsideRVAdapter(private val insideList: ArrayList<GeminiItem>?, private va
                 binding.itemLikeOn.visibility = View.INVISIBLE
                 binding.itemLikeOff.visibility = View.VISIBLE
             }
+
+            val pInfo = PlaceRequest(
+                title = geminiItem.title,
+                description = geminiItem.description,
+                placeAddress = geminiItem.category,
+                image = geminiItem.image,
+                category = "IN"
+            )
+            binding.itemLikeOff.setOnClickListener {
+                binding.itemLikeOn.visibility = View.VISIBLE
+                binding.itemLikeOff.visibility = View.INVISIBLE
+                addLike(pInfo)
+            }
         }
     }
     //블록형 ViewHolder
@@ -76,4 +99,22 @@ class InsideRVAdapter(private val insideList: ArrayList<GeminiItem>?, private va
             .into(imageView)
     }
 
+    fun addLike(pRequest: PlaceRequest){
+        val placeService = getRetrofit().create(PlaceInterface::class.java)
+
+        val auth = "Bearer "+ AppData.appToken
+        placeService.addLike(auth, pRequest).enqueue(object: Callback<PlaceResponse<AddResult>> {
+            override fun onResponse(
+                call: Call<PlaceResponse<AddResult>>,
+                response: Response<PlaceResponse<AddResult>>
+            ) {
+                Log.d("TAG_SUCCESS_add", response.toString())
+                Log.d("TAG_SUCCESS_add", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<PlaceResponse<AddResult>>, t: Throwable) {
+                Log.d("TAG_FAIL_add", t.message.toString())
+            }
+        })
+    }
 }

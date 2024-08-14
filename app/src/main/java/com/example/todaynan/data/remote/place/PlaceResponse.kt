@@ -48,3 +48,11 @@ data class LatLng(
     @SerializedName("lat") val lat: Double,
     @SerializedName("lng") val lng: Double,
 )
+
+// 좋아요 등록 응답값
+data class AddResult(
+    @SerializedName(value="like_id") val likeId: Int,
+    @SerializedName(value="title") val title: String,
+    @SerializedName(value="created_at")val createdAt: String,
+    @SerializedName(value="updated_at")val updatedAt: String,
+)
