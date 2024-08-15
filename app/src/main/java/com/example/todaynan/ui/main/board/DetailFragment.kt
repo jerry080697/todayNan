@@ -50,20 +50,6 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         val middleAddress = AppData.address.split(" ")[1]
         binding.locInfoTv.text = middleAddress
 
-        binding.searchImageBt1.setOnClickListener {
-            hideKeyboard()
-            // 검색 결과 서버 요청
-        }
-        binding.resultEt.setOnEditorActionListener { v, actionId, event ->
-            if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
-                hideKeyboard()
-                binding.resultEt.text = binding.resultEt.text
-                // 검색 결과 서버 요청
-                true // 이벤트 처리 완료
-            } else {
-                false // 이벤트 처리 안 함
-            }
-        }
         binding.detailRegisterCl.setOnClickListener {
             val employRegisterFragment = if(type == "구인 게시판") {
                 EmployRegisterFragment.newInstance("구인 게시판")
