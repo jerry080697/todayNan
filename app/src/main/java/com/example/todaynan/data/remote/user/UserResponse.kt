@@ -29,25 +29,22 @@ data class ChangeNickNameResponse(
 ) : Serializable
 
 data class NicknameDuplicateResponse(
-    @SerializedName(value = "isSuccess") val isSuccess: Boolean,
-    @SerializedName(value = "code") val code: String,
-    @SerializedName(value = "message") val message: String
+    @SerializedName(value = "isSuccess")val isSuccess: Boolean,
+    @SerializedName(value = "code")val code: String,
+    @SerializedName(value = "message")val message: String
 ) : Serializable
-
 data class ChangeLocationResponse(
-    @SerializedName(value = "isSuccess") val isSuccess: Boolean,
-    @SerializedName(value = "code") val code: String,
-    @SerializedName(value = "message") val message: String,
-    @SerializedName(value = "result") val result: String
+    @SerializedName(value = "isSuccess")val isSuccess: Boolean,
+    @SerializedName(value = "code")val code: String,
+    @SerializedName(value = "message")val message: String,
+    @SerializedName(value = "result")val result: String
 ) : Serializable
-
 data class SignOutResponse(
-    @SerializedName(value = "isSuccess") val isSuccess: Boolean,
-    @SerializedName(value = "code") val code: String,
-    @SerializedName(value = "message") val message: String,
-    @SerializedName(value = "result") val result: String
+    @SerializedName(value = "isSuccess")val isSuccess: Boolean,
+    @SerializedName(value = "code")val code: String,
+    @SerializedName(value = "message")val message: String,
+    @SerializedName(value = "result")val result: String
 ) : Serializable
-
 data class SearchOutsideResult(
     @SerializedName("googlePlaceResultDTOList") val googlePlaceResultDTOList: List<GooglePlaceResultDTO>,
     @SerializedName("pageToken") val pageToken: String?
@@ -77,7 +74,6 @@ data class LatLng(
     @SerializedName("lat") val lat: Double,
     @SerializedName("lng") val lng: Double
 ) : Serializable
-
 data class PlaceLikeResponse(
     @SerializedName(value = "isSuccess") val isSuccess: Boolean,
     @SerializedName(value = "code") val code: String,
