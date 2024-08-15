@@ -43,6 +43,8 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
 
         if(type == "구인 게시판"){
             employPost()
+        } else if(type == "잡담 게시판"){
+            chatPost()
         }
 
         val middleAddress = AppData.address.split(" ")[1]
@@ -92,6 +94,48 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
 
     fun employPost(){
         postService.getPostEmploy(request,1).enqueue(object :
+            Callback<PostResponse<GetPost>> {
+            override fun onResponse(
+                call: Call<PostResponse<GetPost>>,
+                response: Response<PostResponse<GetPost>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
+
+                val items = resp?.result?.postList?: emptyList()
+
+                if (resp!!.isSuccess) {
+                    val boardAdapter = PostRVAdapter(items)
+                    binding.detailBoardRv.adapter = boardAdapter
+                    binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
+                    boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
+                        override fun onItemClick(post: PostList) {
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.main_frm, PostFragment().apply{
+                                    arguments = Bundle().apply{
+                                        val gson = Gson()
+                                        val postJson = gson.toJson(post)
+                                        val postIdJson = post.postId
+                                        putString("post", postJson)
+                                        putInt("postId", postIdJson)
+                                    }
+                                })
+                                .addToBackStack(null)
+                                .commitAllowingStateLoss()
+                        }
+                    })
+                }
+            }
+
+            override fun onFailure(call: Call<PostResponse<GetPost>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+        })
+    }
+
+    fun chatPost(){
+        postService.getChatEmploy(request,1).enqueue(object :
             Callback<PostResponse<GetPost>> {
             override fun onResponse(
                 call: Call<PostResponse<GetPost>>,

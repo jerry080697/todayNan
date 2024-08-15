@@ -26,6 +26,13 @@ interface PostInterface {
         @Query("page") page: Int
     ): Call<PostResponse<GetPost>>
 
+    // 잡담 게시판 전체 검색
+    @GET("/post/chat")
+    fun getChatEmploy(
+        @Header("authorization") accessToken: String,
+        @Query("page") page: Int
+    ): Call<PostResponse<GetPost>>
+
     // 게시글 삭제
     @PATCH("/post/{post_id}")
     fun deletePost(
