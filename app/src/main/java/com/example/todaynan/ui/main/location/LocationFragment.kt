@@ -230,11 +230,11 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
         mapView.onResume()
         mapView.getMapAsync(this)
 
-        binding.currentLocationTv.setText(AppData.address)
+        binding.locInfoTv.setText(AppData.address.split(" ")[2])
 
         locationSearchEt = binding.locationSearchEt
         locationSearchBtn = binding.locationSearchBtn
-        currentLocationTv = binding.currentLocationTv
+        currentLocationTv = binding.locInfoTv
         locationSearchBtn.setOnClickListener {
             val searchText = locationSearchEt.text.toString()
             currentLocationTv.text = searchText

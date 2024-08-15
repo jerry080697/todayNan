@@ -58,7 +58,7 @@ class InsideRVAdapter(private val insideList: ArrayList<GeminiItem>?, private va
             }
             binding.itemTitleTv.text = geminiItem.title
             binding.itemCategoryTv.text = geminiItem.category
-            binding.itemDetailTv.text = geminiItem.description
+            binding.itemDetailTv.text = geminiItem.description.split(".")[0]
             if(geminiItem.isLike){
                 binding.itemLikeOn.visibility = View.VISIBLE
                 binding.itemLikeOff.visibility = View.INVISIBLE
