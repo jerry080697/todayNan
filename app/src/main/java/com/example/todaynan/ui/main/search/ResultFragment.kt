@@ -2,6 +2,7 @@ package com.example.todaynan.ui.main.search
 
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +43,9 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
 
         val place = arguments?.getString("place")
         if(place == "inside"){
+            // 상단바 디자인
+            binding.searchBar1.visibility = View.INVISIBLE
+            binding.searchHomeIcIv.visibility = View.VISIBLE
             // 안 결과 데이터
             arguments?.let {
                 insideItemList = it.getSerializable("insideItem") as? ArrayList<GeminiItem>
@@ -53,6 +57,9 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
             binding.resultBlockRv.adapter = insideRVAdapter2
             binding.resultBlockRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         } else{ // place == "outside"
+            // 상단바 디자인
+            binding.searchBar1.visibility = View.VISIBLE
+            binding.searchHomeIcIv.visibility = View.INVISIBLE
             // 밖 결과 데이터
             arguments?.let {
                 outsideItemList = it.getSerializable("outsideItem") as? ArrayList<GoogleItem>
