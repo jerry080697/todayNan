@@ -24,6 +24,7 @@ import retrofit2.Response
 class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding::inflate) {
 
     private val postService = getRetrofit().create(PostInterface::class.java)
+    private val request = "Bearer "+AppData.appToken
 
     companion object {
         fun newInstance(text: String): DetailFragment {
@@ -37,53 +38,15 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
 
     override fun initAfterBinding() {
 
-        val request = "Bearer "+AppData.appToken
         val type = arguments?.getString("type")
         binding.detailTv.text = type
 
-        postService.getPostEmploy(request,1).enqueue(object :
-            Callback<PostResponse<GetPost>> {
-            override fun onResponse(
-                call: Call<PostResponse<GetPost>>,
-                response: Response<PostResponse<GetPost>>
-            ) {
-                Log.d("SERVER/SUCCESS", response.toString())
-                val resp = response.body()
-                Log.d("SERVER/SUCCESS", resp.toString())
+        if(type == "구인 게시판"){
+            employPost()
+        }
 
-                val items = resp?.result?.postList?: emptyList()
-
-                if (resp!!.isSuccess) {
-                    val boardAdapter = PostRVAdapter(items)
-                    binding.detailBoardRv.adapter = boardAdapter
-                    binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
-                    boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
-                        override fun onItemClick(post: PostList) {
-                            parentFragmentManager.beginTransaction()
-                                .replace(R.id.main_frm, PostFragment().apply{
-                                    arguments = Bundle().apply{
-                                        val gson = Gson()
-                                        val postJson = gson.toJson(post)
-                                        val postIdJson = post.postId
-                                        putString("post", postJson)
-                                        putInt("postId", postIdJson)
-                                    }
-                                })
-                                .addToBackStack(null)
-                                .commitAllowingStateLoss()
-                        }
-                    })
-
-                    val middleAddress = AppData.address.split(" ")[1]
-
-                    binding.locInfoTv.text = middleAddress
-                }
-            }
-
-            override fun onFailure(call: Call<PostResponse<GetPost>>, t: Throwable) {
-                Log.d("SERVER/FAILURE", t.message.toString())
-            }
-        })
+        val middleAddress = AppData.address.split(" ")[1]
+        binding.locInfoTv.text = middleAddress
 
         binding.searchImageBt1.setOnClickListener {
             hideKeyboard()
@@ -120,6 +83,48 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             }
         })
 
+    }
+
+    fun employPost(){
+        postService.getPostEmploy(request,1).enqueue(object :
+            Callback<PostResponse<GetPost>> {
+            override fun onResponse(
+                call: Call<PostResponse<GetPost>>,
+                response: Response<PostResponse<GetPost>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
+
+                val items = resp?.result?.postList?: emptyList()
+
+                if (resp!!.isSuccess) {
+                    val boardAdapter = PostRVAdapter(items)
+                    binding.detailBoardRv.adapter = boardAdapter
+                    binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
+                    boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
+                        override fun onItemClick(post: PostList) {
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.main_frm, PostFragment().apply{
+                                    arguments = Bundle().apply{
+                                        val gson = Gson()
+                                        val postJson = gson.toJson(post)
+                                        val postIdJson = post.postId
+                                        putString("post", postJson)
+                                        putInt("postId", postIdJson)
+                                    }
+                                })
+                                .addToBackStack(null)
+                                .commitAllowingStateLoss()
+                        }
+                    })
+                }
+            }
+
+            override fun onFailure(call: Call<PostResponse<GetPost>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+        })
     }
 
     fun loadNextPage() {
