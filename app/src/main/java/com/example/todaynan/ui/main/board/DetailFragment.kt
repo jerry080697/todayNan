@@ -25,6 +25,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
 
     private val postService = getRetrofit().create(PostInterface::class.java)
     private val request = "Bearer "+AppData.appToken
+    private lateinit var type: String
 
     companion object {
         fun newInstance(text: String): DetailFragment {
@@ -38,7 +39,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
 
     override fun initAfterBinding() {
 
-        val type = arguments?.getString("type")
+        type = arguments?.getString("type").toString()
         binding.detailTv.text = type
 
         if(type == "구인 게시판"){
@@ -103,6 +104,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                                         val gson = Gson()
                                         val postJson = gson.toJson(post)
                                         val postIdJson = post.postId
+                                        putString("type", type)
                                         putString("post", postJson)
                                         putInt("postId", postIdJson)
                                     }
@@ -145,6 +147,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                                         val gson = Gson()
                                         val postJson = gson.toJson(post)
                                         val postIdJson = post.postId
+                                        putString("type", type)
                                         putString("post", postJson)
                                         putInt("postId", postIdJson)
                                     }
