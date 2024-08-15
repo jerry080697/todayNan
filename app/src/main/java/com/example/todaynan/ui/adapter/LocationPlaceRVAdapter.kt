@@ -175,7 +175,7 @@ class LocationPlaceRVAdapter(
         fun bind(place: GooglePlaceResultDTO) {
             binding.placeNameTv.text = place.name
             binding.placeAddressTv.text = place.address
-            binding.placeDetailTv.text = place.type
+            // binding.placeDetailTv.text = place.type
 
             Glide.with(itemView)
                 .load(place.photoUrl)
