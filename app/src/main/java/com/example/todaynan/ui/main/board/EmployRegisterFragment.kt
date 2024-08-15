@@ -1,7 +1,7 @@
+import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
-import com.example.todaynan.R
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.PostWrite
 import com.example.todaynan.data.remote.getRetrofit
@@ -10,7 +10,6 @@ import com.example.todaynan.data.remote.post.PostInterface
 import com.example.todaynan.data.remote.post.PostResponse
 import com.example.todaynan.databinding.FragmentEmployRegisterBinding
 import com.example.todaynan.ui.BaseFragment
-import com.example.todaynan.ui.main.board.DetailFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,10 +20,27 @@ class EmployRegisterFragment : BaseFragment<FragmentEmployRegisterBinding>(Fragm
 
     private var title: String = ""
     private var content: String = ""
-    private val category: String = "EMPLOY"
+    private var category: String = ""
+
+    companion object {
+        fun newInstance(text: String): EmployRegisterFragment {
+            val fragment = EmployRegisterFragment()
+            val args = Bundle()
+            args.putString("type", text)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun initAfterBinding() {
-
+        val type = arguments?.getString("type")
+        Log.d("TAG_type", type.toString())
+        category = if(type == "구인 게시판") {
+            "EMPLOY"
+        } else{ //type == "잡담 게시판"
+            "CHAT"
+        }
+        Log.d("TAG_type", category)
         binding.employRegisterBackIv.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
@@ -66,10 +82,12 @@ class EmployRegisterFragment : BaseFragment<FragmentEmployRegisterBinding>(Fragm
                 Log.d("SERVER/SUCCESS", response.toString())
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
+                parentFragmentManager.popBackStack()
             }
 
             override fun onFailure(call: Call<PostResponse<Post>>, t: Throwable) {
                 Log.d("SERVER/FAILURE", t.message.toString())
+                Toast.makeText(context, "게시글 등록에 실패하셨습니다", Toast.LENGTH_SHORT).show()
             }
         })
     }

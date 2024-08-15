@@ -63,8 +63,13 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             }
         }
         binding.detailRegisterCl.setOnClickListener {
+            val employRegisterFragment = if(type == "구인 게시판") {
+                EmployRegisterFragment.newInstance("구인 게시판")
+            } else{ //type == "잡담 게시판"
+                EmployRegisterFragment.newInstance("잡담 게시판")
+            }
             parentFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, EmployRegisterFragment())
+                .replace(R.id.main_frm, employRegisterFragment)
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
         }
