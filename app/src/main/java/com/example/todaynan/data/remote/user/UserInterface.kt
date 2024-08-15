@@ -1,5 +1,4 @@
 package com.example.todaynan.data.remote.user
-
 import com.example.todaynan.data.entity.ChangeLocationRequest
 import com.example.todaynan.data.entity.ChangeNewNicknameRequest
 import com.example.todaynan.data.entity.GoogleRequest

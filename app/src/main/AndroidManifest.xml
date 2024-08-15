@@ -46,7 +46,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.signup.SignUpActivity"/>
-        <activity android:name=".ui.main.MainActivity"/>
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.signup.Page1SignUpActivity"/>
         <activity android:name=".ui.signup.Page2SignUpActivity"/>
         <activity android:name=".ui.signup.Page3SignUpActivity"/>

@@ -1,13 +1,14 @@
 package com.example.todaynan.data.entity
 
 data class Post(
-    val userName: String,
-    val profileImg: Int,
-    val creationTime: String,
-    val location:String,
-    val postTitle:String,
-    val postContent:String,
-    val boardTitle:String,
-    val likedNum:Int,
-    val replyNum:Int
+    var userName: String,
+    var profileImg: Int,
+    var creationTime: String,
+    var location: String,
+    var postTitle: String,
+    var postContent: String,
+    var boardTitle: String,
+    var likedNum: Int,
+    var replyNum: Int,
+    var category: String
 )

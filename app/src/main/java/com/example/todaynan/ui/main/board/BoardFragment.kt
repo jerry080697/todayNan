@@ -11,7 +11,7 @@ class BoardFragment : BaseFragment<FragmentBoardBinding>(FragmentBoardBinding::i
     override fun initAfterBinding() {
         // 임시 데이터
         val items = ArrayList<Post>()
-        items.add(Post("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","안녕하떼여 띠드버거임니당!\n이번 주말에 딩딩이랑 잠실에 갔는데요,,,","추천 게시판",21,15))
+        items.add(Post("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","안녕하떼여 띠드버거임니당!\n이번 주말에 딩딩이랑 잠실에 갔는데요,,,","추천 게시판",21,15,""))
 
         val boardAdapter = LikePostRVAdapter(items)
         binding.hotPostRv.adapter = boardAdapter
