@@ -169,6 +169,7 @@ package com.example.todaynan.ui.main.location
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -238,6 +239,17 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
             val searchText = locationSearchEt.text.toString()
             currentLocationTv.text = searchText
             searchLocations(searchText)
+            hideKeyboard()
+        }
+        binding.locationSearchEt.setOnEditorActionListener { v, actionId, event ->
+            if (event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                val searchText = locationSearchEt.text.toString()
+                searchLocations(searchText)
+                hideKeyboard()
+                true // 이벤트 처리 완료
+            } else {
+                false // 이벤트 처리 안 함
+            }
         }
         val initialSearchText = "${AppData.address} 놀거리와 먹거리"
         searchLocations(initialSearchText)

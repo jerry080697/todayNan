@@ -130,7 +130,6 @@
 package com.example.todaynan.ui.adapter
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -141,9 +140,12 @@ import com.bumptech.glide.Glide
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.PlaceLikeRequest
 import com.example.todaynan.data.remote.getRetrofit
+import com.example.todaynan.data.remote.place.LikeALL
+import com.example.todaynan.data.remote.place.LikeItem
+import com.example.todaynan.data.remote.place.PlaceInterface
+import com.example.todaynan.data.remote.place.PlaceResponse
 import com.example.todaynan.data.remote.user.GooglePlaceResultDTO
 import com.example.todaynan.data.remote.user.PlaceLikeResult
-import com.example.todaynan.data.remote.user.PlaceUnlikeResponse
 import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.LocationPlaceItemBinding
@@ -157,7 +159,6 @@ class LocationPlaceRVAdapter(
 ) : RecyclerView.Adapter<LocationPlaceRVAdapter.ViewHolder>() {
 
     private val userService = getRetrofit().create(UserInterface::class.java)
-    private val sharedPrefs: SharedPreferences = context.getSharedPreferences("likes_prefs", Context.MODE_PRIVATE)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = LocationPlaceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -180,41 +181,27 @@ class LocationPlaceRVAdapter(
                 .load(place.photoUrl)
                 .into(binding.placeImgIv)
 
-            val uniqueKey = generateUniqueKey(place)
-            val isLiked = getLikeState(uniqueKey)
-            place.isLike = isLiked
-            updateLikeVisibility(isLiked)
+            if(place.isLike){
+                binding.placeLikeOn.visibility = View.VISIBLE
+                binding.placeLikeOff.visibility = View.INVISIBLE
+            } else{
+                binding.placeLikeOn.visibility = View.INVISIBLE
+                binding.placeLikeOff.visibility = View.VISIBLE
+            }
 
             binding.placeLikeOff.setOnClickListener {
                 place.isLike = true
-                saveLikeState(uniqueKey, true)
+                binding.placeLikeOn.visibility = View.VISIBLE
+                binding.placeLikeOff.visibility = View.INVISIBLE
                 handleLikeClick(place)
             }
 
             binding.placeLikeOn.setOnClickListener {
                 place.isLike = false
-                saveLikeState(uniqueKey, false)
-                place.likeId?.let { likeId ->
-                    handleUnlikeClick(likeId)
-                } ?: run {
-                    Log.d("LocationPlaceRVAdapter", "No likeId found for the place")
-                    Toast.makeText(itemView.context, "장소 ID를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
-                }
+                binding.placeLikeOn.visibility = View.INVISIBLE
+                binding.placeLikeOff.visibility = View.VISIBLE
+                handleUnlikeClick(place)
             }
-        }
-
-        private fun generateUniqueKey(place: GooglePlaceResultDTO): String {
-            return "${place.name}_${place.address}_${place.photoUrl}"
-        }
-
-        private fun saveLikeState(uniqueKey: String, isLiked: Boolean) {
-            val editor = sharedPrefs.edit()
-            editor.putBoolean(uniqueKey, isLiked)
-            editor.apply()
-        }
-
-        private fun getLikeState(uniqueKey: String): Boolean {
-            return sharedPrefs.getBoolean(uniqueKey, false)
         }
 
         private fun updateLikeVisibility(isLiked: Boolean) {
@@ -233,7 +220,7 @@ class LocationPlaceRVAdapter(
                 description = place.type,
                 placeAddress = place.address,
                 image = place.photoUrl,
-                category = "IN"
+                category = "OUT"
             )
 
             userService.placeLike("Bearer ${AppData.appToken}", request).enqueue(object : Callback<UserResponse<PlaceLikeResult>> {
@@ -260,24 +247,53 @@ class LocationPlaceRVAdapter(
             })
         }
 
-        private fun handleUnlikeClick(likeId: Int) {
-            userService.placeUnlike("Bearer ${AppData.appToken}", likeId).enqueue(object : Callback<UserResponse<PlaceUnlikeResponse>> {
-                override fun onResponse(call: Call<UserResponse<PlaceUnlikeResponse>>, response: Response<UserResponse<PlaceUnlikeResponse>>) {
-                    if (response.isSuccessful && response.body()?.isSuccess == true) {
-                        Log.d("LocationPlaceRVAdapter", "Place unliked successfully")
-                        updateLikeVisibility(false)
-                        Toast.makeText(itemView.context, "장소를 찜 목록에서 삭제했습니다.", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Log.d("LocationPlaceRVAdapter", "Failed to unlike place. Response code: ${response.code()}. Response body: ${response.body()}")
-                        Toast.makeText(itemView.context, "장소 찜 해제에 실패했습니다.", Toast.LENGTH_SHORT).show()
+        fun allLike(callback: OutsideRVAdapter.LikeIdCallback){
+            val placeService = getRetrofit().create(PlaceInterface::class.java)
+
+            placeService.listLike("Bearer ${AppData.appToken}").enqueue(object: Callback<PlaceResponse<LikeALL>>{
+                override fun onResponse(
+                    call: Call<PlaceResponse<LikeALL>>,
+                    response: Response<PlaceResponse<LikeALL>>
+                ) {
+                    Log.d("TAG_SUCCESS_list", response.toString())
+                    Log.d("TAG_SUCCESS_list", response.body().toString())
+
+                    response.body()?.let { placeResponse ->
+                        callback.onLikeIdReceived(placeResponse.result.userLikeItems) // result는 ArrayList<LikeItem> 타입이라고 가정
                     }
                 }
 
-                override fun onFailure(call: Call<UserResponse<PlaceUnlikeResponse>>, t: Throwable) {
-                    Log.d("LocationPlaceRVAdapter", "Error occurred: ${t.message}")
-                    Toast.makeText(itemView.context, "서버와의 통신 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                override fun onFailure(call: Call<PlaceResponse<LikeALL>>, t: Throwable) {
+                    Log.d("TAG_FAIL_add", t.message.toString())
                 }
             })
         }
+        private fun handleUnlikeClick(place: GooglePlaceResultDTO) {
+            allLike(object : OutsideRVAdapter.LikeIdCallback {
+                override fun onLikeIdReceived(likeItems: List<LikeItem>) {
+                    // likeItems에서 GooglePlaceResultDTO와 매칭되는 likeId를 찾음
+                    val likeItem = likeItems.find { it.title == place.name }
+                    likeItem?.likeId?.let { likeId ->
+                        // likeId 존재할 경우 좋아요 삭제 진행
+                        userService.placeUnlike("Bearer ${AppData.appToken}", likeId).enqueue(object: Callback<UserResponse<String>> {
+                            override fun onResponse(
+                                call: Call<UserResponse<String>>,
+                                response: Response<UserResponse<String>>
+                            ) {
+                                Log.d("TAG_SUCCESS_del", response.toString())
+                                Log.d("TAG_SUCCESS_del", response.body().toString())
+
+                                Toast.makeText(itemView.context, "장소를 찜 목록에서 삭제했습니다.", Toast.LENGTH_SHORT).show()
+                            }
+
+                            override fun onFailure(call: Call<UserResponse<String>>, t: Throwable) {
+                                Log.d("TAG_FAIL_del", t.message.toString())
+                            }
+                        })
+                    }
+                }
+            })
+        }
+
     }
 }

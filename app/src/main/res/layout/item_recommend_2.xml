@@ -42,25 +42,25 @@
         app:layout_constraintStart_toStartOf="@id/item_title_tv" />
     
     <ImageView
-        android:id="@+id/item_like_on"
+        android:id="@+id/item_like_off"
         android:layout_width="17dp"
         android:layout_height="17dp"
         android:visibility="visible"
-        android:src="@drawable/item_like_on"
+        android:src="@drawable/item_like_off"
         android:layout_marginEnd="12dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/item_like_on"-->
-<!--        android:layout_width="17dp"-->
-<!--        android:layout_height="17dp"-->
-<!--        android:visibility="gone"-->
-<!--        android:src="@drawable/item_like_on"-->
-<!--        android:layout_marginEnd="13dp"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/item_image_iv" />-->
+    <ImageView
+        android:id="@+id/item_like_on"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:visibility="gone"
+        android:src="@drawable/item_like_on"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -88,7 +88,7 @@ interface UserInterface {
     fun placeUnlike(
         @Header("authorization") accessToken: String,
         @Path("like_id") likeId: Int
-    ): Call<UserResponse<PlaceUnlikeResponse>>
+    ): Call<UserResponse<String>>
 
     //장소 좋아요 모아보기
     @GET("/place/like")

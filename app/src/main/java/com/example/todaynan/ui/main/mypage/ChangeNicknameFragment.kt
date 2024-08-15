@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ChangeNewNicknameRequest
+import com.example.todaynan.data.entity.User
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.user.NicknameDuplicateResponse
 import com.example.todaynan.data.remote.user.ChangeNickNameResponse
@@ -14,6 +15,7 @@ import com.example.todaynan.data.remote.user.UserInterface
 import com.example.todaynan.data.remote.user.UserResponse
 import com.example.todaynan.databinding.FragmentChangeNicknameBinding
 import com.example.todaynan.ui.BaseFragment
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -78,6 +80,15 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                     // 버튼 활성화 변경
                     binding.changeNicknameChangeBtnIv.visibility = View.GONE
                     binding.changeNicknameChangeBtnDarkIv.visibility = View.VISIBLE
+                    // 앱 저장 사용자 정보 갱신
+                    AppData.nickname = nickname
+                    val user: User = User(AppData.nickname, AppData.preferIdx, AppData.address, AppData.mypet)
+                    val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    val userJson = Gson().toJson(user)
+                    editor.putString("user", userJson)
+                    editor.apply()
+
                     hideKeyboard()
                 } else {
                     isNicknameChecked = false
