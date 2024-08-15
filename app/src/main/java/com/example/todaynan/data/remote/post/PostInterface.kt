@@ -38,7 +38,7 @@ interface PostInterface {
     fun deletePost(
         @Header("authorization") accessToken: String,
         @Path("post_id") postId: Int
-    ): Call<PostResponse<DeletePost>>
+    ): Call<DeletePost>
 
     // 댓글 작성
     @POST("/post/comment/{post_id}")
