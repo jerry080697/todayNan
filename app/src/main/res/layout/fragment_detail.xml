@@ -91,7 +91,7 @@
             android:id="@+id/loc_info_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="관악구"
+            android:text=" "
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="10dp"

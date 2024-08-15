@@ -20,6 +20,10 @@ class JjimListFragment : BaseFragment<FragmentJjimListBinding>(FragmentJjimListB
     private val userService = getRetrofit().create(UserInterface::class.java)
 
     override fun initAfterBinding() {
+        binding.jjimListBackBtn.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         loadPlaceLikes()
     }
 
