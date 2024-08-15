@@ -53,12 +53,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding
                 .commitAllowingStateLoss()
         }
 
-        binding.mypagePostIv.setOnClickListener {
+        /*binding.mypagePostIv.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, ChatFragment())
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
-        }
+        }*/
         binding.mypageBoardIv.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, MyBoardFragment())
