@@ -1,6 +1,6 @@
-
 package com.example.todaynan.ui.signup
 
+import android.content.Context
 import android.view.View
 import android.widget.Toast
 import com.example.todaynan.base.AppData
@@ -14,16 +14,75 @@ class ChangeInterestFragment : BaseFragment<FragmentChangeInterestBinding>(Fragm
     private val selectedOptionsIndex = mutableListOf<Int>()
 
     override fun initAfterBinding() {
-        val strMessage = "preferStr: ${AppData.preferStr.joinToString(", ")}"
-        val idxMessage = "preferIdx: ${AppData.preferIdx.joinToString(", ")}"
-        Toast.makeText(context, "$strMessage\n$idxMessage", Toast.LENGTH_LONG).show()
-
+        loadPreferences(requireContext())
+        showSelectedPreferences()
 
         binding.changeInterestBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-
-        // Initialize options
+        if(binding.changeInterestSelect1Dark.visibility==View.VISIBLE){
+            selectOption1(true)
+        }
+        if(binding.changeInterestSelect2Dark.visibility==View.VISIBLE){
+            selectOption2(true)
+        }
+        if(binding.changeInterestSelect3Dark.visibility==View.VISIBLE){
+            selectOption3(true)
+        }
+        if(binding.changeInterestSelect4Dark.visibility==View.VISIBLE){
+            selectOption4(true)
+        }
+        if(binding.changeInterestSelect5Dark.visibility==View.VISIBLE){
+            selectOption5(true)
+        }
+        if(binding.changeInterestSelect6Dark.visibility==View.VISIBLE){
+            selectOption6(true)
+        }
+        if(binding.changeInterestSelect7Dark.visibility==View.VISIBLE){
+            selectOption7(true)
+        }
+        if(binding.changeInterestSelect8Dark.visibility==View.VISIBLE){
+            selectOption8(true)
+        }
+        if(binding.changeInterestSelect9Dark.visibility==View.VISIBLE){
+            selectOption9(true)
+        }
+        if(binding.changeInterestSelect10Dark.visibility==View.VISIBLE){
+            selectOption10(true)
+        }
+        if(binding.changeInterestSelect11Dark.visibility==View.VISIBLE){
+            selectOption11(true)
+        }
+        if(binding.changeInterestSelect12Dark.visibility==View.VISIBLE){
+            selectOption12(true)
+        }
+        if(binding.changeInterestSelect13Dark.visibility==View.VISIBLE){
+            selectOption13(true)
+        }
+        if(binding.changeInterestSelect14Dark.visibility==View.VISIBLE){
+            selectOption14(true)
+        }
+        if(binding.changeInterestSelect15Dark.visibility==View.VISIBLE){
+            selectOption15(true)
+        }
+        if(binding.changeInterestSelect16Dark.visibility==View.VISIBLE){
+            selectOption16(true)
+        }
+        if(binding.changeInterestSelect17Dark.visibility==View.VISIBLE){
+            selectOption17(true)
+        }
+        if(binding.changeInterestSelect18Dark.visibility==View.VISIBLE){
+            selectOption18(true)
+        }
+        if(binding.changeInterestSelect19Dark.visibility==View.VISIBLE){
+            selectOption19(true)
+        }
+        if(binding.changeInterestSelect20Dark.visibility==View.VISIBLE){
+            selectOption20(true)
+        }
+        if(binding.changeInterestSelect21Dark.visibility==View.VISIBLE) {
+            selectOption21(true)
+        }
         option1()
         option2()
         option3()
@@ -46,26 +105,36 @@ class ChangeInterestFragment : BaseFragment<FragmentChangeInterestBinding>(Fragm
         option20()
         option21()
 
-        showSelectedPreferences()
-
         binding.changeInterestNextBtnBefDark.setOnClickListener {
             if (selectedOptions.size in 1..5) {
-                //SignupData.selectedOptions.clear()
                 SignupData.selectedOptions.add(AppData.preferIdx.toString())
                 SignupData.selectedOptions.addAll(selectedOptions)
                 AppData.preferStr = selectedOptions as ArrayList<String>
                 AppData.preferIdx = selectedOptionsIndex.map { it.toLong() }
-
+                context?.let {
+                    savePreferences(selectedOptionsIndex, it)
+                }
                 Toast.makeText(context, "내 관심사 수정이 완료되었습니다.", Toast.LENGTH_SHORT).show()
             }
         }
+        showSelectedPreferences()
     }
+    fun savePreferences(selectedOptionsIndex: List<Int>, context: Context) {
+        val sharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
 
+        editor.putStringSet("preferIdx", selectedOptionsIndex.map { it.toString() }.toSet())
+        editor.apply()
+    }
+    fun loadPreferences(context: Context) {
+        val sharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+        val savedPreferIdx = sharedPreferences.getStringSet("preferIdx", emptySet())
+
+        AppData.preferIdx = savedPreferIdx?.map { it.toLong() } ?: listOf()
+    }
     private fun showSelectedPreferences() {
-        // Hide all Dark views initially
         hideAllDarkViews()
 
-        // Set Dark visibility based on AppData.preferIdx
         AppData.preferIdx.forEach { idx ->
             when (idx.toInt()) {
                 0 -> binding.changeInterestSelect1Dark.visibility = View.VISIBLE
@@ -92,7 +161,6 @@ class ChangeInterestFragment : BaseFragment<FragmentChangeInterestBinding>(Fragm
             }
         }
     }
-
     private fun hideAllDarkViews() {
         binding.changeInterestSelect1Dark.visibility = View.INVISIBLE
         binding.changeInterestSelect2Dark.visibility = View.INVISIBLE
@@ -116,8 +184,6 @@ class ChangeInterestFragment : BaseFragment<FragmentChangeInterestBinding>(Fragm
         binding.changeInterestSelect20Dark.visibility = View.INVISIBLE
         binding.changeInterestSelect21Dark.visibility = View.INVISIBLE
     }
-
-    // The methods for option selection
     fun selectOption1(isSelect: Boolean) {
         if (isSelect) {
             if (selectedOptions.size < 5) {
@@ -133,7 +199,6 @@ class ChangeInterestFragment : BaseFragment<FragmentChangeInterestBinding>(Fragm
             selectedOptionsIndex.remove(0)
         }
     }
-
     fun selectOption2(isSelect: Boolean) {
         if (isSelect) {
             if (selectedOptions.size < 5) {
@@ -149,7 +214,6 @@ class ChangeInterestFragment : BaseFragment<FragmentChangeInterestBinding>(Fragm
             selectedOptionsIndex.remove(1)
         }
     }
-
     fun selectOption3(isSelect: Boolean) {
         if (isSelect) {
             if (selectedOptions.size < 5) {
