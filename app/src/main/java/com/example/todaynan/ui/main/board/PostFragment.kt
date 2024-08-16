@@ -171,11 +171,16 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                             val request = "Bearer ${AppData.appToken}"
                             val postId = arguments?.getInt("postId") ?: 0
 
-                            postService.deletePost(request, postId).enqueue(object : Callback<DeletePost> {
-                                override fun onResponse(call: Call<DeletePost>, response: Response<DeletePost>) {
+                            postService.deletePost(request, postId).enqueue(object :
+                                Callback<DeletePost> {
+                                override fun onResponse(
+                                    call: Call<DeletePost>,
+                                    response: Response<DeletePost>
+                                ) {
                                     Log.d("SERVER/SUCCESS", response.toString())
                                     val resp = response.body()
                                     Log.d("SERVER/SUCCESS", resp.toString())
+
                                     if (resp?.isSuccess == true) {
                                         // 게시글 삭제 성공 시, 댓글 목록 새로고침 및 화면복귀
                                         getReply(postId)
