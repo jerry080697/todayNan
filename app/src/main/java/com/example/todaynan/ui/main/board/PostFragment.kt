@@ -1,13 +1,17 @@
 package com.example.todaynan.ui.main.board
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
+import com.example.todaynan.R.id.menu_others_report_cl
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ReplyWrite
 import com.example.todaynan.data.remote.getRetrofit
@@ -75,7 +79,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
             replyWrite(postId, comment)
         }
 
-        chooseType()
+        postMenu()
     }
 
     private fun replyWrite(postId: Int, comment: String) {
@@ -162,81 +166,89 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         binding.postCreateTimeTv.text = post.createdAt
     }
 
-    private fun chooseType(){
-        binding.postPlusMenuNonIv.setOnClickListener{
+    private fun postMenu(){
+        binding.postPlusMenuNonIv.setOnClickListener {
             binding.postPlusMenuNonIv.setImageResource(R.drawable.plus_menu)
             val postNicknameJson = arguments?.getString("postNickname")
 
-            if(AppData.nickname == postNicknameJson){ //닉네임 일치 시
-                val typeList = mutableListOf<PostPopupValue>().apply {
-                    add(PostPopupValue("신고"))
-                    add(PostPopupValue("차단"))
-                    add(PostPopupValue("삭제"))
+            if (AppData.nickname == postNicknameJson) { //닉네임 일치 시
+                val popupView = layoutInflater.inflate((R.layout.popup_menu_my), null)
+                val popupWindow = PopupWindow(
+                    popupView,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                // 팝업의 외곽을 클릭하면 닫히도록 설정
+                popupWindow.isOutsideTouchable = true
+                popupWindow.isFocusable = true
+                // 팝업의 위치를 설정하여 화면에 표시
+                val anchorView = binding.postPlusMenuNonIv // 기준 뷰
+                popupWindow.showAsDropDown(anchorView, -270, 0)
+                // 팝업 아이템 클릭 리스너 설정
+                popupView.findViewById<ConstraintLayout>(R.id.menu_report_cl).setOnClickListener {
+                    Toast.makeText(requireContext(), "해당 게시글이 신고 처리 되었습니다", Toast.LENGTH_SHORT)
+                        .show()
+                    popupWindow.dismiss()
+                    binding.postPlusMenuNonIv.setImageResource(R.drawable.plus_menu_non)
                 }
-                PostMenuPopup(context = requireContext(), popupList = typeList){ _, _, position->
-                    when (position) {
-                        0 -> { //신고
-                            Toast.makeText(requireContext(),"해당 게시글이 신고 처리 되었습니다", Toast.LENGTH_SHORT).show()
-                        }
-
-                        1 -> { //차단
-                            Toast.makeText(requireContext(),"해당 게시글이 차단되었습니다", Toast.LENGTH_SHORT).show()
-                        }
-
-                        2 -> { //삭제
-                            val request = "Bearer ${AppData.appToken}"
-                            val postId = arguments?.getInt("postId") ?: 0
-
-                            postService.deletePost(request, postId).enqueue(object :
-                                Callback<DeletePost> {
-                                override fun onResponse(
-                                    call: Call<DeletePost>,
-                                    response: Response<DeletePost>
-                                ) {
-                                    Log.d("SERVER/SUCCESS", response.toString())
-                                    val resp = response.body()
-                                    Log.d("SERVER/SUCCESS", resp.toString())
-
-                                    if (resp?.isSuccess == true) {
-                                        // 게시글 삭제 성공 시, 댓글 목록 새로고침 및 화면복귀
-                                        getReply(postId)
-                                        parentFragmentManager.popBackStack()
-                                    }
-                                }
-
-                                override fun onFailure(call: Call<DeletePost>, t: Throwable) {
-                                    Log.d("SERVER/FAILURE", t.message.toString())
-                                }
-                            })
-                        }
-                    }
-                }.apply {
-                    isOutsideTouchable = true
-                    isTouchable = true
-                    showAsDropDown(it, -270, 20) //resultMenuIv 기준으로 팝업메뉴 위치
+                popupView.findViewById<ConstraintLayout>(R.id.menu_block_cl).setOnClickListener {
+                    Toast.makeText(requireContext(), "해당 게시글이 차단되었습니다", Toast.LENGTH_SHORT).show()
+                    popupWindow.dismiss()
+                    binding.postPlusMenuNonIv.setImageResource(R.drawable.plus_menu_non)
                 }
-            } else{ //닉네임 불일치 시
-                val typeList = mutableListOf<PostPopupValue>().apply {
-                    add(PostPopupValue("신고"))
-                    add(PostPopupValue("차단"))
-                }
-                PostMenuPopup(context = requireContext(), popupList = typeList){ _, _, position->
-                    when (position) {
-                        0 -> { //신고
-                            Toast.makeText(requireContext(),"해당 게시글이 신고 처리 되었습니다", Toast.LENGTH_SHORT).show()
+                popupView.findViewById<ConstraintLayout>(R.id.menu_del_cl).setOnClickListener {
+                    val request = "Bearer ${AppData.appToken}"
+                    val postId = arguments?.getInt("postId") ?: 0
+
+                    postService.deletePost(request, postId).enqueue(object :
+                        Callback<DeletePost> {
+                        override fun onResponse(
+                            call: Call<DeletePost>,
+                            response: Response<DeletePost>
+                        ) {
+                            Log.d("SERVER/SUCCESS", response.toString())
+                            val resp = response.body()
+                            Log.d("SERVER/SUCCESS", resp.toString())
+
+                            if (resp?.isSuccess == true) {
+                                // 게시글 삭제 성공 시, 댓글 목록 새로고침 및 화면복귀
+                                getReply(postId)
+                                popupWindow.dismiss()
+                                parentFragmentManager.popBackStack()
+                            }
                         }
 
-                        1 -> { //차단
-                            Toast.makeText(requireContext(),"해당 게시글이 차단되었습니다", Toast.LENGTH_SHORT).show()
+                        override fun onFailure(call: Call<DeletePost>, t: Throwable) {
+                            Log.d("SERVER/FAILURE", t.message.toString())
                         }
-                    }
-                }.apply {
-                    isOutsideTouchable = true
-                    isTouchable = true
-                    showAsDropDown(it, -270, 20) //resultMenuIv 기준으로 팝업메뉴 위치
+                    })
+                }
+            } else { //닉네임 불일치 시
+                val popupView = layoutInflater.inflate((R.layout.popup_menu_others), null)
+                val popupWindow = PopupWindow(
+                    popupView,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                // 팝업의 외곽을 클릭하면 닫히도록 설정
+                popupWindow.isOutsideTouchable = true
+                popupWindow.isFocusable = true
+                // 팝업의 위치를 설정하여 화면에 표시
+                val anchorView = binding.postPlusMenuNonIv // 기준 뷰
+                popupWindow.showAsDropDown(anchorView, -270, 0)
+                // 팝업 아이템 클릭 리스너 설정
+                popupView.findViewById<ConstraintLayout>(R.id.menu_others_report_cl).setOnClickListener {
+                    Toast.makeText(requireContext(), "해당 게시글이 신고 처리 되었습니다", Toast.LENGTH_SHORT).show()
+                    popupWindow.dismiss()
+                    binding.postPlusMenuNonIv.setImageResource(R.drawable.plus_menu_non)
+                }
+                popupView.findViewById<ConstraintLayout>(R.id.menu_others_block_cl).setOnClickListener {
+                    Toast.makeText(requireContext(), "해당 게시글이 차단되었습니다", Toast.LENGTH_SHORT).show()
+                    popupWindow.dismiss()
+                    binding.postPlusMenuNonIv.setImageResource(R.drawable.plus_menu_non)
                 }
             }
-
         }
     }
+
 }
