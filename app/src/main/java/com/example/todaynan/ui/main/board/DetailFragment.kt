@@ -3,13 +3,13 @@ package com.example.todaynan.ui.main.board
 import EmployRegisterFragment
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.post.GetPost
+import com.example.todaynan.data.remote.post.LikePost
 import com.example.todaynan.data.remote.post.PostInterface
 import com.example.todaynan.data.remote.post.PostList
 import com.example.todaynan.data.remote.post.PostResponse

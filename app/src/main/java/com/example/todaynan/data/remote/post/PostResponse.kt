@@ -71,3 +71,9 @@ data class PostCommentList(
     @SerializedName(value = "post_comment_like_cnt") val postCommentLikeCnt: Int
 ) : Serializable
 
+data class LikePost(
+    @SerializedName(value = "post_like_id") val postLikeId: Int,
+    @SerializedName(value = "post_id") val postId: Int,
+    @SerializedName(value = "user_id") val userId: Int
+) : Serializable
+

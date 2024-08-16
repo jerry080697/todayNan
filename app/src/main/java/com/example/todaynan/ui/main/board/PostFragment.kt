@@ -2,6 +2,7 @@ package com.example.todaynan.ui.main.board
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -13,6 +14,7 @@ import com.example.todaynan.data.entity.ReplyWrite
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.post.DeletePost
 import com.example.todaynan.data.remote.post.GetReply
+import com.example.todaynan.data.remote.post.LikePost
 import com.example.todaynan.data.remote.post.PostCommentList
 import com.example.todaynan.data.remote.post.PostInterface
 import com.example.todaynan.data.remote.post.PostList
@@ -76,6 +78,13 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         }
 
         chooseType()
+
+        binding.postLikeIv.setOnClickListener {
+            likePost(postId)    // 이미지 변경, 좋아요 수 최신화
+            getReply(postId)
+            binding.postLikeIv.visibility = View.INVISIBLE
+            binding.postLikeFullIv.visibility = View.VISIBLE
+        }
     }
 
     private fun replyWrite(postId: Int, comment: String) {
@@ -239,4 +248,29 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
 
         }
     }
+
+    private fun likePost(postId: Int) {
+        val request = "Bearer "+ AppData.appToken
+
+        postService.likePost(request, postId).enqueue(object :
+            Callback<PostResponse<LikePost>> {
+            override fun onResponse(
+                call: Call<PostResponse<LikePost>>,
+                response: Response<PostResponse<LikePost>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
+                if (resp?.isSuccess == true) {
+
+                }
+            }
+
+            override fun onFailure(call: Call<PostResponse<LikePost>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+        })
+    }
+
+
 }

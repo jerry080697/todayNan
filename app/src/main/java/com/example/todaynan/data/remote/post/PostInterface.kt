@@ -55,4 +55,11 @@ interface PostInterface {
         @Header("authorization") accessToken: String,
         @Path("post_id") postId: Int
     ): Call<PostResponse<GetReply>>
+
+    // 게시글 좋아요
+    @POST("/post/like/{post_id}")
+    fun likePost(
+        @Header("authorization") accessToken: String,
+        @Path("post_id") postId: Int
+    ): Call<PostResponse<LikePost>>
 }
