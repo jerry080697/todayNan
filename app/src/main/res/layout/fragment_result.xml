@@ -124,7 +124,7 @@
             android:id="@+id/result_menu_iv"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/search_menu_list"
+            android:src="@drawable/search_large_off"
             android:layout_marginEnd="30dp"
             app:layout_constraintTop_toTopOf="@id/search_back_iv"
             app:layout_constraintEnd_toEndOf="parent" />
