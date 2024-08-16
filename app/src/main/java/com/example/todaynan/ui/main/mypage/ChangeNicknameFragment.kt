@@ -35,9 +35,8 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                 false // 이벤트 처리 안 함
             }
         }
-        // SharedPreferences에서 현재 닉네임 로드, 없으면 AppData.nickname 사용
-        val currentNickname = loadNicknameFromPreferences().takeIf { it.isNotEmpty() } ?: AppData.nickname
-        binding.changeNicknameCurrentNicknameTv.text = currentNickname
+
+        binding.changeNicknameCurrentNicknameTv.text = AppData.nickname
 
         binding.changeNicknameBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -118,6 +117,7 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                 Log.d("ChangeNicknameFragment", "Response message: ${response.message()}")
 
                 if (response.isSuccessful) {
+                    AppData.nickname = newNickname
                     saveNicknameToPreferences(newNickname)
                     binding.changeNicknameCurrentNicknameTv.text = newNickname
                     Toast.makeText(context, "닉네임이 변경되었습니다.", Toast.LENGTH_SHORT).show()
@@ -134,13 +134,12 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
         })
     }
     private fun saveNicknameToPreferences(nickname: String) {
-        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val user: User = User(AppData.nickname, AppData.preferIdx, AppData.address, AppData.mypet)
+        val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("nickname", nickname)
+        val userJson = Gson().toJson(user)
+        editor.putString("user", userJson)
         editor.apply()
     }
-    private fun loadNicknameFromPreferences(): String {
-        val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("nickname", "") ?: ""
-    }
+
 }
