@@ -1,6 +1,5 @@
 package com.example.todaynan.ui.main.board
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
-import com.example.todaynan.R.id.menu_others_report_cl
 import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ReplyWrite
 import com.example.todaynan.data.remote.getRetrofit
@@ -79,7 +77,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
             replyWrite(postId, comment)
         }
 
-        postMenu()
+        postMenu(post)
     }
 
     private fun replyWrite(postId: Int, comment: String) {
@@ -166,12 +164,11 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         binding.postCreateTimeTv.text = post.createdAt
     }
 
-    private fun postMenu(){
+    private fun postMenu(post: PostList){
         binding.postPlusMenuNonIv.setOnClickListener {
             binding.postPlusMenuNonIv.setImageResource(R.drawable.plus_menu)
-            val postNicknameJson = arguments?.getString("postNickname")
 
-            if (AppData.nickname == postNicknameJson) { //닉네임 일치 시
+            if (AppData.nickname == post.userNickname) { //닉네임 일치 시
                 val popupView = layoutInflater.inflate((R.layout.popup_menu_my), null)
                 val popupWindow = PopupWindow(
                     popupView,
