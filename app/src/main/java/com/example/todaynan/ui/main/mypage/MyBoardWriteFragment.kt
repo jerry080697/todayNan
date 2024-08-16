@@ -22,9 +22,9 @@ class MyBoardWriteFragment : BaseFragment<FragmentMyBoardWriteBinding>(FragmentM
 //            }
 //        })
 //
-//        binding.boardWriteBackBtn.setOnClickListener {
-//            parentFragmentManager.popBackStack()
-//        }
+        binding.boardWriteBackBtn.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
     }
 //    private fun generateDummyItems(): List<Post> {

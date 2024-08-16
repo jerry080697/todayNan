@@ -22,9 +22,9 @@ class MyBoardReplyFragment : BaseFragment<FragmentMyBoardReplyBinding>(FragmentM
 //            }
 //        })
 //
-//        binding.boardReplyBackBtn.setOnClickListener {
-//            parentFragmentManager.popBackStack()
-//        }
+        binding.boardReplyBackBtn.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
     }
 //    private fun generateDummyItems(): List<Post> {
