@@ -3,7 +3,10 @@ package com.example.todaynan.ui.main.search
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
@@ -16,8 +19,8 @@ import com.example.todaynan.data.remote.place.PlaceInterface
 import com.example.todaynan.data.remote.place.PlaceResponse
 import com.example.todaynan.databinding.FragmentResultBinding
 import com.example.todaynan.ui.BaseFragment
-import com.example.todaynan.ui.adapter.OutsideRVAdapter
 import com.example.todaynan.ui.adapter.InsideRVAdapter
+import com.example.todaynan.ui.adapter.OutsideRVAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -152,39 +155,45 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
     private fun chooseType(){
         binding.resultMenuIv.setOnClickListener{
             if(showType == 0)
-                binding.resultMenuIv.setImageResource(R.drawable.search_menu_list_dark)
+                binding.resultMenuIv.setImageResource(R.drawable.search_large_on)
             else
-                binding.resultMenuIv.setImageResource(R.drawable.search_menu_block_dark)
+                binding.resultMenuIv.setImageResource(R.drawable.search_small_on)
 
-            val typeList = mutableListOf<PopupValue>().apply {
-                add(PopupValue(R.drawable.search_menu_list,"크게 보기"))
-                add(PopupValue(R.drawable.search_menu_block, "작게 보기"))
+            val popupView = layoutInflater.inflate(R.layout.popup_result, null)
+            val popupWindow = PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            // 팝업의 외곽을 클릭하면 닫히도록 설정
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+
+            // 팝업의 위치를 설정하여 화면에 표시
+            val anchorView = binding.resultMenuIv // 기준 뷰
+            popupWindow.showAsDropDown(anchorView, -270, 0)
+
+            // 팝업 아이템 클릭 리스너 설정
+            popupView.findViewById<ConstraintLayout>(R.id.menu_large_iv).setOnClickListener {
+                outsideResult(binding.resultEt.text.toString())
+                binding.resultListRv.isVisible = true
+                binding.resultBlockRv.isVisible = false
+                showType = 0
+                popupWindow.dismiss()
+            }
+            popupView.findViewById<ConstraintLayout>(R.id.menu_small_iv).setOnClickListener {
+                outsideResult(binding.resultEt.text.toString())
+                binding.resultListRv.isVisible = false
+                binding.resultBlockRv.isVisible = true
+                showType = 1
+                popupWindow.dismiss()
             }
 
-            SearchMenuPopup(context = requireContext(), popupList = typeList){ _, _, position->
-                when (position) {
-                    0 -> { //크게 보기
-                        // 검색 결과 갱신
-                        outsideResult(binding.resultEt.text.toString())
-                        binding.resultMenuIv.setImageResource(R.drawable.search_menu_list)
-                        binding.resultListRv.isVisible = true
-                        binding.resultBlockRv.isVisible = false
-                        showType = 0
-                    }
-
-                    1 -> { //작게 보기
-                        // 검색 결과 갱신
-                        outsideResult(binding.resultEt.text.toString())
-                        binding.resultMenuIv.setImageResource(R.drawable.search_menu_block)
-                        binding.resultListRv.isVisible = false
-                        binding.resultBlockRv.isVisible = true
-                        showType = 1
-                    }
-                }
-            }.apply {
-                isOutsideTouchable = true
-                isTouchable = true
-                showAsDropDown(it, -270, 20) //resultMenuIv 기준으로 팝업메뉴 위치
+            popupWindow.setOnDismissListener {
+                if(showType == 0)
+                    binding.resultMenuIv.setImageResource(R.drawable.search_large_off)
+                else
+                    binding.resultMenuIv.setImageResource(R.drawable.search_small_off)
             }
         }
     }
