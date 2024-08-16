@@ -48,7 +48,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             chatPost()
         }
 
-        val middleAddress = AppData.address.split(" ")[1]
+        val middleAddress = AppData.address.split(" ").getOrNull(1) ?: "없음"
         binding.locInfoTv.text = middleAddress
 
         binding.detailRegisterCl.setOnClickListener {
@@ -98,14 +98,24 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                     binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
                     boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
                         override fun onItemClick(post: PostList) {
+                            val type = arguments?.getString("type")
                             parentFragmentManager.beginTransaction()
                                 .replace(R.id.main_frm, PostFragment().apply{
                                     arguments = Bundle().apply{
                                         val gson = Gson()
                                         val postJson = gson.toJson(post)
+                                        val postNicknameJson = post.userNickname
                                         val postIdJson = post.postId
                                         putString("type", type)
+                                        var postTypeJson = ""
+                                        if(type == "구인 게시판") {
+                                            postTypeJson = "구인 게시판"
+                                        } else{
+                                            postTypeJson = "잡담 게시판"
+                                        }
                                         putString("post", postJson)
+                                        putString("postType", postTypeJson)
+                                        putString("postNickname", postNicknameJson)
                                         putInt("postId", postIdJson)
                                     }
                                 })

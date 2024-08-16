@@ -230,7 +230,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>(FragmentLocationB
         mapView.onResume()
         mapView.getMapAsync(this)
 
-        binding.locInfoTv.setText(AppData.address.split(" ")[2])
+        val addressParts = AppData.address.split(" ")
+        if (addressParts.size > 2) {
+            binding.locInfoTv.text = addressParts[2]
+        } else {
+            binding.locInfoTv.text = "없음" // 적절한 기본값 또는 에러 메시지
+        }
 
         locationSearchEt = binding.locationSearchEt
         locationSearchBtn = binding.locationSearchBtn

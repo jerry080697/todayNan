@@ -4,6 +4,7 @@ import com.example.todaynan.data.entity.PostWrite
 import com.example.todaynan.data.entity.ReplyWrite
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PATCH
@@ -34,11 +35,11 @@ interface PostInterface {
     ): Call<PostResponse<GetPost>>
 
     // 게시글 삭제
-    @PATCH("/post/{post_id}")
+    @DELETE("/post/{post_id}")
     fun deletePost(
         @Header("authorization") accessToken: String,
         @Path("post_id") postId: Int
-    ): Call<PostResponse<DeletePost>>
+    ): Call<DeletePost>
 
     // 댓글 작성
     @POST("/post/comment/{post_id}")
