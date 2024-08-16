@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
+import com.example.todaynan.base.AppData
 import com.example.todaynan.data.remote.post.PostList
 import com.example.todaynan.databinding.ItemPostBinding
 import java.time.format.DateTimeFormatter
@@ -39,7 +40,13 @@ class PostRVAdapter(private var pList: List<PostList>) : RecyclerView.Adapter<Po
     inner class ViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(post: PostList) {
             // 사용자 ID로 이미지를 매핑하거나 서버에서 받아온 URL로 이미지를 로드하는 등의 방법을 사용
-            binding.postProfileIv.setImageResource(R.drawable.circle_green) // 기본 이미지 설정
+            val img =
+                when (AppData.mypet) {
+                    "DOG" -> R.drawable.fox_circle_off
+                    "CAT" -> R.drawable.bird_circle_off
+                    else -> R.drawable.bear_circle_off
+                }
+            binding.postProfileIv.setImageResource(img)
             binding.postUserNameTv.text = post.userNickname
             binding.postUserLocationTv.text = post.userAddress
             binding.postLikeNumberTv.text = post.postLike.toString()

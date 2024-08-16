@@ -38,11 +38,17 @@ class PostReplyRVAdapter(private var replyData: List<PostCommentList>) : Recycle
     inner class ViewHolder(val binding: ItemReplyBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(reply: PostCommentList) {
             // 사용자 ID로 이미지를 매핑하거나 서버에서 받아온 URL로 이미지를 로드하는 등의 방법을 사용
-            binding.postProfileIv.setImageResource(R.drawable.circle_green) // 기본 이미지 설정
+            val img =
+                when (reply.myPet) {
+                    "DOG" -> R.drawable.fox_circle_off
+                    "CAT" -> R.drawable.bird_circle_off
+                    else -> R.drawable.bear_circle_off
+                }
+            binding.postProfileIv.setImageResource(img) // 기본 이미지 설정
             binding.postUserNameTv.text = reply.nickName
             binding.postUserLocationTv.text = AppData.address
             binding.postLikeNumberTv.text = reply.postCommentLikeCnt.toString()
-            binding.likedPostCreationTimeTv.text = "05.06. 14:40"
+            binding.likedPostCreationTimeTv.text = "05.06. 14:40" // 수정 예정
             binding.likedPostContentTv.text = reply.content
         }
     }

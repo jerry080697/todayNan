@@ -2,7 +2,9 @@ package com.example.todaynan.ui.main.board
 
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todaynan.R
@@ -61,8 +63,15 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         getReply(postId)
 
         binding.postRegisterBtnDark.setOnClickListener {
+            // 버튼 클릭 시 키보드 숨기기
+            val inputMethodManager = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+            val currentFocusView = requireActivity().currentFocus
+            currentFocusView?.let {
+                inputMethodManager?.hideSoftInputFromWindow(it.windowToken, 0)
+            }
+
             val postId = arguments?.getInt("postId") ?: 0
-            comment = binding.postReplyEt.text.toString() // 여기서 지정한 부분을 서버에 comment로 보내는 것
+            comment = binding.postReplyEt.text.toString() // 여기서 지정한 부분을 서버에 comment로 보냄
             replyWrite(postId, comment)
         }
 
@@ -136,7 +145,13 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
 
 
     private fun setInit(post: PostList){
-        binding.postUserProfileIv.setImageResource(R.drawable.circle_green)
+        val img =
+            when (AppData.mypet) {
+                "DOG" -> R.drawable.fox_circle_off
+                "CAT" -> R.drawable.bird_circle_off
+                else -> R.drawable.bear_circle_off
+            }
+        binding.postUserProfileIv.setImageResource(img)
         binding.postUserNameTv.text = AppData.nickname
         binding.postUserLocTv.text = post.userAddress
         binding.postTitleTv.text = post.postTitle
@@ -144,6 +159,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         binding.postLikeNumberTv.text = post.postLike.toString()
         binding.postReplyNumberTv.text = post.postComment.toString()
         binding.postReplyNumberTv.text = post.postComment.toString()
+        binding.postCreateTimeTv.text = post.createdAt
     }
 
     private fun chooseType(){
