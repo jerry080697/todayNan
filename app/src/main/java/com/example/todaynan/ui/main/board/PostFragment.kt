@@ -156,7 +156,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                 else -> R.drawable.bear_circle_off
             }
         binding.postUserProfileIv.setImageResource(img)
-        binding.postUserNameTv.text = AppData.nickname
+        binding.postUserNameTv.text = post.userNickname
         binding.postUserLocTv.text = post.userAddress
         binding.postTitleTv.text = post.postTitle
         binding.postContentTv.text = post.postContent
