@@ -19,8 +19,6 @@ import com.example.todaynan.data.remote.post.Reply
 import com.example.todaynan.databinding.FragmentPostBinding
 import com.example.todaynan.ui.BaseFragment
 import com.example.todaynan.ui.adapter.PostReplyRVAdapter
-import com.example.todaynan.ui.main.search.PopupValue
-import com.example.todaynan.ui.main.search.SearchMenuPopup
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback

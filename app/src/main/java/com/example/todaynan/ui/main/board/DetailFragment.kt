@@ -48,7 +48,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             chatPost()
         }
 
-        val middleAddress = AppData.address.split(" ")[1]
+        val middleAddress = AppData.address.split(" ").getOrNull(1) ?: "없음"
         binding.locInfoTv.text = middleAddress
 
         binding.detailRegisterCl.setOnClickListener {
