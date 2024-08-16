@@ -86,7 +86,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
             binding.postLikeNumberTv.text = postLikeCnt.toString()
             getReply(postId)
         }
-        postMenu()
+        postMenu(post)
     }
 
     private fun replyWrite(postId: Int, comment: String) {
@@ -177,12 +177,11 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         binding.postCreateTimeTv.text = post.createdAt
     }
 
-    private fun postMenu(){
+    private fun postMenu(post: PostList){
         binding.postPlusMenuNonIv.setOnClickListener {
             binding.postPlusMenuNonIv.setImageResource(R.drawable.plus_menu)
-            val postNicknameJson = arguments?.getString("postNickname")
 
-            if (AppData.nickname == postNicknameJson) { //닉네임 일치 시
+            if (AppData.nickname == post.userNickname) { //닉네임 일치 시
                 val popupView = layoutInflater.inflate((R.layout.popup_menu_my), null)
                 val popupWindow = PopupWindow(
                     popupView,
