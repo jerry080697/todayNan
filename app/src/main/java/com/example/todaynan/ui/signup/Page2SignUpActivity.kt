@@ -29,6 +29,8 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         option3()
 
         binding.signupPage2Et.setOnEditorActionListener { v, actionId, event ->
+            binding.signupDuplicationCheckIvDark.visibility=View.VISIBLE
+            binding.signupDuplicationCheckIvLight.visibility=View.GONE
             if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
                 AppData.nickname = binding.signupPage2Et.text.toString()
                 hideKeyboard(binding.signupPage2Et)
@@ -46,7 +48,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
 
             finish()
         }
-        binding.signupDuplicationCheckIvLight.setOnClickListener {
+        binding.signupDuplicationCheckIvDark.setOnClickListener {
             val nickname = binding.signupPage2Et.text.toString()
             if (nickname.isNotEmpty()) {
                 checkNicknameDuplication(nickname)
