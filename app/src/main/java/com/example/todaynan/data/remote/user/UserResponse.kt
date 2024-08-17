@@ -114,3 +114,4 @@ data class PlaceUnlikeResponse(
     @SerializedName(value = "message") val message: String,
     @SerializedName(value = "result") val result: String
 ) : Serializable
+

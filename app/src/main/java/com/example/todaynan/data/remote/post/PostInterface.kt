@@ -2,6 +2,7 @@ package com.example.todaynan.data.remote.post
 
 import com.example.todaynan.data.entity.PostWrite
 import com.example.todaynan.data.entity.ReplyWrite
+import com.example.todaynan.data.remote.user.UserResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -55,4 +56,11 @@ interface PostInterface {
         @Header("authorization") accessToken: String,
         @Path("post_id") postId: Int
     ): Call<PostResponse<GetReply>>
+
+    //HOT 게시판
+    @GET("/post/hot")
+    fun loadHotBoard(
+        @Header("authorization") accessToken: String,
+        @Query("page") page: Int
+    ):Call<PostResponse<GetPost>>
 }

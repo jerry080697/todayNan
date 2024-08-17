@@ -37,13 +37,11 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                 false // 이벤트 처리 안 함
             }
         }
-
         binding.changeNicknameCurrentNicknameTv.text = AppData.nickname
 
         binding.changeNicknameBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-
         binding.changeNicknameCheckDuplicateDarkIv.setOnClickListener {
             val newNickname = binding.changeNicknameNewNicknameEt.text.toString()
             if (newNickname.isNotEmpty()) {
@@ -52,7 +50,6 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                 Toast.makeText(context, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
-
         binding.changeNicknameChangeBtnIv.setOnClickListener{
             Toast.makeText(context, "닉네임 입력 후 중복검사를 시행하세요.", Toast.LENGTH_SHORT).show()
         }
@@ -107,7 +104,6 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
             }
         })
     }
-
     private fun sendNicknameChangeRequest(newNickname: String) {
         val request = ChangeNewNicknameRequest(nickname = newNickname)
         val accessToken = "Bearer "+AppData.appToken
@@ -143,5 +139,4 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
         editor.putString("user", userJson)
         editor.apply()
     }
-
 }
