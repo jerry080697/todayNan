@@ -28,6 +28,8 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
     override fun initAfterBinding() {
         // 엔터 입력 시
         binding.changeNicknameNewNicknameEt.setOnEditorActionListener { v, actionId, event ->
+            binding.changeNicknameCheckDuplicateDarkIv.visibility=View.VISIBLE
+            binding.changeNicknameCheckDuplicateLightIv.visibility=View.GONE
             if ((event != null && event.keyCode == KeyEvent.KEYCODE_ENTER)) {
                 hideKeyboard()
                 true // 이벤트 처리 완료
@@ -42,7 +44,7 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
             parentFragmentManager.popBackStack()
         }
 
-        binding.changeNicknameCheckDuplicateIv.setOnClickListener {
+        binding.changeNicknameCheckDuplicateDarkIv.setOnClickListener {
             val newNickname = binding.changeNicknameNewNicknameEt.text.toString()
             if (newNickname.isNotEmpty()) {
                 checkNicknameDuplicate(newNickname)
