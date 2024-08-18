@@ -147,16 +147,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                             override fun onItemClick(reply: PostCommentList) {
                                 // 아이템 클릭 시 처리 로직
                             }
-
-                            override fun onLikeBtnClick(reply: PostCommentList) {
-                                // ImageView 클릭 시 처리 로직
-                                val postCommentId = arguments?.getInt("postCommentId") ?: 0
-                                replyLike(postId, postCommentId)
-                            }
-
-                            override fun onPlusBtnClick(reply: PostCommentList) {
-
-                            }
                         })
                     } else {
                         // 응답이 성공했으나 isSuccess가 false인 경우의 처리
@@ -300,42 +290,5 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         val likeCount = likeCountText.toIntOrNull() ?: 0
         val updatedLikeCount = likeCount + 1
         binding.postLikeNumberTv.text = updatedLikeCount.toString()
-    }
-
-    private fun replyLike(postId: Int, commentId: Int) {
-        val request = "Bearer "+ AppData.appToken
-
-        postService.replyLike(request, postId, commentId).enqueue(object :
-            Callback<PostResponse<ReplyLike>> {
-            override fun onResponse(
-                call: Call<PostResponse<ReplyLike>>,
-                response: Response<PostResponse<ReplyLike>>
-            ) {
-                Log.d("SERVER/SUCCESS", response.toString())
-                val resp = response.body()
-                Log.d("SERVER/SUCCESS", resp.toString())
-                if (resp?.isSuccess == true) {
-                    // 댓글 좋아요 성공 시, 하트 이미지 변경 및 좋아요 수 1증가
-                    val popupView = layoutInflater.inflate(R.layout.item_reply, null)
-                    popupView.findViewById<ImageView>(R.id.post_like_iv).setOnClickListener {
-                        likeReplyConutPlus()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<PostResponse<ReplyLike>>, t: Throwable) {
-                Log.d("SERVER/FAILURE", t.message.toString())
-            }
-        })
-    }
-
-    private fun likeReplyConutPlus() {
-        val likeCountTextView = binding.postLikeNumberTv
-
-        val likeCountText = likeCountTextView.text.toString()
-        val likeCount = likeCountText.toIntOrNull() ?: 0
-        val updatedLikeCount = likeCount + 1
-
-        likeCountTextView.text = updatedLikeCount.toString()
     }
 }

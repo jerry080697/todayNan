@@ -30,8 +30,6 @@ class PostReplyRVAdapter(private var replyData: List<PostCommentList>, private v
 
     interface MyItemClickListener {
         fun onItemClick(reply: PostCommentList)
-        fun onLikeBtnClick(reply: PostCommentList) // 추가된 인터페이스 메서드
-        fun onPlusBtnClick(reply: PostCommentList) // 추가된 인터페이스 메서드
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
@@ -49,25 +47,8 @@ class PostReplyRVAdapter(private var replyData: List<PostCommentList>, private v
         holder.itemView.setOnClickListener {
             myItemClickListener.onItemClick(replyData[position])
         }
-        holder.binding.postLikeIv.setOnClickListener { // ImageView 클릭 리스너 추가
-            myItemClickListener.onLikeBtnClick(replyData[position])
-            if(true) {
-                holder.binding.postLikeIv.visibility = View.INVISIBLE
-                holder.binding.postLikeFullIv.visibility = View.VISIBLE
-                likeConutPlus(holder)
-            }
-        }
-        holder.binding.postPlusMenuIv.setOnClickListener { // ImageView 클릭 리스너 추가
-            myItemClickListener.onPlusBtnClick(replyData[position])
-        }
-        holder.bind(replyData[position])
-    }
 
-    private fun likeConutPlus(holder: PostReplyRVAdapter.ViewHolder) {
-        val likeCountText = holder.binding.postLikeNumberTv.text.toString()
-        val likeCount = likeCountText.toIntOrNull() ?: 0
-        val updatedLikeCount = likeCount + 1
-        holder.binding.postLikeNumberTv.text = updatedLikeCount.toString()
+        holder.bind(replyData[position])
     }
 
     override fun getItemCount(): Int {
