@@ -75,6 +75,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
             val postId = arguments?.getInt("postId") ?: 0
             comment = binding.postReplyEt.text.toString() // 여기서 지정한 부분을 서버에 comment로 보냄
             replyWrite(postId, comment)
+            binding.postReplyEt.setText("")
         }
 
         postMenu(post)
