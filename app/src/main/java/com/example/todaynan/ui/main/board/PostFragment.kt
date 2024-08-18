@@ -1,10 +1,14 @@
 package com.example.todaynan.ui.main.board
+
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -14,13 +18,15 @@ import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ReplyWrite
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.post.DeletePost
+import com.example.todaynan.data.remote.post.DeleteReply
 import com.example.todaynan.data.remote.post.GetReply
-import com.example.todaynan.data.remote.post.LikePost
 import com.example.todaynan.data.remote.post.PostCommentList
 import com.example.todaynan.data.remote.post.PostInterface
+import com.example.todaynan.data.remote.post.PostLike
 import com.example.todaynan.data.remote.post.PostList
 import com.example.todaynan.data.remote.post.PostResponse
 import com.example.todaynan.data.remote.post.Reply
+import com.example.todaynan.data.remote.post.ReplyLike
 import com.example.todaynan.databinding.FragmentPostBinding
 import com.example.todaynan.ui.BaseFragment
 import com.example.todaynan.ui.adapter.PostReplyRVAdapter
@@ -58,9 +64,18 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
             parentFragmentManager.popBackStack()
         }
 
+//        arguments = Bundle().apply{
+//            val gson = Gson()
+//            val replyJson = gson.toJson(replyList)
+//            putString("reply", replyJson)
+//        }
+
         val postJson = arguments?.getString("post")
         val post = gson.fromJson(postJson, PostList::class.java)
         setInit(post)
+
+//        val replyJson = arguments?.getString("reply")
+//        val reply = gson.fromJson(replyJson, PostCommentList::class.java)
 
         val postId = arguments?.getInt("postId") ?: 0
         getReply(postId)
@@ -73,19 +88,14 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                 inputMethodManager?.hideSoftInputFromWindow(it.windowToken, 0)
             }
 
-            val postId = arguments?.getInt("postId") ?: 0
             comment = binding.postReplyEt.text.toString() // 여기서 지정한 부분을 서버에 comment로 보냄
             replyWrite(postId, comment)
         }
 
         binding.postLikeIv.setOnClickListener {
-            likePost(postId)    // 이미지 변경, 좋아요 수 최신화
-            val postLikeCnt = arguments?.getInt("postLikeCnt") ?: 0
-            binding.postLikeIv.visibility = View.INVISIBLE
-            binding.postLikeFullIv.visibility = View.VISIBLE
-            binding.postLikeNumberTv.text = postLikeCnt.toString()
-            getReply(postId)
+            postLike(postId)
         }
+
         postMenu(post)
     }
 
@@ -105,6 +115,10 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                 if (resp?.isSuccess == true) {
                     // 댓글 작성 성공 시, 댓글 목록 새로고침
                     getReply(postId)
+                    arguments = Bundle().apply{
+                        val postCommentIdJson = resp.result.postCommentId
+                        putInt("postCommentId", postCommentIdJson)
+                    }
                 }
             }
 
@@ -137,11 +151,18 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                             override fun onItemClick(reply: PostCommentList) {
                                 // 아이템 클릭 시 처리 로직
                             }
+
+                            override fun onLikeBtnClick(reply: PostCommentList) {
+                                // ImageView 클릭 시 처리 로직
+                                val postCommentId = arguments?.getInt("postCommentId") ?: 0
+                                replyLike(postId, postCommentId)
+                            }
+
+                            override fun onPlusBtnClick(reply: PostCommentList) {
+                                // ImageView 클릭 시 처리 로직
+                                replyMenu(reply)
+                            }
                         })
-                        arguments = Bundle().apply{
-                            val postLikeCnt = resp.result.postLikeCnt
-                            putInt("postLikeCnt", postLikeCnt)
-                        }
                     } else {
                         // 응답이 성공했으나 isSuccess가 false인 경우의 처리
                         Log.d("SERVER/RESPONSE_ERROR", "Response was not successful: ${resp.message}")
@@ -261,26 +282,163 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         }
     }
 
-    private fun likePost(postId: Int) {
+    private fun replyMenu(reply: PostCommentList){
+        val popupItemView = layoutInflater.inflate((R.layout.item_reply), null)
+        popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu) // 수정 예정
+
+        if (AppData.nickname == reply.nickName) { //닉네임 일치 시
+            val popupView = layoutInflater.inflate((R.layout.popup_menu_my), null)
+            val popupWindow = PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            // 팝업의 외곽을 클릭하면 닫히도록 설정
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+            // 팝업의 위치를 설정하여 화면에 표시
+            val anchorView = popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv) // 기준 뷰
+            popupWindow.showAsDropDown(anchorView, -270, 0)
+            // 팝업 아이템 클릭 리스너 설정
+            popupView.findViewById<ConstraintLayout>(R.id.menu_report_cl).setOnClickListener {
+                Toast.makeText(requireContext(), "해당 게시글이 신고 처리 되었습니다", Toast.LENGTH_SHORT)
+                    .show()
+                popupWindow.dismiss()
+                popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu_non)
+            }
+            popupView.findViewById<ConstraintLayout>(R.id.menu_block_cl).setOnClickListener {
+                Toast.makeText(requireContext(), "해당 게시글이 차단되었습니다", Toast.LENGTH_SHORT).show()
+                popupWindow.dismiss()
+                popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu_non)
+            }
+            popupView.findViewById<ConstraintLayout>(R.id.menu_del_cl).setOnClickListener {// 댓글 삭제
+                val request = "Bearer ${AppData.appToken}"
+                val postId = arguments?.getInt("postId") ?: 0
+                val postCommentId = arguments?.getInt("postCommentId") ?: 0
+
+                postService.deleteReply(request, postId, postCommentId).enqueue(object :
+                    Callback<PostResponse<DeleteReply>> {
+                    override fun onResponse(
+                        call: Call<PostResponse<DeleteReply>>,
+                        response: Response<PostResponse<DeleteReply>>
+                    ) {
+                        Log.d("SERVER/SUCCESS", response.toString())
+                        val resp = response.body()
+                        Log.d("SERVER/SUCCESS", resp.toString())
+
+                        if (resp?.isSuccess == true) {
+                            // 댓글 삭제 성공 시, 댓글 목록 새로고침
+                            getReply(postId)
+                            popupWindow.dismiss()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<PostResponse<DeleteReply>>, t: Throwable) {
+                        Log.d("SERVER/FAILURE", t.message.toString())
+                    }
+                })
+            }
+        } else { //닉네임 불일치 시
+            val popupView = layoutInflater.inflate((R.layout.popup_menu_my), null)
+            val popupWindow = PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            // 팝업의 외곽을 클릭하면 닫히도록 설정
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+            // 팝업의 위치를 설정하여 화면에 표시
+            val anchorView = popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv) // 기준 뷰
+            popupWindow.showAsDropDown(anchorView, -270, 0)
+            // 팝업 아이템 클릭 리스너 설정
+            popupView.findViewById<ConstraintLayout>(R.id.menu_report_cl).setOnClickListener {
+                Toast.makeText(requireContext(), "해당 게시글이 신고 처리 되었습니다", Toast.LENGTH_SHORT)
+                    .show()
+                popupWindow.dismiss()
+                popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu_non)
+            }
+            popupView.findViewById<ConstraintLayout>(R.id.menu_block_cl).setOnClickListener {
+                Toast.makeText(requireContext(), "해당 게시글이 차단되었습니다", Toast.LENGTH_SHORT).show()
+                popupWindow.dismiss()
+                popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu_non)
+            }
+        }
+    }
+
+
+    private fun postLike(postId: Int) {
         val request = "Bearer "+ AppData.appToken
 
-        postService.likePost(request, postId).enqueue(object :
-            Callback<PostResponse<LikePost>> {
+        postService.postLike(request, postId).enqueue(object :
+            Callback<PostResponse<PostLike>> {
             override fun onResponse(
-                call: Call<PostResponse<LikePost>>,
-                response: Response<PostResponse<LikePost>>
+                call: Call<PostResponse<PostLike>>,
+                response: Response<PostResponse<PostLike>>
             ) {
                 Log.d("SERVER/SUCCESS", response.toString())
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
                 if (resp?.isSuccess == true) {
-
+                    // 게시글 좋아요 성공 시, 하트 이미지 변경 및 좋아요 수 1증가
+                    binding.postLikeIv.visibility = View.INVISIBLE
+                    binding.postLikeFullIv.visibility = View.VISIBLE
+                    // 당장 눈에 보이는 뷰에서 1증가(어차피 나갔다가 들어오면 수 반영됨)
+                    likePostConutPlus()
                 }
             }
 
-            override fun onFailure(call: Call<PostResponse<LikePost>>, t: Throwable) {
+            override fun onFailure(call: Call<PostResponse<PostLike>>, t: Throwable) {
                 Log.d("SERVER/FAILURE", t.message.toString())
             }
         })
+    }
+
+    private fun likePostConutPlus() {
+        val likeCountText = binding.postLikeNumberTv.text.toString()
+        val likeCount = likeCountText.toIntOrNull() ?: 0
+        val updatedLikeCount = likeCount + 1
+        binding.postLikeNumberTv.text = updatedLikeCount.toString()
+    }
+
+    private fun replyLike(postId: Int, commentId: Int) {
+        val request = "Bearer "+ AppData.appToken
+
+        postService.replyLike(request, postId, commentId).enqueue(object :
+            Callback<PostResponse<ReplyLike>> {
+            @SuppressLint("MissingInflatedId")
+            override fun onResponse(
+                call: Call<PostResponse<ReplyLike>>,
+                response: Response<PostResponse<ReplyLike>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
+                if (resp?.isSuccess == true) {
+                    // 댓글 좋아요 성공 시, 하트 이미지 변경 및 좋아요 수 1증가
+                    val popupView = layoutInflater.inflate(R.layout.item_reply, null)
+                    popupView.findViewById<ImageView>(R.id.post_like_iv).setOnClickListener {
+                        popupView.findViewById<ImageView>(R.id.post_like_iv).visibility = View.INVISIBLE
+                        popupView.findViewById<ImageView>(R.id.post_like_full_iv).visibility = View.VISIBLE
+                        likeReplyConutPlus()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PostResponse<ReplyLike>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+        })
+    }
+
+    private fun likeReplyConutPlus() {
+        val replyView = layoutInflater.inflate(R.layout.item_reply, null)
+        val likeCountTextView = replyView.findViewById<TextView>(R.id.post_like_number_tv)
+
+        val likeCountText = likeCountTextView.text.toString()
+        val likeCount = likeCountText.toIntOrNull() ?: 0
+        val updatedLikeCount = likeCount + 1
+
+        likeCountTextView.text = updatedLikeCount.toString()
     }
 }

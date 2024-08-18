@@ -1,5 +1,6 @@
 package com.example.todaynan.ui.adapter
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
@@ -11,6 +12,8 @@ class PostReplyRVAdapter(private var replyData: List<PostCommentList>) : Recycle
 
     interface MyItemClickListener {
         fun onItemClick(reply: PostCommentList)
+        fun onLikeBtnClick(reply: PostCommentList) // 추가된 인터페이스 메서드
+        fun onPlusBtnClick(reply: PostCommentList) // 추가된 인터페이스 메서드
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
@@ -28,7 +31,25 @@ class PostReplyRVAdapter(private var replyData: List<PostCommentList>) : Recycle
         holder.itemView.setOnClickListener {
             myItemClickListener.onItemClick(replyData[position])
         }
+        holder.binding.postLikeIv.setOnClickListener { // ImageView 클릭 리스너 추가
+            myItemClickListener.onLikeBtnClick(replyData[position])
+            if(true) {
+                holder.binding.postLikeIv.visibility = View.INVISIBLE
+                holder.binding.postLikeFullIv.visibility = View.VISIBLE
+                likeConutPlus(holder)
+            }
+        }
+        holder.binding.postPlusMenuIv.setOnClickListener { // ImageView 클릭 리스너 추가
+            myItemClickListener.onPlusBtnClick(replyData[position])
+        }
         holder.bind(replyData[position])
+    }
+
+    private fun likeConutPlus(holder: PostReplyRVAdapter.ViewHolder) {
+        val likeCountText = holder.binding.postLikeNumberTv.text.toString()
+        val likeCount = likeCountText.toIntOrNull() ?: 0
+        val updatedLikeCount = likeCount + 1
+        holder.binding.postLikeNumberTv.text = updatedLikeCount.toString()
     }
 
     override fun getItemCount(): Int {
@@ -48,7 +69,7 @@ class PostReplyRVAdapter(private var replyData: List<PostCommentList>) : Recycle
             binding.postUserNameTv.text = reply.nickName
             binding.postUserLocationTv.text = AppData.address
             binding.postLikeNumberTv.text = reply.postCommentLikeCnt.toString()
-            binding.likedPostCreationTimeTv.text = "05.06. 14:40" // 수정 예정
+            binding.likedPostCreationTimeTv.text = reply.createdAt
             binding.likedPostContentTv.text = reply.content
         }
     }

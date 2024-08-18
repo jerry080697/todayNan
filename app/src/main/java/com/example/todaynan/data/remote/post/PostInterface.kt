@@ -58,8 +58,24 @@ interface PostInterface {
 
     // 게시글 좋아요
     @POST("/post/like/{post_id}")
-    fun likePost(
+    fun postLike(
         @Header("authorization") accessToken: String,
         @Path("post_id") postId: Int
-    ): Call<PostResponse<LikePost>>
+    ): Call<PostResponse<PostLike>>
+
+    // 댓글 좋아요
+    @POST("/post/comment/like/{post_id}/{comment_id}")
+    fun replyLike(
+        @Header("authorization") accessToken: String,
+        @Path("post_id") postId: Int,
+        @Path("comment_id") commentId: Int
+    ): Call<PostResponse<ReplyLike>>
+
+    // 댓글 삭제
+    @DELETE("/post/comment/{post_id}/{comment_id}")
+    fun deleteReply(
+        @Header("authorization") accessToken: String,
+        @Path("post_id") postId: Int,
+        @Path("comment_id") commentId: Int
+    ): Call<PostResponse<DeleteReply>>
 }

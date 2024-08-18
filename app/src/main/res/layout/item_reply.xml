@@ -77,7 +77,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:id="@+id/post_reply_iv"
+            android:id="@+id/post_like_iv"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="45dp"
@@ -87,6 +87,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/post_like_number_tv"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/post_like_full_iv"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/item_like_on"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/post_like_number_tv"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/post_like_number_tv"
