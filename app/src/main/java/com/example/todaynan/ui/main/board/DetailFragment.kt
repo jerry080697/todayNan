@@ -3,7 +3,7 @@ package com.example.todaynan.ui.main.board
 import EmployRegisterFragment
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
@@ -26,6 +26,9 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
     private val postService = getRetrofit().create(PostInterface::class.java)
     private val request = "Bearer "+AppData.appToken
     private lateinit var type: String
+    private var page = 1
+    private var last = false
+    private var items: MutableList<PostList> = mutableListOf()
 
     companion object {
         fun newInstance(text: String): DetailFragment {
@@ -43,9 +46,9 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         binding.detailTv.text = type
 
         if(type == "구인 게시판"){
-            employPost()
+            employPost(page)
         } else if(type == "잡담 게시판"){
-            chatPost()
+            chatPost(page)
         }
 
         val middleAddress = AppData.address.split(" ").getOrNull(1) ?: "없음"
@@ -72,15 +75,24 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                 super.onScrolled(recyclerView, dx, dy)
 
                 if(!recyclerView.canScrollVertically(1)){ // 스크롤이 끝에 도달했을 때
-                loadNextPage() // 다음 페이지 게시물 가져오기
+                    if(!last){
+                        page++
+                        if(type == "구인 게시판"){
+                            employPost(page)
+                        } else if(type == "잡담 게시판"){
+                            chatPost(page)
+                        }
+                    }else{
+                        Toast.makeText(recyclerView.context, "마지막 게시글입니다", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         })
 
     }
 
-    fun employPost(){
-        postService.getPostEmploy(request,1).enqueue(object :
+    fun employPost(p: Int){
+        postService.getPostEmploy(request, p).enqueue(object :
             Callback<PostResponse<GetPost>> {
             override fun onResponse(
                 call: Call<PostResponse<GetPost>>,
@@ -90,12 +102,19 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
 
-                val items = resp?.result?.postList?: emptyList()
-
+                val boardAdapter = PostRVAdapter(items)
                 if (resp!!.isSuccess) {
-                    val boardAdapter = PostRVAdapter(items)
-                    binding.detailBoardRv.adapter = boardAdapter
-                    binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
+                    resp?.result?.postList?.let { newList ->
+                        val uniqueItems = newList.filterNot { it in items }
+                        items.addAll(0, uniqueItems)
+                    }
+                    last = resp.result.isLast
+                    if(page == 1){
+                        binding.detailBoardRv.adapter = boardAdapter
+                        binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
+                    }else{
+                        binding.detailBoardRv.adapter!!.notifyDataSetChanged()
+                    }
                     boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
                         override fun onItemClick(post: PostList) {
                             val type = arguments?.getString("type")
@@ -132,8 +151,8 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         })
     }
 
-    fun chatPost(){
-        postService.getChatEmploy(request,1).enqueue(object :
+    fun chatPost(p: Int){
+        postService.getChatEmploy(request,p).enqueue(object :
             Callback<PostResponse<GetPost>> {
             override fun onResponse(
                 call: Call<PostResponse<GetPost>>,
@@ -143,12 +162,19 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
 
-                val items = resp?.result?.postList?: emptyList()
-
+                val boardAdapter = PostRVAdapter(items)
                 if (resp!!.isSuccess) {
-                    val boardAdapter = PostRVAdapter(items)
-                    binding.detailBoardRv.adapter = boardAdapter
-                    binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
+                    resp?.result?.postList?.let { newList ->
+                        val uniqueItems = newList.filterNot { it in items }
+                        items.addAll(0, uniqueItems)
+                    }
+                    last = resp.result.isLast
+                    if(page == 1){
+                        binding.detailBoardRv.adapter = boardAdapter
+                        binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
+                    }else{
+                        binding.detailBoardRv.adapter!!.notifyDataSetChanged()
+                    }
                     boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
                         override fun onItemClick(post: PostList) {
                             parentFragmentManager.beginTransaction()
@@ -175,23 +201,4 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         })
     }
 
-    fun loadNextPage() {
-
-    }
-
-
-
-//    private fun generateDummyItems(): List<Post> {
-//        val items = ArrayList<Post>()
-//        items.add(Post("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","안녕하떼여 띠드버거임니당!\n이번 주말에 딩딩이랑 잠실에 갔는데요,,,","추천 게시판",21,15,""))
-//        items.add(Post("재밌으면 짖는 개", R.drawable.default_profile_img,"05.04 14:20","광명시 철산동","성심당","없어지면 내가 가게 차린다ㅋㅋ\n마라탕후루집으로 차릴거임","잡담 게시판",33,50,""))
-//        items.add(Post("AI입니다", R.drawable.default_profile_img,"05.02 11:30","구로구 구로동","현대미술관 띱","저랑 같이 보러 가실 분?\n밥 사드림","구인 게시판",15,10,""))
-//        items.add(Post("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","안녕하떼여 띠드버거임니당!\n이번 주말에 딩딩이랑 잠실에 갔는데요,,,","추천 게시판",21,15,""))
-//        items.add(Post("재밌으면 짖는 개", R.drawable.default_profile_img,"05.04 14:20","광명시 철산동","성심당","없어지면 내가 가게 차린다ㅋㅋ\n마라탕후루집으로 차릴거임","잡담 게시판",33,50,""))
-//        items.add(Post("AI입니다", R.drawable.default_profile_img,"05.02 11:30","구로구 구로동","현대미술관 띱","저랑 같이 보러 가실 분?\n밥 사드림","구인 게시판",15,10,""))
-//        items.add(Post("띠드버거", R.drawable.default_profile_img,"05.06 14:30","마포구 상암동","잠실 진저베어 신상","안녕하떼여 띠드버거임니당!\n이번 주말에 딩딩이랑 잠실에 갔는데요,,,","추천 게시판",21,15,""))
-//        items.add(Post("재밌으면 짖는 개", R.drawable.default_profile_img,"05.04 14:20","광명시 철산동","성심당","없어지면 내가 가게 차린다ㅋㅋ\n마라탕후루집으로 차릴거임","잡담 게시판",33,50,""))
-//        items.add(Post("AI입니다", R.drawable.default_profile_img,"05.02 11:30","구로구 구로동","현대미술관 띱","저랑 같이 보러 가실 분?\n밥 사드림","구인 게시판",15,10,""))
-//        return items
-//    }
 }
