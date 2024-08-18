@@ -60,6 +60,7 @@ data class GetReply(
     @SerializedName(value = "title") val title: String,
     @SerializedName(value = "content") val content: String,
     @SerializedName(value = "post_like_cnt") val postLikeCnt: Int,
+    @SerializedName(value = "createdAt") val createdAt: String,
     @SerializedName(value = "postCommentList") val postCommentList: List<PostCommentList>
 ) : Serializable
 
@@ -68,6 +69,6 @@ data class PostCommentList(
     @SerializedName(value = "nick_name") val nickName: String,
     @SerializedName(value = "myPet") val myPet: String,
     @SerializedName(value = "content") val content: String,
-    @SerializedName(value = "post_comment_like_cnt") val postCommentLikeCnt: Int
+    @SerializedName(value = "post_comment_like_cnt") val postCommentLikeCnt: Int,
+    @SerializedName(value = "createdAt") val createdAt: String
 ) : Serializable
-
