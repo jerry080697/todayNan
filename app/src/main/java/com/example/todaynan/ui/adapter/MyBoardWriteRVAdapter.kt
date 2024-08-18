@@ -7,7 +7,7 @@ import com.example.todaynan.base.AppData
 import com.example.todaynan.data.remote.post.PostList
 import com.example.todaynan.databinding.ItemPostBinding
 
-class HotBoardRVAdapter(private var pList: List<PostList>) : RecyclerView.Adapter<HotBoardRVAdapter.ViewHolder>() {
+class MyBoardWriteRVAdapter(private var pList: List<PostList>) : RecyclerView.Adapter<MyBoardWriteRVAdapter.ViewHolder>() {
 
     interface MyItemClickListener {
         fun onItemClick(post: PostList)

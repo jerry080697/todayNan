@@ -22,9 +22,9 @@ class MyBoardLikeFragment : BaseFragment<FragmentMyBoardLikeBinding>(FragmentMyB
 //            }
 //        })
 //
-//        binding.boardLikeBackBtn.setOnClickListener {
-//            parentFragmentManager.popBackStack()
-//        }
+        binding.boardLikeBackBtn.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
 
     }
 //    private fun generateDummyItems(): List<Post> {
