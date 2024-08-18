@@ -3,7 +3,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ import com.example.todaynan.data.remote.post.GetReply
 import com.example.todaynan.data.remote.post.PostCommentList
 import com.example.todaynan.data.remote.post.PostInterface
 import com.example.todaynan.data.remote.post.PostResponse
+import com.example.todaynan.data.remote.post.ReplyLike
 import com.example.todaynan.databinding.ItemReplyBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -97,6 +100,37 @@ class PostReplyRVAdapter(private var replyData: List<PostCommentList>, private v
                 Log.d("SERVER/FAILURE", t.message.toString())
             }
         })
+    }
+
+    private fun replyLike(binding: ItemReplyBinding, postId: Int, commentId: Int) {
+        val request = "Bearer "+ AppData.appToken
+
+        postService.replyLike(request, postId, commentId).enqueue(object :
+            Callback<PostResponse<ReplyLike>> {
+            override fun onResponse(
+                call: Call<PostResponse<ReplyLike>>,
+                response: Response<PostResponse<ReplyLike>>
+            ) {
+                Log.d("SERVER/SUCCESS", response.toString())
+                val resp = response.body()
+                Log.d("SERVER/SUCCESS", resp.toString())
+                if (resp?.isSuccess == true) {
+                    // 댓글 좋아요 성공 시, 좋아요 수 1증가
+                    likeReplyConutPlus(binding)
+                }
+            }
+
+            override fun onFailure(call: Call<PostResponse<ReplyLike>>, t: Throwable) {
+                Log.d("SERVER/FAILURE", t.message.toString())
+            }
+        })
+    }
+
+    private fun likeReplyConutPlus(binding: ItemReplyBinding) {
+        val likeCountText = binding.postLikeNumberTv.text.toString()
+        val likeCount = likeCountText.toIntOrNull() ?: 0
+        val updatedLikeCount = likeCount + 1
+        binding.postLikeNumberTv.text = updatedLikeCount.toString()
     }
 
     inner class ViewHolder(val binding: ItemReplyBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -191,6 +225,10 @@ class PostReplyRVAdapter(private var replyData: List<PostCommentList>, private v
                         popupWindow.dismiss()
                     }
                 }
+            }
+
+            binding.postLikeIv.setOnClickListener {
+                replyLike(binding, postId, reply.postCommentId)
             }
         }
     }

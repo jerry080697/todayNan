@@ -307,7 +307,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
 
         postService.replyLike(request, postId, commentId).enqueue(object :
             Callback<PostResponse<ReplyLike>> {
-            @SuppressLint("MissingInflatedId")
             override fun onResponse(
                 call: Call<PostResponse<ReplyLike>>,
                 response: Response<PostResponse<ReplyLike>>
@@ -331,8 +330,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
     }
 
     private fun likeReplyConutPlus() {
-        val replyView = layoutInflater.inflate(R.layout.item_reply, null)
-        val likeCountTextView = replyView.findViewById<TextView>(R.id.post_like_number_tv)
+        val likeCountTextView = binding.postLikeNumberTv
 
         val likeCountText = likeCountTextView.text.toString()
         val likeCount = likeCountText.toIntOrNull() ?: 0

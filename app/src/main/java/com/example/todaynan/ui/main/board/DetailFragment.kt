@@ -102,20 +102,23 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
 
-                val boardAdapter = PostRVAdapter(items)
-                if (resp!!.isSuccess) {
-                    resp?.result?.postList?.let { newList ->
+                if (resp?.isSuccess == true) {
+                    resp.result?.postList?.let { newList ->
                         val uniqueItems = newList.filterNot { it in items }
                         items.addAll(0, uniqueItems)
                     }
                     last = resp.result.isLast
-                    if(page == 1){
+
+                    if (binding.detailBoardRv.adapter == null) {
+                        val boardAdapter = PostRVAdapter(items)
                         binding.detailBoardRv.adapter = boardAdapter
                         binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
-                    }else{
-                        binding.detailBoardRv.adapter!!.notifyDataSetChanged()
+                    } else {
+                        val boardAdapter = binding.detailBoardRv.adapter as PostRVAdapter
+                        boardAdapter.notifyDataSetChanged()
                     }
-                    boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
+
+                    (binding.detailBoardRv.adapter as PostRVAdapter).setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
                         override fun onItemClick(post: PostList) {
                             val type = arguments?.getString("type")
                             parentFragmentManager.beginTransaction()
@@ -129,7 +132,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                                         var postTypeJson = ""
                                         if(type == "구인 게시판") {
                                             postTypeJson = "구인 게시판"
-                                        } else{
+                                        } else {
                                             postTypeJson = "잡담 게시판"
                                         }
                                         putString("post", postJson)
@@ -150,6 +153,8 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
             }
         })
     }
+
+
 
     fun chatPost(p: Int){
         postService.getChatEmploy(request,p).enqueue(object :
