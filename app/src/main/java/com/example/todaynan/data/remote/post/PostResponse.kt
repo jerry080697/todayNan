@@ -22,6 +22,7 @@ data class PostList(
     @SerializedName(value = "postId") val postId: Int,
     @SerializedName(value = "userId") val userId: Int,
     @SerializedName(value = "userNickname") val userNickname: String,
+    @SerializedName(value = "myPet") val myPet: String,
     @SerializedName(value = "userAddress") val userAddress: String,
     @SerializedName(value = "postTitle") val postTitle: String,
     @SerializedName(value = "postContent") val postContent: String,

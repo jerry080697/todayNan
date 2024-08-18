@@ -41,7 +41,7 @@ class PostRVAdapter(private var pList: List<PostList>) : RecyclerView.Adapter<Po
         fun bind(post: PostList) {
             // 사용자 ID로 이미지를 매핑하거나 서버에서 받아온 URL로 이미지를 로드하는 등의 방법을 사용
             val img =
-                when (AppData.mypet) {
+                when (post.myPet) {
                     "DOG" -> R.drawable.fox_circle_off
                     "CAT" -> R.drawable.bird_circle_off
                     else -> R.drawable.bear_circle_off
