@@ -63,4 +63,18 @@ interface PostInterface {
         @Header("authorization") accessToken: String,
         @Query("page") page: Int
     ):Call<PostResponse<GetPost>>
+
+    //내가 쓴 게시물
+    @GET("/user/postlist/post")
+    fun loadMyWritePost(
+        @Header("authorization") accessToken: String,
+        @Query("page") page: Int
+    ):Call<PostResponse<GetPost>>
+
+    //내가 단 댓글
+    @GET("/user/postlist/comment")
+    fun loadMyReplyPost(
+        @Header("authorization") accessToken: String,
+        @Query("page") page: Int
+    ):Call<PostResponse<GetPost>>
 }
