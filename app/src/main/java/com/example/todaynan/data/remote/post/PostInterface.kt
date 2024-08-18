@@ -2,6 +2,7 @@ package com.example.todaynan.data.remote.post
 
 import com.example.todaynan.data.entity.PostWrite
 import com.example.todaynan.data.entity.ReplyWrite
+import com.example.todaynan.data.remote.user.UserResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -77,4 +78,25 @@ interface PostInterface {
         @Path("post_id") postId: Int,
         @Path("comment_id") commentId: Int
     ): Call<DeleteReply>
+
+    //HOT 게시판
+    @GET("/post/hot")
+    fun loadHotBoard(
+        @Header("authorization") accessToken: String,
+        @Query("page") page: Int
+    ):Call<PostResponse<GetPost>>
+
+    //내가 쓴 게시물
+    @GET("/user/postlist/post")
+    fun loadMyWritePost(
+        @Header("authorization") accessToken: String,
+        @Query("page") page: Int
+    ):Call<PostResponse<GetPost>>
+
+    //내가 단 댓글
+    @GET("/user/postlist/comment")
+    fun loadMyReplyPost(
+        @Header("authorization") accessToken: String,
+        @Query("page") page: Int
+    ):Call<PostResponse<GetPost>>
 }

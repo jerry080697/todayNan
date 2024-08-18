@@ -95,5 +95,4 @@ interface UserInterface {
     fun placeLikeLoad(
         @Header("authorization") accessToken: String,
     ):Call<UserResponse<PlaceLikeLoadResult>>
-
 }

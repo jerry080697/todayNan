@@ -133,6 +133,14 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
 
                     if (resp.isSuccess) {
                         val boardAdapter = PostReplyRVAdapter(items,resp.result.postId)
+                        //게시 작성자 프로필
+                        val img =
+                            when (resp.result.myPet) {
+                                "DOG" -> R.drawable.fox_circle_off
+                                "CAT" -> R.drawable.bird_circle_off
+                                else -> R.drawable.bear_circle_off
+                            }
+                        binding.postUserProfileIv.setImageResource(img)
                         binding.postReplyRv.adapter = boardAdapter
                         binding.postReplyRv.layoutManager = LinearLayoutManager(context)
                         boardAdapter.setMyItemClickListener(object : PostReplyRVAdapter.MyItemClickListener {
@@ -168,13 +176,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
 
 
     private fun setInit(post: PostList){
-        val img =
-            when (AppData.mypet) {
-                "DOG" -> R.drawable.fox_circle_off
-                "CAT" -> R.drawable.bird_circle_off
-                else -> R.drawable.bear_circle_off
-            }
-        binding.postUserProfileIv.setImageResource(img)
         binding.postUserNameTv.text = post.userNickname
         binding.postUserLocTv.text = post.userAddress
         binding.postTitleTv.text = post.postTitle
@@ -282,9 +283,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
                 if (resp?.isSuccess == true) {
-                    // 게시글 좋아요 성공 시, 하트 이미지 변경 및 좋아요 수 1증가
-                    binding.postLikeIv.visibility = View.INVISIBLE
-                    binding.postLikeFullIv.visibility = View.VISIBLE
+                    // 게시글 좋아요 성공 시, 좋아요 수 1증가
                     // 당장 눈에 보이는 뷰에서 1증가(어차피 나갔다가 들어오면 수 반영됨)
                     likePostConutPlus()
                 }
@@ -320,8 +319,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                     // 댓글 좋아요 성공 시, 하트 이미지 변경 및 좋아요 수 1증가
                     val popupView = layoutInflater.inflate(R.layout.item_reply, null)
                     popupView.findViewById<ImageView>(R.id.post_like_iv).setOnClickListener {
-                        popupView.findViewById<ImageView>(R.id.post_like_iv).visibility = View.INVISIBLE
-                        popupView.findViewById<ImageView>(R.id.post_like_full_iv).visibility = View.VISIBLE
                         likeReplyConutPlus()
                     }
                 }

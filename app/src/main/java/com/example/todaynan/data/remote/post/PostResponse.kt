@@ -97,4 +97,3 @@ data class LikePost(
     @SerializedName(value = "post_id") val postId: Int,
     @SerializedName(value = "user_id") val userId: Int
 ) : Serializable
-

@@ -28,6 +28,8 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
     override fun initAfterBinding() {
         // 엔터 입력 시
         binding.changeNicknameNewNicknameEt.setOnEditorActionListener { v, actionId, event ->
+            binding.changeNicknameCheckDuplicateDarkIv.visibility=View.VISIBLE
+            binding.changeNicknameCheckDuplicateLightIv.visibility=View.GONE
             if ((event != null && event.keyCode == KeyEvent.KEYCODE_ENTER)) {
                 hideKeyboard()
                 true // 이벤트 처리 완료
@@ -35,14 +37,12 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                 false // 이벤트 처리 안 함
             }
         }
-
         binding.changeNicknameCurrentNicknameTv.text = AppData.nickname
 
         binding.changeNicknameBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-
-        binding.changeNicknameCheckDuplicateIv.setOnClickListener {
+        binding.changeNicknameCheckDuplicateLightIv.setOnClickListener {
             val newNickname = binding.changeNicknameNewNicknameEt.text.toString()
             if (newNickname.isNotEmpty()) {
                 checkNicknameDuplicate(newNickname)
@@ -50,7 +50,6 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                 Toast.makeText(context, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
-
         binding.changeNicknameChangeBtnIv.setOnClickListener{
             Toast.makeText(context, "닉네임 입력 후 중복검사를 시행하세요.", Toast.LENGTH_SHORT).show()
         }
@@ -79,14 +78,6 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                     // 버튼 활성화 변경
                     binding.changeNicknameChangeBtnIv.visibility = View.GONE
                     binding.changeNicknameChangeBtnDarkIv.visibility = View.VISIBLE
-                    // 앱 저장 사용자 정보 갱신
-                    AppData.nickname = nickname
-                    val user: User = User(AppData.nickname, AppData.preferIdx, AppData.address, AppData.mypet)
-                    val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    val userJson = Gson().toJson(user)
-                    editor.putString("user", userJson)
-                    editor.apply()
 
                     hideKeyboard()
                 } else {
@@ -105,7 +96,6 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
             }
         })
     }
-
     private fun sendNicknameChangeRequest(newNickname: String) {
         val request = ChangeNewNicknameRequest(nickname = newNickname)
         val accessToken = "Bearer "+AppData.appToken
@@ -141,5 +131,4 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
         editor.putString("user", userJson)
         editor.apply()
     }
-
 }
