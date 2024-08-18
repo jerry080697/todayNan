@@ -1138,17 +1138,17 @@
         android:layout_marginBottom="50dp">
 
         <ImageView
-            android:layout_width="107dp"
-            android:layout_height="44dp"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
 
-            android:src="@drawable/signup_complete_btn1" />
+            android:src="@drawable/signup_next_btn" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
             android:text="완료"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17dp"
             android:textStyle="bold" />
@@ -1166,47 +1166,21 @@
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="107dp"
-            android:layout_height="44dp"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
 
-            android:src="@drawable/complete_btn" />
+            android:src="@drawable/letsgo_btn_dark" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
             android:text="완료"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="17dp"
             android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/change_interest_next_btn_bef_dark"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="645dp"-->
-<!--        android:visibility="gone"-->
-<!--        app:cardCornerRadius="15dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="107dp"-->
-<!--            android:layout_height="44dp"-->
-<!--            android:src="@drawable/complete_btn" />-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="37dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="완료"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="17dp"-->
-<!--            android:textStyle="bold" />-->
-<!--    </androidx.cardview.widget.CardView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
