@@ -121,6 +121,15 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                     val items = resp.result?.postCommentList ?: emptyList()
 
                     if (resp.isSuccess) {
+                        //게시 작성자 프로필
+                        val img =
+                            when (resp.result.myPet) {
+                                "DOG" -> R.drawable.fox_circle_off
+                                "CAT" -> R.drawable.bird_circle_off
+                                else -> R.drawable.bear_circle_off
+                            }
+                        binding.postUserProfileIv.setImageResource(img)
+
                         val boardAdapter = PostReplyRVAdapter(items)
                         binding.postReplyRv.adapter = boardAdapter
                         binding.postReplyRv.layoutManager = LinearLayoutManager(context)
@@ -147,13 +156,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
 
 
     private fun setInit(post: PostList){
-        val img =
-            when (AppData.mypet) {
-                "DOG" -> R.drawable.fox_circle_off
-                "CAT" -> R.drawable.bird_circle_off
-                else -> R.drawable.bear_circle_off
-            }
-        binding.postUserProfileIv.setImageResource(img)
         binding.postUserNameTv.text = post.userNickname
         binding.postUserLocTv.text = post.userAddress
         binding.postTitleTv.text = post.postTitle
