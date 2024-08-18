@@ -78,7 +78,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
     }
 
     private fun changeLoc(){
-        binding.detailLocCl.setOnClickListener{
+        binding.resultLocChangeIv.setOnClickListener{
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, SearchLocationFragment())
                 .addToBackStack(null)
