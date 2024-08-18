@@ -42,7 +42,7 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
         binding.changeNicknameBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
-        binding.changeNicknameCheckDuplicateDarkIv.setOnClickListener {
+        binding.changeNicknameCheckDuplicateLightIv.setOnClickListener {
             val newNickname = binding.changeNicknameNewNicknameEt.text.toString()
             if (newNickname.isNotEmpty()) {
                 checkNicknameDuplicate(newNickname)
@@ -78,14 +78,6 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
                     // 버튼 활성화 변경
                     binding.changeNicknameChangeBtnIv.visibility = View.GONE
                     binding.changeNicknameChangeBtnDarkIv.visibility = View.VISIBLE
-                    // 앱 저장 사용자 정보 갱신
-                    AppData.nickname = nickname
-                    val user: User = User(AppData.nickname, AppData.preferIdx, AppData.address, AppData.mypet)
-                    val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    val userJson = Gson().toJson(user)
-                    editor.putString("user", userJson)
-                    editor.apply()
 
                     hideKeyboard()
                 } else {
