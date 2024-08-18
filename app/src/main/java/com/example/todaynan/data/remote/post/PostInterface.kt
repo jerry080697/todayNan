@@ -7,7 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -77,5 +76,5 @@ interface PostInterface {
         @Header("authorization") accessToken: String,
         @Path("post_id") postId: Int,
         @Path("comment_id") commentId: Int
-    ): Call<PostResponse<DeleteReply>>
+    ): Call<DeleteReply>
 }

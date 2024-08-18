@@ -64,18 +64,9 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
             parentFragmentManager.popBackStack()
         }
 
-//        arguments = Bundle().apply{
-//            val gson = Gson()
-//            val replyJson = gson.toJson(replyList)
-//            putString("reply", replyJson)
-//        }
-
         val postJson = arguments?.getString("post")
         val post = gson.fromJson(postJson, PostList::class.java)
         setInit(post)
-
-//        val replyJson = arguments?.getString("reply")
-//        val reply = gson.fromJson(replyJson, PostCommentList::class.java)
 
         val postId = arguments?.getInt("postId") ?: 0
         getReply(postId)
@@ -90,6 +81,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
 
             comment = binding.postReplyEt.text.toString() // 여기서 지정한 부분을 서버에 comment로 보냄
             replyWrite(postId, comment)
+            binding.postReplyEt.setText("")
         }
 
         binding.postLikeIv.setOnClickListener {
@@ -115,10 +107,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                 if (resp?.isSuccess == true) {
                     // 댓글 작성 성공 시, 댓글 목록 새로고침
                     getReply(postId)
-                    arguments = Bundle().apply{
-                        val postCommentIdJson = resp.result.postCommentId
-                        putInt("postCommentId", postCommentIdJson)
-                    }
                 }
             }
 
@@ -144,7 +132,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                     val items = resp.result?.postCommentList ?: emptyList()
 
                     if (resp.isSuccess) {
-                        val boardAdapter = PostReplyRVAdapter(items)
+                        val boardAdapter = PostReplyRVAdapter(items,resp.result.postId)
                         binding.postReplyRv.adapter = boardAdapter
                         binding.postReplyRv.layoutManager = LinearLayoutManager(context)
                         boardAdapter.setMyItemClickListener(object : PostReplyRVAdapter.MyItemClickListener {
@@ -159,8 +147,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                             }
 
                             override fun onPlusBtnClick(reply: PostCommentList) {
-                                // ImageView 클릭 시 처리 로직
-                                //replyMenu(reply)
+
                             }
                         })
                     } else {
@@ -281,91 +268,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
             }
         }
     }
-
-    private fun replyMenu(reply: PostCommentList){
-        val popupItemView = layoutInflater.inflate((R.layout.item_reply), null)
-        popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu) // 수정 예정
-
-        if (AppData.nickname == reply.nickName) { //닉네임 일치 시
-            val popupView = layoutInflater.inflate((R.layout.popup_menu_my), null)
-            val popupWindow = PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            // 팝업의 외곽을 클릭하면 닫히도록 설정
-            popupWindow.isOutsideTouchable = true
-            popupWindow.isFocusable = true
-            // 팝업의 위치를 설정하여 화면에 표시
-            val anchorView = popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv) // 기준 뷰
-            popupWindow.showAsDropDown(anchorView, -270, 0)
-            // 팝업 아이템 클릭 리스너 설정
-            popupView.findViewById<ConstraintLayout>(R.id.menu_report_cl).setOnClickListener {
-                Toast.makeText(requireContext(), "해당 게시글이 신고 처리 되었습니다", Toast.LENGTH_SHORT)
-                    .show()
-                popupWindow.dismiss()
-                popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu_non)
-            }
-            popupView.findViewById<ConstraintLayout>(R.id.menu_block_cl).setOnClickListener {
-                Toast.makeText(requireContext(), "해당 게시글이 차단되었습니다", Toast.LENGTH_SHORT).show()
-                popupWindow.dismiss()
-                popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu_non)
-            }
-            popupView.findViewById<ConstraintLayout>(R.id.menu_del_cl).setOnClickListener {// 댓글 삭제
-                val request = "Bearer ${AppData.appToken}"
-                val postId = arguments?.getInt("postId") ?: 0
-                val postCommentId = arguments?.getInt("postCommentId") ?: 0
-
-                postService.deleteReply(request, postId, postCommentId).enqueue(object :
-                    Callback<PostResponse<DeleteReply>> {
-                    override fun onResponse(
-                        call: Call<PostResponse<DeleteReply>>,
-                        response: Response<PostResponse<DeleteReply>>
-                    ) {
-                        Log.d("SERVER/SUCCESS", response.toString())
-                        val resp = response.body()
-                        Log.d("SERVER/SUCCESS", resp.toString())
-
-                        if (resp?.isSuccess == true) {
-                            // 댓글 삭제 성공 시, 댓글 목록 새로고침
-                            getReply(postId)
-                            popupWindow.dismiss()
-                        }
-                    }
-
-                    override fun onFailure(call: Call<PostResponse<DeleteReply>>, t: Throwable) {
-                        Log.d("SERVER/FAILURE", t.message.toString())
-                    }
-                })
-            }
-        } else { //닉네임 불일치 시
-            val popupView = layoutInflater.inflate((R.layout.popup_menu_my), null)
-            val popupWindow = PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            // 팝업의 외곽을 클릭하면 닫히도록 설정
-            popupWindow.isOutsideTouchable = true
-            popupWindow.isFocusable = true
-            // 팝업의 위치를 설정하여 화면에 표시
-            val anchorView = popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv) // 기준 뷰
-            popupWindow.showAsDropDown(anchorView, -270, 0)
-            // 팝업 아이템 클릭 리스너 설정
-            popupView.findViewById<ConstraintLayout>(R.id.menu_report_cl).setOnClickListener {
-                Toast.makeText(requireContext(), "해당 게시글이 신고 처리 되었습니다", Toast.LENGTH_SHORT)
-                    .show()
-                popupWindow.dismiss()
-                popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu_non)
-            }
-            popupView.findViewById<ConstraintLayout>(R.id.menu_block_cl).setOnClickListener {
-                Toast.makeText(requireContext(), "해당 게시글이 차단되었습니다", Toast.LENGTH_SHORT).show()
-                popupWindow.dismiss()
-                popupItemView.findViewById<ImageView>(R.id.post_plus_menu_iv).setImageResource(R.drawable.plus_menu_non)
-            }
-        }
-    }
-
 
     private fun postLike(postId: Int) {
         val request = "Bearer "+ AppData.appToken
