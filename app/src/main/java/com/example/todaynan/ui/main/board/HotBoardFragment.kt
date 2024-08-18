@@ -11,7 +11,7 @@ import com.example.todaynan.data.remote.post.PostInterface
 import com.example.todaynan.data.remote.post.PostList
 import com.example.todaynan.databinding.FragmentHotBoardBinding
 import com.example.todaynan.ui.BaseFragment
-import com.example.todaynan.ui.adapter.HotBoardRVAdapter
+import com.example.todaynan.ui.adapter.BoardRVAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,7 +19,7 @@ import retrofit2.Response
 class HotBoardFragment : BaseFragment<FragmentHotBoardBinding>(FragmentHotBoardBinding::inflate) {
     private val userService = getRetrofit().create(PostInterface::class.java)
 
-    private lateinit var hotBoardRVAdapter: HotBoardRVAdapter
+    private lateinit var hotBoardRVAdapter: BoardRVAdapter
 
     override fun initAfterBinding() {
 
@@ -56,7 +56,7 @@ class HotBoardFragment : BaseFragment<FragmentHotBoardBinding>(FragmentHotBoardB
         })
     }
     private fun setUpRecyclerView(postList: List<PostList>) {
-        hotBoardRVAdapter = HotBoardRVAdapter(postList)
+        hotBoardRVAdapter = BoardRVAdapter(postList)
         binding.hotBoardRv.adapter = hotBoardRVAdapter
         binding.hotBoardRv.layoutManager = LinearLayoutManager(context)
     }

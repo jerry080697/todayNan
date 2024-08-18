@@ -11,7 +11,7 @@ import com.example.todaynan.data.remote.post.PostInterface
 import com.example.todaynan.data.remote.post.PostList
 import com.example.todaynan.databinding.FragmentMyBoardReplyBinding
 import com.example.todaynan.ui.BaseFragment
-import com.example.todaynan.ui.adapter.MyBoardReplyRVAdapter
+import com.example.todaynan.ui.adapter.BoardRVAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,7 +19,7 @@ import retrofit2.Response
 class MyBoardReplyFragment : BaseFragment<FragmentMyBoardReplyBinding>(FragmentMyBoardReplyBinding::inflate) {
     private val userService = getRetrofit().create(PostInterface::class.java)
 
-    private lateinit var myBoardReplyRVAdapter: MyBoardReplyRVAdapter
+    private lateinit var myBoardReplyRVAdapter: BoardRVAdapter
 
     override fun initAfterBinding() {
 
@@ -56,7 +56,7 @@ class MyBoardReplyFragment : BaseFragment<FragmentMyBoardReplyBinding>(FragmentM
         })
     }
     private fun setUpRecyclerView(postList: List<PostList>) {
-        myBoardReplyRVAdapter = MyBoardReplyRVAdapter(postList)
+        myBoardReplyRVAdapter = BoardRVAdapter(postList)
         binding.boardReplyRv.adapter = myBoardReplyRVAdapter
         binding.boardReplyRv.layoutManager = LinearLayoutManager(context)
     }
