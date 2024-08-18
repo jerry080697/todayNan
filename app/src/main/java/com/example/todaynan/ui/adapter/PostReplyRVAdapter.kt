@@ -2,6 +2,9 @@ package com.example.todaynan.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupWindow
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
@@ -71,6 +74,35 @@ class PostReplyRVAdapter(private var replyData: List<PostCommentList>) : Recycle
             binding.postLikeNumberTv.text = reply.postCommentLikeCnt.toString()
             binding.likedPostCreationTimeTv.text = reply.createdAt
             binding.likedPostContentTv.text = reply.content
+            // 댓글 팝업 메뉴
+            binding.postPlusMenuIv.setOnClickListener {
+                val popupView = LayoutInflater.from(binding.root.context).inflate((R.layout.popup_menu_my), null)
+                val popupWindow = PopupWindow(
+                    popupView,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                // 팝업의 외곽을 클릭하면 닫히도록 설정
+                popupWindow.isOutsideTouchable = true
+                popupWindow.isFocusable = true
+                // 팝업의 위치를 설정하여 화면에 표시
+                val anchorView = binding.postPlusMenuIv // 기준 뷰
+                popupWindow.showAsDropDown(anchorView, -270, 0)
+                // 팝업 아이템 클릭 리스너 설정
+                popupView.findViewById<ConstraintLayout>(R.id.menu_report_cl).setOnClickListener {
+                    Toast.makeText(binding.root.context, "해당 게시글이 신고 처리 되었습니다", Toast.LENGTH_SHORT)
+                        .show()
+                    popupWindow.dismiss()
+                }
+                popupView.findViewById<ConstraintLayout>(R.id.menu_block_cl).setOnClickListener {
+                    Toast.makeText(binding.root.context, "해당 게시글이 차단되었습니다", Toast.LENGTH_SHORT).show()
+                    popupWindow.dismiss()
+                }
+                popupView.findViewById<ConstraintLayout>(R.id.menu_del_cl).setOnClickListener {// 댓글 삭제
+                    Toast.makeText(binding.root.context, "해당 게시글이 삭제되었습니다", Toast.LENGTH_SHORT).show()
+                    popupWindow.dismiss()
+                }
+            }
         }
     }
 

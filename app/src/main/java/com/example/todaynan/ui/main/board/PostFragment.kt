@@ -160,7 +160,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
 
                             override fun onPlusBtnClick(reply: PostCommentList) {
                                 // ImageView 클릭 시 처리 로직
-                                replyMenu(reply)
+                                //replyMenu(reply)
                             }
                         })
                     } else {
