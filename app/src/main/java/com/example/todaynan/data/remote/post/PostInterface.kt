@@ -8,7 +8,6 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -56,6 +55,29 @@ interface PostInterface {
         @Header("authorization") accessToken: String,
         @Path("post_id") postId: Int
     ): Call<PostResponse<GetReply>>
+
+    // 게시글 좋아요
+    @POST("/post/like/{post_id}")
+    fun postLike(
+        @Header("authorization") accessToken: String,
+        @Path("post_id") postId: Int
+    ): Call<PostResponse<PostLike>>
+
+    // 댓글 좋아요
+    @POST("/post/comment/like/{post_id}/{comment_id}")
+    fun replyLike(
+        @Header("authorization") accessToken: String,
+        @Path("post_id") postId: Int,
+        @Path("comment_id") commentId: Int
+    ): Call<PostResponse<ReplyLike>>
+
+    // 댓글 삭제
+    @DELETE("/post/comment/{post_id}/{comment_id}")
+    fun deleteReply(
+        @Header("authorization") accessToken: String,
+        @Path("post_id") postId: Int,
+        @Path("comment_id") commentId: Int
+    ): Call<DeleteReply>
 
     //HOT 게시판
     @GET("/post/hot")

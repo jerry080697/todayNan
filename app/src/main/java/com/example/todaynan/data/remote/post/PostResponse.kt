@@ -72,3 +72,28 @@ data class PostCommentList(
     @SerializedName(value = "post_comment_like_cnt") val postCommentLikeCnt: Int,
     @SerializedName(value = "createdAt") val createdAt: String
 ) : Serializable
+
+data class PostLike(
+    @SerializedName(value = "post_like_id") val postLikeId: Int,
+    @SerializedName(value = "post_id") val postId: Int,
+    @SerializedName(value = "user_id") val userId: Int
+) : Serializable
+
+data class ReplyLike(
+    @SerializedName(value = "post_comment_like_id") val postCommentLikeId: Int,
+    @SerializedName(value = "post_comment_id") val postCommentId: Int,
+    @SerializedName(value = "user_id") val userId: Int
+) : Serializable
+
+data class DeleteReply(
+    @SerializedName(value="isSuccess")val isSuccess: Boolean,
+    @SerializedName(value="code")val code: String,
+    @SerializedName(value="message")val message: String,
+    @SerializedName(value="result")val result: String
+) : Serializable
+
+data class LikePost(
+    @SerializedName(value = "post_like_id") val postLikeId: Int,
+    @SerializedName(value = "post_id") val postId: Int,
+    @SerializedName(value = "user_id") val userId: Int
+) : Serializable

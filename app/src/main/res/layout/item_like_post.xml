@@ -95,7 +95,7 @@
             android:layout_height="13dp"
             android:scaleType="fitXY"
             android:id="@+id/post_like_iv"
-            android:src="@drawable/post_like_icon"
+            android:src="@drawable/item_like_off"
             android:layout_marginEnd="5dp"
             app:layout_constraintEnd_toStartOf="@id/post_like_number_tv"
             app:layout_constraintTop_toTopOf="parent"
