@@ -99,10 +99,7 @@ class ChangeNewLocationFragment : BaseFragment<FragmentChangeNewLocationBinding>
             }
         }
 
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, fragment)
-            .addToBackStack(null)
-            .commit()
+        parentFragmentManager.popBackStack()
     }
 
     private fun generateDummyItems(): List<Location>? {

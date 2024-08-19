@@ -38,10 +38,7 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
         }
 
         binding.changeLocationBackBtn.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, ChangeInfoFragment())
-                .addToBackStack(null)
-                .commitAllowingStateLoss()
+            parentFragmentManager.popBackStack()
         }
         binding.changeLocationCv.setOnClickListener {
             parentFragmentManager.beginTransaction()
