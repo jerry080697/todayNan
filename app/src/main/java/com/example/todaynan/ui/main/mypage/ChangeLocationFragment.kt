@@ -14,6 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.content.Context
+import android.view.View
 import com.example.todaynan.data.entity.User
 import com.google.gson.Gson
 
@@ -23,12 +24,24 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
 
     override fun initAfterBinding() {
 
-        binding.changeLocationCurrentLocationTv.text = AppData.address
+        val newAddress = arguments?.getString("new_address")
+        if (newAddress != null) {
+            binding.changeLocationCurrentLocationTv.text = AppData.address
+            binding.changeLocationSelectLocationTv.text = newAddress
 
-        binding.changeLocationBackBtn.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            binding.changeLocationChangeBtnLight.visibility=View.GONE
+            binding.changeLocationChangeBtnDark.visibility=View.VISIBLE
+        } else {
+            binding.changeLocationCurrentLocationTv.text = AppData.address
+            binding.changeLocationSelectLocationTv.text = "주소 선택"
         }
 
+        binding.changeLocationBackBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, ChangeInfoFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
         binding.changeLocationCv.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, ChangeNewLocationFragment())
@@ -36,8 +49,9 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
                 .commitAllowingStateLoss()
         }
 
-        binding.changeLocationChangeBtnIv.setOnClickListener {
-            val newLocation = AppData.address
+        binding.changeLocationChangeBtnDark.setOnClickListener {
+            val newLocation = binding.changeLocationSelectLocationTv.text.toString()
+
             if (newLocation.isNotEmpty()) {
                 sendChangeLocationRequest(newLocation)
             } else {
@@ -56,7 +70,7 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
                 response: Response<UserResponse<ChangeLocationResponse>>
             ) {
                 if (response.isSuccessful && response.body()?.isSuccess == true) {
-                    AppData.address = newLocation // AppData의 address 업데이트
+                    AppData.address = newLocation
                     // 주소를 SharedPreferences에 저장
                     saveAddressToPreferences(newLocation)
                     binding.changeLocationCurrentLocationTv.text = newLocation
@@ -72,7 +86,6 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
             }
         })
     }
-
     private fun saveAddressToPreferences(address: String) {
         val user: User = User(AppData.nickname, AppData.preferIdx, AppData.address, AppData.mypet)
         val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
@@ -81,5 +94,4 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
         editor.putString("user", userJson)
         editor.apply() // or editor.commit() to save synchronously
     }
-
 }
