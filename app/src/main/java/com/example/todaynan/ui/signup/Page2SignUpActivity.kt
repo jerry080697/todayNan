@@ -67,18 +67,22 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
                     Log.d("SERVER/SUCCESS", resp.toString())
 
                     if (response.isSuccessful && resp?.isSuccess == true) {
-                        Toast.makeText(
+                        /*Toast.makeText(
                             this@Page2SignUpActivity,
                             "사용 가능한 닉네임입니다.",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
+                        binding.signupNicknameAlertMessagePass.visibility = View.VISIBLE
+                        binding.signupNicknameAlertMessageFail.visibility = View.GONE
                         hideKeyboard(binding.signupDuplicationCheckIvDark)
                     } else {
-                        Toast.makeText(
+                        /*Toast.makeText(
                             this@Page2SignUpActivity,
                             "닉네임이 이미 존재합니다: ${resp?.message ?: "Unknown error"}",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
+                        binding.signupNicknameAlertMessagePass.visibility = View.GONE
+                        binding.signupNicknameAlertMessageFail.visibility = View.VISIBLE
                     }
                 }
 

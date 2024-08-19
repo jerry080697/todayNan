@@ -80,6 +80,31 @@
         app:layout_constraintEnd_toEndOf="@id/nickname_input_fl"
         android:visibility="visible"/>
 
+    <TextView
+        android:id="@+id/signup_nickname_alert_message_fail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nickname_input_fl"
+        android:text="이미 사용 중인 닉네임입니다."
+        android:textColor="#FF6565"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:visibility="gone"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:id="@+id/signup_nickname_alert_message_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nickname_input_fl"
+        android:text="사용 가능한 닉네임입니다."
+        android:textColor="#23C13D"
+        android:textSize="15sp"
+        android:visibility="gone"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"/>
+
     <ImageView
         android:id="@+id/signup_mypet_title_iv"
         android:layout_width="67dp"
