@@ -14,7 +14,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.content.Context
+import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.todaynan.data.entity.User
 import com.google.gson.Gson
 
@@ -24,8 +26,10 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
 
     override fun initAfterBinding() {
 
-        val newAddress = arguments?.getString("new_address")
-        if (newAddress != null) {
+        val sharedPreferences = requireContext().getSharedPreferences("newAddress", AppCompatActivity.MODE_PRIVATE)
+        val newAddress = sharedPreferences.getString("new", "").toString()
+
+        if (!newAddress.isNullOrEmpty() && newAddress!=AppData.address) {
             binding.changeLocationCurrentLocationTv.text = AppData.address
             binding.changeLocationSelectLocationTv.text = newAddress
             binding.changeLocationSelectLocationTv.setTextColor(resources.getColor(R.color.black, null))

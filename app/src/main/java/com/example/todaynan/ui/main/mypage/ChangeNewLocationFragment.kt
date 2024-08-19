@@ -1,5 +1,6 @@
 package com.example.todaynan.ui.main.mypage
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.example.todaynan.ui.adapter.CityRVAdapter
 import com.example.todaynan.ui.adapter.DistrictRVAdapter
 import com.example.todaynan.ui.adapter.DongRVAdapter
 import com.example.todaynan.utils.CSVUtils
+import com.google.gson.Gson
 
 class ChangeNewLocationFragment : BaseFragment<FragmentChangeNewLocationBinding>(FragmentChangeNewLocationBinding::inflate) {
 
@@ -91,13 +93,11 @@ class ChangeNewLocationFragment : BaseFragment<FragmentChangeNewLocationBinding>
     private fun onDongItemClick(location: Location) {
 
         val completeAddress = "${selectedCity ?: ""} ${selectedDistrict ?: ""} ${location.dongName}"
-        //AppData.address = completeAddress
 
-        val fragment = ChangeLocationFragment().apply {
-            arguments = Bundle().apply {
-                putString("new_address", completeAddress)
-            }
-        }
+        val sharedPreferences = requireContext().getSharedPreferences("newAddress", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("new", completeAddress)
+        editor.apply()
 
         parentFragmentManager.popBackStack()
     }

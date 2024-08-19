@@ -1,4 +1,5 @@
 package com.example.todaynan.ui.main.mypage
+import android.content.Context
 import android.view.View
 import com.example.todaynan.R
 import com.example.todaynan.base.AppData
@@ -8,6 +9,11 @@ import com.example.todaynan.ui.BaseFragment
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(FragmentMyPageBinding::inflate) {
 
     override fun initAfterBinding() {
+        val sharedPreferences = requireContext().getSharedPreferences("newAddress", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("new", "")
+        editor.apply()
+
         if(AppData.mypet=="DOG"){
             binding.mypagePetFox.visibility = View.VISIBLE
             binding.mypagePetBear.visibility = View.GONE
