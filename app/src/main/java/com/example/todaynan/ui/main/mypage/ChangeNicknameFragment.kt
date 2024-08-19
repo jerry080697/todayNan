@@ -63,8 +63,7 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(Fragm
         }
     }
     private fun checkNicknameDuplicate(nickname: String) {
-        val accessToken = "Bearer "+AppData.appToken
-        userService.checkNicknameDuplicate(accessToken,nickname).enqueue(object : Callback<UserResponse<NicknameDuplicateResponse>> {
+        userService.checkNicknameDuplicate(nickname).enqueue(object : Callback<UserResponse<NicknameDuplicateResponse>> {
             override fun onResponse(call: Call<UserResponse<NicknameDuplicateResponse>>, response: Response<UserResponse<NicknameDuplicateResponse>>) {
                 Log.d("ChangeNicknameFragment", "Nickname check response code: ${response.code()}")
                 Log.d("ChangeNicknameFragment", "Nickname check response body: ${response.body()}")

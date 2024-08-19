@@ -29,8 +29,6 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         option3()
 
         binding.signupPage2Et.setOnEditorActionListener { v, actionId, event ->
-            binding.signupDuplicationCheckIvDark.visibility=View.VISIBLE
-            binding.signupDuplicationCheckIvLight.visibility=View.GONE
             if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
                 AppData.nickname = binding.signupPage2Et.text.toString()
                 hideKeyboard(binding.signupPage2Et)
@@ -58,8 +56,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
         }
     }
     private fun checkNicknameDuplication(nickname: String) {
-        val accessToken = "Bearer ${AppData.appToken}"
-        userService.checkNicknameDuplicate(accessToken,nickname)
+        userService.checkNicknameDuplicate(nickname)
             .enqueue(object : Callback<UserResponse<NicknameDuplicateResponse>> {
                 override fun onResponse(
                     call: Call<UserResponse<NicknameDuplicateResponse>>,
@@ -75,7 +72,7 @@ class Page2SignUpActivity : BaseActivity<SignupPage2Binding>(SignupPage2Binding:
                             "사용 가능한 닉네임입니다.",
                             Toast.LENGTH_SHORT
                         ).show()
-                        hideKeyboard(binding.signupDuplicationCheckIvLight)
+                        hideKeyboard(binding.signupDuplicationCheckIvDark)
                     } else {
                         Toast.makeText(
                             this@Page2SignUpActivity,
