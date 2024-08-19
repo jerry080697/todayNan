@@ -38,7 +38,7 @@ class BoardRVAdapter(private var pList: List<PostList>) : RecyclerView.Adapter<B
     inner class ViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(post: PostList) {
             val img =
-                when (AppData.mypet) {
+                when (post.myPet) {
                     "DOG" -> R.drawable.fox_circle_off
                     "CAT" -> R.drawable.bird_circle_off
                     else -> R.drawable.bear_circle_off
