@@ -1,14 +1,10 @@
 package com.example.todaynan.ui.main.board
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
 import android.widget.PopupWindow
-import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -18,7 +14,6 @@ import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ReplyWrite
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.post.DeletePost
-import com.example.todaynan.data.remote.post.DeleteReply
 import com.example.todaynan.data.remote.post.GetReply
 import com.example.todaynan.data.remote.post.PostCommentList
 import com.example.todaynan.data.remote.post.PostInterface
@@ -26,7 +21,6 @@ import com.example.todaynan.data.remote.post.PostLike
 import com.example.todaynan.data.remote.post.PostList
 import com.example.todaynan.data.remote.post.PostResponse
 import com.example.todaynan.data.remote.post.Reply
-import com.example.todaynan.data.remote.post.ReplyLike
 import com.example.todaynan.databinding.FragmentPostBinding
 import com.example.todaynan.ui.BaseFragment
 import com.example.todaynan.ui.adapter.PostReplyRVAdapter
@@ -146,16 +140,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
                         boardAdapter.setMyItemClickListener(object : PostReplyRVAdapter.MyItemClickListener {
                             override fun onItemClick(reply: PostCommentList) {
                                 // 아이템 클릭 시 처리 로직
-                            }
-
-                            override fun onLikeBtnClick(reply: PostCommentList) {
-                                // ImageView 클릭 시 처리 로직
-                                val postCommentId = arguments?.getInt("postCommentId") ?: 0
-                                replyLike(postId, postCommentId)
-                            }
-
-                            override fun onPlusBtnClick(reply: PostCommentList) {
-
                             }
                         })
                     } else {
@@ -300,44 +284,5 @@ class PostFragment : BaseFragment<FragmentPostBinding>(FragmentPostBinding::infl
         val likeCount = likeCountText.toIntOrNull() ?: 0
         val updatedLikeCount = likeCount + 1
         binding.postLikeNumberTv.text = updatedLikeCount.toString()
-    }
-
-    private fun replyLike(postId: Int, commentId: Int) {
-        val request = "Bearer "+ AppData.appToken
-
-        postService.replyLike(request, postId, commentId).enqueue(object :
-            Callback<PostResponse<ReplyLike>> {
-            @SuppressLint("MissingInflatedId")
-            override fun onResponse(
-                call: Call<PostResponse<ReplyLike>>,
-                response: Response<PostResponse<ReplyLike>>
-            ) {
-                Log.d("SERVER/SUCCESS", response.toString())
-                val resp = response.body()
-                Log.d("SERVER/SUCCESS", resp.toString())
-                if (resp?.isSuccess == true) {
-                    // 댓글 좋아요 성공 시, 하트 이미지 변경 및 좋아요 수 1증가
-                    val popupView = layoutInflater.inflate(R.layout.item_reply, null)
-                    popupView.findViewById<ImageView>(R.id.post_like_iv).setOnClickListener {
-                        likeReplyConutPlus()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<PostResponse<ReplyLike>>, t: Throwable) {
-                Log.d("SERVER/FAILURE", t.message.toString())
-            }
-        })
-    }
-
-    private fun likeReplyConutPlus() {
-        val replyView = layoutInflater.inflate(R.layout.item_reply, null)
-        val likeCountTextView = replyView.findViewById<TextView>(R.id.post_like_number_tv)
-
-        val likeCountText = likeCountTextView.text.toString()
-        val likeCount = likeCountText.toIntOrNull() ?: 0
-        val updatedLikeCount = likeCount + 1
-
-        likeCountTextView.text = updatedLikeCount.toString()
     }
 }
