@@ -45,12 +45,6 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         type = arguments?.getString("type").toString()
         binding.detailTv.text = type
 
-        if(type == "구인 게시판"){
-            employPost(page)
-        } else if(type == "잡담 게시판"){
-            chatPost(page)
-        }
-
         val middleAddress = AppData.address.split(" ").getOrNull(1) ?: "없음"
         binding.locInfoTv.text = middleAddress
 
@@ -67,6 +61,20 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         }
         binding.detailBackBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        page = 1
+        items.clear()
+
+        if(type == "구인 게시판"){
+            employPost(page)
+        } else if(type == "잡담 게시판"){
+            chatPost(page)
         }
 
         // 페이징 처리
@@ -88,7 +96,6 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                 }
             }
         })
-
     }
 
     fun employPost(p: Int){
@@ -102,20 +109,20 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                 val resp = response.body()
                 Log.d("SERVER/SUCCESS", resp.toString())
 
-                val boardAdapter = PostRVAdapter(items)
-                if (resp!!.isSuccess) {
-                    resp?.result?.postList?.let { newList ->
-                        val uniqueItems = newList.filterNot { it in items }
-                        items.addAll(0, uniqueItems)
-                    }
+                if (resp?.isSuccess == true) {
+                    items.addAll(resp.result.postList)
                     last = resp.result.isLast
-                    if(page == 1){
+
+                    if (binding.detailBoardRv.adapter == null) {
+                        val boardAdapter = PostRVAdapter(items)
                         binding.detailBoardRv.adapter = boardAdapter
                         binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
-                    }else{
-                        binding.detailBoardRv.adapter!!.notifyDataSetChanged()
+                    } else {
+                        val boardAdapter = binding.detailBoardRv.adapter as PostRVAdapter
+                        boardAdapter.notifyDataSetChanged()
                     }
-                    boardAdapter.setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
+
+                    (binding.detailBoardRv.adapter as PostRVAdapter).setMyItemClickListener(object : PostRVAdapter.MyItemClickListener {
                         override fun onItemClick(post: PostList) {
                             val type = arguments?.getString("type")
                             parentFragmentManager.beginTransaction()
@@ -129,7 +136,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
                                         var postTypeJson = ""
                                         if(type == "구인 게시판") {
                                             postTypeJson = "구인 게시판"
-                                        } else{
+                                        } else {
                                             postTypeJson = "잡담 게시판"
                                         }
                                         putString("post", postJson)
@@ -151,6 +158,8 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
         })
     }
 
+
+
     fun chatPost(p: Int){
         postService.getChatEmploy(request,p).enqueue(object :
             Callback<PostResponse<GetPost>> {
@@ -164,11 +173,9 @@ class DetailFragment: BaseFragment<FragmentDetailBinding>(FragmentDetailBinding:
 
                 val boardAdapter = PostRVAdapter(items)
                 if (resp!!.isSuccess) {
-                    resp?.result?.postList?.let { newList ->
-                        val uniqueItems = newList.filterNot { it in items }
-                        items.addAll(0, uniqueItems)
-                    }
+                    items.addAll(resp.result.postList)
                     last = resp.result.isLast
+
                     if(page == 1){
                         binding.detailBoardRv.adapter = boardAdapter
                         binding.detailBoardRv.layoutManager = LinearLayoutManager(context)
