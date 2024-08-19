@@ -1,14 +1,10 @@
 package com.example.todaynan.ui.main.board
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
 import android.widget.PopupWindow
-import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -18,7 +14,6 @@ import com.example.todaynan.base.AppData
 import com.example.todaynan.data.entity.ReplyWrite
 import com.example.todaynan.data.remote.getRetrofit
 import com.example.todaynan.data.remote.post.DeletePost
-import com.example.todaynan.data.remote.post.DeleteReply
 import com.example.todaynan.data.remote.post.GetReply
 import com.example.todaynan.data.remote.post.PostCommentList
 import com.example.todaynan.data.remote.post.PostInterface
@@ -26,7 +21,6 @@ import com.example.todaynan.data.remote.post.PostLike
 import com.example.todaynan.data.remote.post.PostList
 import com.example.todaynan.data.remote.post.PostResponse
 import com.example.todaynan.data.remote.post.Reply
-import com.example.todaynan.data.remote.post.ReplyLike
 import com.example.todaynan.databinding.FragmentPostBinding
 import com.example.todaynan.ui.BaseFragment
 import com.example.todaynan.ui.adapter.PostReplyRVAdapter
