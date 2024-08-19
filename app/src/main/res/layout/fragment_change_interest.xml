@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/background">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="28dp"
         android:id="@+id/logo_small_iv"
-        android:src="@drawable/logo_small"
+        android:src="@drawable/splash_icon3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginHorizontal="21dp"

@@ -91,7 +91,7 @@ class ChangeNewLocationFragment : BaseFragment<FragmentChangeNewLocationBinding>
     private fun onDongItemClick(location: Location) {
 
         val completeAddress = "${selectedCity ?: ""} ${selectedDistrict ?: ""} ${location.dongName}"
-        AppData.address = completeAddress
+        //AppData.address = completeAddress
 
         val fragment = ChangeLocationFragment().apply {
             arguments = Bundle().apply {
@@ -99,10 +99,7 @@ class ChangeNewLocationFragment : BaseFragment<FragmentChangeNewLocationBinding>
             }
         }
 
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, fragment)
-            .addToBackStack(null)
-            .commit()
+        parentFragmentManager.popBackStack()
     }
 
     private fun generateDummyItems(): List<Location>? {

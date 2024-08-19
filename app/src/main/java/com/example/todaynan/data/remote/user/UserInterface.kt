@@ -51,7 +51,6 @@ interface UserInterface {
     //닉네임 중복 확인
     @GET("/user/signup/{nickname}")
     fun checkNicknameDuplicate(
-        @Header("authorization") accessToken: String,
         @Path("nickname") nickname: String
     ): Call<UserResponse<NicknameDuplicateResponse>>
 
