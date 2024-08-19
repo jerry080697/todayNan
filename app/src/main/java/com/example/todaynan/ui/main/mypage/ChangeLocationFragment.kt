@@ -28,6 +28,7 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
         if (newAddress != null) {
             binding.changeLocationCurrentLocationTv.text = AppData.address
             binding.changeLocationSelectLocationTv.text = newAddress
+            binding.changeLocationSelectLocationTv.setTextColor(resources.getColor(R.color.black, null))
 
             binding.changeLocationChangeBtnLight.visibility=View.GONE
             binding.changeLocationChangeBtnDark.visibility=View.VISIBLE
@@ -74,7 +75,8 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
                     // 주소를 SharedPreferences에 저장
                     saveAddressToPreferences(newLocation)
                     binding.changeLocationCurrentLocationTv.text = newLocation
-                    binding.changeLocationSelectLocationTv.text = newLocation
+                    binding.changeLocationSelectLocationTv.text = "입력"
+                    binding.changeLocationSelectLocationTv.setTextColor(resources.getColor(R.color.gray1, null))
                     Toast.makeText(context, "동네가 성공적으로 변경되었습니다.", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "동네 변경에 실패했습니다: ${response.body()?.message ?: "Unknown error"}", Toast.LENGTH_SHORT).show()
