@@ -26,9 +26,11 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
 
         val newAddress = arguments?.getString("new_address")
         if (newAddress != null) {
-            // 새 주소가 있으면 두 TextView에 주소를 표시합니다.
-            binding.changeLocationCurrentLocationTv.text = newAddress
+            binding.changeLocationCurrentLocationTv.text = AppData.address
             binding.changeLocationSelectLocationTv.text = newAddress
+
+            binding.changeLocationChangeBtnLight.visibility=View.GONE
+            binding.changeLocationChangeBtnDark.visibility=View.VISIBLE
         } else {
             binding.changeLocationCurrentLocationTv.text = AppData.address
             binding.changeLocationSelectLocationTv.text = "주소 선택"
@@ -47,8 +49,9 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
                 .commitAllowingStateLoss()
         }
 
-        binding.changeLocationChangeBtnLight.setOnClickListener {
-            val newLocation = binding.changeLocationCurrentLocationTv.text.toString()
+        binding.changeLocationChangeBtnDark.setOnClickListener {
+            val newLocation = binding.changeLocationSelectLocationTv.text.toString()
+
             if (newLocation.isNotEmpty()) {
                 sendChangeLocationRequest(newLocation)
             } else {
@@ -67,7 +70,7 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
                 response: Response<UserResponse<ChangeLocationResponse>>
             ) {
                 if (response.isSuccessful && response.body()?.isSuccess == true) {
-                    AppData.address = newLocation // AppData의 address 업데이트
+                    AppData.address = newLocation
                     // 주소를 SharedPreferences에 저장
                     saveAddressToPreferences(newLocation)
                     binding.changeLocationCurrentLocationTv.text = newLocation
@@ -83,7 +86,6 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
             }
         })
     }
-
     private fun saveAddressToPreferences(address: String) {
         val user: User = User(AppData.nickname, AppData.preferIdx, AppData.address, AppData.mypet)
         val sharedPreferences = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
