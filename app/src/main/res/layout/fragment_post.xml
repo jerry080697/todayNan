@@ -257,7 +257,8 @@
             android:layout_width="30dp"
             android:layout_height="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginStart="310dp"
+            android:layout_marginStart="345dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:cardCornerRadius="15dp">
@@ -276,7 +277,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="3dp"/>
+                android:layout_marginTop="4dp"/>
 
         </androidx.cardview.widget.CardView>
 
