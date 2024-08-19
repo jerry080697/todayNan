@@ -13,7 +13,7 @@ class BoardRVAdapter(private var pList: List<PostList>) : RecyclerView.Adapter<B
         fun onItemClick(post: PostList)
     }
 
-    private lateinit var myItemClickListener: MyItemClickListener
+    private var myItemClickListener: MyItemClickListener? = null
 
     fun setMyItemClickListener(itemClickListener: MyItemClickListener) {
         myItemClickListener = itemClickListener
@@ -26,7 +26,7 @@ class BoardRVAdapter(private var pList: List<PostList>) : RecyclerView.Adapter<B
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            myItemClickListener.onItemClick(pList[position])
+            myItemClickListener?.onItemClick(pList[position])
         }
         holder.bind(pList[position])
     }

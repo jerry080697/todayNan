@@ -14,6 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.content.Context
+import android.view.View
 import com.example.todaynan.data.entity.User
 import com.google.gson.Gson
 
@@ -23,12 +24,22 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
 
     override fun initAfterBinding() {
 
-        binding.changeLocationCurrentLocationTv.text = AppData.address
-
-        binding.changeLocationBackBtn.setOnClickListener {
-            parentFragmentManager.popBackStack()
+        val newAddress = arguments?.getString("new_address")
+        if (newAddress != null) {
+            // 새 주소가 있으면 두 TextView에 주소를 표시합니다.
+            binding.changeLocationCurrentLocationTv.text = newAddress
+            binding.changeLocationSelectLocationTv.text = newAddress
+        } else {
+            binding.changeLocationCurrentLocationTv.text = AppData.address
+            binding.changeLocationSelectLocationTv.text = "주소 선택"
         }
 
+        binding.changeLocationBackBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_frm, ChangeInfoFragment())
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
         binding.changeLocationCv.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_frm, ChangeNewLocationFragment())
@@ -36,8 +47,8 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
                 .commitAllowingStateLoss()
         }
 
-        binding.changeLocationChangeBtnIv.setOnClickListener {
-            val newLocation = AppData.address
+        binding.changeLocationChangeBtnLight.setOnClickListener {
+            val newLocation = binding.changeLocationCurrentLocationTv.text.toString()
             if (newLocation.isNotEmpty()) {
                 sendChangeLocationRequest(newLocation)
             } else {
@@ -81,5 +92,4 @@ class ChangeLocationFragment : BaseFragment<FragmentChangeLocationBinding>(Fragm
         editor.putString("user", userJson)
         editor.apply() // or editor.commit() to save synchronously
     }
-
 }

@@ -93,23 +93,13 @@
             android:layout_marginTop="7dp"
             android:layout_marginStart="20dp"/>
         <ImageView
-            android:id="@+id/change_nickname_check_duplicate_light_iv"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="240dp"
-            android:scaleType="fitXY"
-            android:visibility="visible"
-            android:src="@drawable/check_duplicate_icon" />
-
-        <ImageView
             android:id="@+id/change_nickname_check_duplicate_dark_iv"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="240dp"
             android:scaleType="fitXY"
-            android:visibility="gone"
+            android:visibility="visible"
             android:src="@drawable/signup_text9" />
 
     </androidx.cardview.widget.CardView>

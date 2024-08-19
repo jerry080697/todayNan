@@ -1,11 +1,13 @@
 package com.example.todaynan.ui.main.search
 
+import android.content.Context
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +38,19 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
 
         screenAddress = AppData.address
         binding.locInfoTv.text = screenAddress.split(" ").last()
+
+        val sharedPreferences = requireActivity().getSharedPreferences("showType", AppCompatActivity.MODE_PRIVATE)
+        showType = sharedPreferences.getString("showing", "0")?.toInt() ?: 0
+        Log.d("TAG_show", showType.toString())
+        if (showType == 0){
+            binding.resultListRv.isVisible = true
+            binding.resultBlockRv.isVisible = false
+            binding.resultMenuIv.setImageResource(R.drawable.search_large_off)
+        } else {
+            binding.resultListRv.isVisible = false
+            binding.resultBlockRv.isVisible = true
+            binding.resultMenuIv.setImageResource(R.drawable.search_small_off)
+        }
 
         val word = arguments?.getString("keyword")
         binding.resultEt.setText(word)
@@ -153,6 +168,9 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
 
 
     private fun chooseType(){
+        val sharedPreferences = requireContext().getSharedPreferences("showType", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
         binding.resultMenuIv.setOnClickListener{
             if(showType == 0)
                 binding.resultMenuIv.setImageResource(R.drawable.search_large_on)
@@ -179,6 +197,8 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
                 binding.resultListRv.isVisible = true
                 binding.resultBlockRv.isVisible = false
                 showType = 0
+                editor.putString("showing", showType.toString())
+                editor.apply()
                 popupWindow.dismiss()
             }
             popupView.findViewById<ConstraintLayout>(R.id.menu_small_iv).setOnClickListener {
@@ -186,6 +206,8 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
                 binding.resultListRv.isVisible = false
                 binding.resultBlockRv.isVisible = true
                 showType = 1
+                editor.putString("showing", showType.toString())
+                editor.apply()
                 popupWindow.dismiss()
             }
 
