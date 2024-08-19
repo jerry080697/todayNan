@@ -52,7 +52,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:orientation="vertical"
             android:paddingBottom="20dp">
 
@@ -89,7 +89,7 @@
                 android:id="@+id/write_board"
                 android:gravity="center"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="0dp">
+                android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,6 +109,7 @@
                 android:id="@+id/reply_board"
                 android:gravity="center"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="wrap_content"
