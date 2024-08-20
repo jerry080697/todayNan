@@ -91,7 +91,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                         .addToBackStack(null)
                         .commitAllowingStateLoss()
                 } else{
-                    Toast.makeText(context, "다시 요청해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -129,7 +128,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                         .addToBackStack(null)
                         .commitAllowingStateLoss()
                 } else{
-                    Toast.makeText(context, "다시 요청해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
 

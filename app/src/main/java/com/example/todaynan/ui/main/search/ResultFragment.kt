@@ -155,7 +155,6 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(FragmentResultBinding
                     (binding.resultListRv.adapter as OutsideRVAdapter).updateData(outsideItemList)
                     (binding.resultBlockRv.adapter as OutsideRVAdapter).updateData(outsideItemList)
                 }else{
-                    Toast.makeText(context, "다시 요청해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
 
