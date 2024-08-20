@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="맛집 탐방"
+            android:text="맛집 검색"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="맛집 탐방"
+            android:text="맛집 검색"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="카페"
+            android:text="카페 검색"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="카페"
+            android:text="카페 검색"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -150,7 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="산책"
+            android:text="여행지 추천"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -176,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="산책"
+            android:text="여행지 추천"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -202,7 +202,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="익스트림"
+            android:text="운동"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -228,7 +228,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="익스트림"
+            android:text="운동"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
@@ -254,7 +254,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브"
+            android:text="지식백과"
             android:textAlignment="center"
             android:textColor="#A47F66"
             android:textSize="13dp" />
@@ -280,7 +280,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:text="드라이브"
+            android:text="지식백과"
             android:textAlignment="center"
             android:textColor="#490F0F"
             android:textSize="13dp" />
